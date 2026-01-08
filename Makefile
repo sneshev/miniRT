@@ -6,7 +6,7 @@
 #    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/08 08:43:47 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/08 09:20:37 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,4 +58,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all minilibx clean fclean re
