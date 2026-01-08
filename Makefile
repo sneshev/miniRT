@@ -3,24 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2025/11/03 18:07:28 by mmisumi          ###   ########.fr        #
+#    Updated: 2026/01/08 08:20:53 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
-
 SRCS:= src/main.c
-
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
 LIBFT := libft/libft.a
-
 CC := cc -Wall -Werror -Wextra -g -Iincludes -Ilibft -Imlx_linux -O3
-
 RM := rm -rf
+
 
 all: minilibx $(LIBFT) .obj $(NAME)
 
