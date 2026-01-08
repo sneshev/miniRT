@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-#ifdef __APPLE__   // macOS
+# ifdef __APPLE__   // macOS
 #  include "../mlx_mac/mlx.h" 
 #  include "../mlx_mac/mlx_int.h" 
 #  include "../mlx_mac/mlx_new_window.h" 
@@ -10,7 +10,7 @@
 # else              // Linux
 #  include "../mlx_linux/mlx.h"
 #  include "../mlx_linux/mlx_int.h"
-#endif
+# endif
 
 typedef struct s_img_info
 {

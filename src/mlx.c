@@ -1,9 +1,9 @@
 #include "minirt.h"
 
 #ifdef __APPLE__   // macOS
-    #define ESC 53
+# define ESC 53
 #else              // Linux
-    #define ESC 65307
+# define ESC 65307
 #endif
 
 
