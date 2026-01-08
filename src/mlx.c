@@ -6,6 +6,22 @@
     #define ESC 65307
 #endif
 
+
+// puts int color on the appropriate x/y pixel of window
+void	put_image_pixel(t_mlx_data *data, int x, int y, int color)
+{
+	char	*pixel;
+	void	*addr;
+	int		bpp;
+	int		line_length;
+
+	addr = data->img_info->addr;
+	bpp = data->img_info->bpp;
+	line_length = data->img_info->line_length;
+	pixel = (char *)addr + (y * line_length + x * (bpp / 8));
+	*(unsigned int *)pixel = color;
+}
+
 void	free_data_exit(t_mlx_data *data, int exitcode)
 {
 	if (data->img_info)

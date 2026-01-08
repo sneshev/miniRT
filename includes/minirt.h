@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/08 08:54:02 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/08 09:13:52 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,11 @@
 
 # define HEIGHT	500
 # define WIDTH	750
+
+
+// mlx stuff
+int		init_minilibx(t_mlx_data *data);
+void	free_data_exit(t_mlx_data *data, int exitcode);
+void	put_image_pixel(t_mlx_data *data, int x, int y, int color);
 
 #endif
