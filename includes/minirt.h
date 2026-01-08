@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2025/11/04 19:08:52 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/08 08:54:02 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define HEADER_H
 
 # include <stdio.h>
-# include "libft.h"
+# include "../libft/libft.h"
 # include "structs.h"
+
+# define HEIGHT	500
+# define WIDTH	750
 
 #endif
