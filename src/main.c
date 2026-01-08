@@ -6,12 +6,13 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/08 08:19:08 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/08 08:45:46 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int main(int argc, char *argv[])
 {
+	(void)argv;
 	if (argc != 2)
 		return (1);
 

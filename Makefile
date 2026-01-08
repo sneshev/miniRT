@@ -6,12 +6,12 @@
 #    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/08 08:41:00 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/08 08:43:47 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
-SRCS := src/main.c
+SRCS := $(wildcard src/*.c)
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
 FLAGS_LINUX := -Lmlx_linux -lmlx -lXext -lX11 -lz
