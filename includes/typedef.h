@@ -1,6 +1,9 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# include <stdint.h>
+# include <stdbool.h>
+
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 
 typedef struct s_img_info
@@ -19,12 +22,12 @@ typedef struct s_mlx_data
 	t_img_info	*img_info;
 }				t_mlx_data;
 
-enum
+typedef enum e_obj_type
 {
 	SPHERE,
 	CYLINDER,
 	PLANE
-} e_type;
+} t_objtype;
 
 typedef struct s_rgb
 {
@@ -34,45 +37,32 @@ typedef struct s_rgb
 	uint8_t	a;
 }			t_rgb;
 
-union
+typedef union u_union
 {
 	uint32_t	value;
 	t_rgb		rgb;
-} u_color;
+} t_color;
 
 
 typedef struct s_sphere
 {
 	t_vec3	center;
 	float	radius;
-	u_color	albedo;
+	t_color	albedo;
 }			t_sphere;
 
 typedef struct s_cylinder
 {
 	t_vec3	center;
 	float	radius;
-	u_color	albedo;
+	t_color	albedo;
 }			t_cylinder;
 
 typedef struct s_plane
 {
 	t_vec3	center;
-	u_color	albedo;
+	t_color	albedo;
 }			t_plane;
-
-union
-{
-	t_sphere	sphere;
-	t_cylinder	cylinder;
-	t_plane		plane;
-} u_object;
-
-typedef struct s_objects
-{
-	function	intersect;
-	u_object	object;
-}				t_objects;
 
 typedef struct s_ray
 {
@@ -81,5 +71,21 @@ typedef struct s_ray
 	float	closest_t;
 	t_vec3	attenuation;
 }			t_ray;
+
+typedef union s_object
+{
+	t_sphere	sphere;
+	t_cylinder	cylinder;
+	t_plane		plane;
+} t_object;
+
+
+typedef struct s_objects
+{
+	bool (*intersect)(t_ray *ray, t_object *obj);
+	t_object	object;
+}				t_objects;
+
+
 
 #endif
