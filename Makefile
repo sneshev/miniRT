@@ -6,7 +6,7 @@
 #    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/08 09:20:37 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/09 14:01:56 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,9 @@ NAME := miniRT
 SRCS := $(wildcard src/*.c)
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
-FLAGS_LINUX := -Lmlx_linux -lmlx -lXext -lX11 -lz
-FLAGS_MACOS := -Lmlx_macos -lmlx -framework OpenGL -framework AppKit
-UNAME := $(shell uname)
-ifeq ($(UNAME),Linux)
-	MLX_FLAGS	:= $(FLAGS_LINUX)
-	MLX_DIR		:= mlx_linux
-	MLX_INC		:= -Imlx_linux
-else ifeq ($(UNAME),Darwin)
-	MLX_FLAGS	:= $(FLAGS_MACOS)
-	MLX_DIR		:= mlx_mac
-	MLX_INC		:= -Imlx_mac
-endif
+MLX_FLAGS	:= -Lmlx_linux -lmlx -lXext -lX11 -lz
+MLX_DIR		:= mlx_linux
+MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
 CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O0
