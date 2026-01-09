@@ -6,12 +6,12 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/09 14:05:35 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/09 14:06:39 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef MINIRT_H
+# define MINIRT_H
 
 # include <stdio.h>
 # include "../libft/libft.h"
