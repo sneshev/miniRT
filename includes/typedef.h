@@ -27,7 +27,7 @@ typedef enum e_obj_type
 	SPHERE,
 	CYLINDER,
 	PLANE
-} t_objtype;
+} t_obj_type;
 
 typedef struct s_rgb
 {
