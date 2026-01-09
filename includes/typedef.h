@@ -1,5 +1,17 @@
-#ifndef STRUCTS_H
-# define STRUCTS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   typedef.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
+/*   Updated: 2026/01/09 19:28:57 by stefuntu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef TYPEDEF_H
+# define TYPEDEF_H
 
 # include <stdint.h>
 # include <stdbool.h>
@@ -27,7 +39,7 @@ typedef enum e_obj_type
 	SPHERE,
 	CYLINDER,
 	PLANE
-} t_obj_type;
+}			t_obj_type;
 
 typedef struct s_rgb
 {
@@ -37,12 +49,11 @@ typedef struct s_rgb
 	uint8_t	a;
 }			t_rgb;
 
-typedef union u_union
+typedef union u_color
 {
 	uint32_t	value;
 	t_rgb		rgb;
-} t_color;
-
+}			t_color;
 
 typedef struct s_sphere
 {
@@ -77,15 +88,12 @@ typedef union s_object
 	t_sphere	sphere;
 	t_cylinder	cylinder;
 	t_plane		plane;
-} t_object;
-
+}			t_object;
 
 typedef struct s_objects
 {
-	bool (*intersect)(t_ray *ray, t_object *obj);
+	bool (*intersect)(t_ray * ray, t_object * obj);
 	t_object	object;
 }				t_objects;
-
-
 
 #endif

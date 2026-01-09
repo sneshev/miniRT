@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/09 19:24:35 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:26:00 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 # define HEIGHT	500
 # define WIDTH	750
-
 
 // mlx stuff
 int		init_minilibx(t_mlx_data *data);
