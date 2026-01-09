@@ -1,17 +1,6 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# ifdef __APPLE__   // macOS
-#  include "../mlx_mac/mlx.h" 
-#  include "../mlx_mac/mlx_int.h" 
-#  include "../mlx_mac/mlx_new_window.h" 
-#  include "../mlx_mac/mlx_opengl.h" 
-#  include "../mlx_mac/mlx_png.h" 
-# else              // Linux
-#  include "../mlx_linux/mlx.h"
-#  include "../mlx_linux/mlx_int.h"
-# endif
-
 typedef struct s_img_info
 {
 	int		bpp;

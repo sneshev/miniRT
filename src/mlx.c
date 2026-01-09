@@ -1,10 +1,6 @@
 #include "minirt.h"
 
-#ifdef __APPLE__   // macOS
-# define ESC 53
-#else              // Linux
 # define ESC 65307
-#endif
 
 
 // puts int color on the appropriate x/y pixel of window
