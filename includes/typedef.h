@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/09 19:28:57 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/09 19:50:10 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPEDEF_H
 
 # include <stdint.h>
+# include <stdlib.h>
 # include <stdbool.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
@@ -88,7 +89,42 @@ typedef union s_object
 	t_sphere	sphere;
 	t_cylinder	cylinder;
 	t_plane		plane;
+	t_object	object;
 }			t_object;
+
+bool sphere_intersect(t_ray * ray, t_object * obj)
+{
+	t_sphere *sph = (t_sphere *)obj;
+	//...
+	if (/*there is a t*/) {
+		ray->closest_t = t;
+		ray->attenuation = sph->albedo;
+		return (true);
+	}
+	else
+		return (false);
+}
+
+bool plane_intersect(t_ray * ray, t_object * obj)
+{
+	t_plane plane = (t_plane *)obj;
+	plane. ...
+
+	return ();
+}
+
+
+t_object *init_sphere() {
+	t_objects *object;
+	object->intersect = sphere_intersect;
+	object->object = malloc(sizeof(t_sphere));
+}
+
+bool find_closest_intersection(t_objects object[], t_ray *ray) {
+	if (object->intersect(ray, object[i]))
+		//...;
+}
+
 
 typedef struct s_objects
 {
