@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/12 13:19:00 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/13 16:42:11 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,12 @@ typedef struct s_objects
 	bool (*intersect)(t_ray * ray, t_object * obj);
 	t_object	object;
 }				t_objects;
+
+typedef struct s_scene
+{
+	t_objects		*objects;
+	// t_camera		camera;
+	// t_ambient	ambient;
+}				t_scene;
 
 #endif

@@ -6,25 +6,11 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/13 15:58:32 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/13 16:39:53 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-
-
-bool is_valid_input(char *file, t_objects *objects) {
-	int fd = /*open the file*/;
-	while (/*the file*/) {
-		char *line = get_next_line();
-		//validate the line
-		add_to_array(objects, get_object(line));
-
-	}
-}
-
-
 
 void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
 // 		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
@@ -34,8 +20,8 @@ int main(int argc, char *argv[])
 	if (argc != 2)
 		return (1);
 
-	t_objects *objects;
-	if (!is_valid_input(argv[1], &objects))
+	t_scene scene;
+	if (!is_valid_input(argv[1], &scene))
 		return (1);
 
 	t_mlx_data data;
