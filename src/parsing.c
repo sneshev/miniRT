@@ -1,5 +1,7 @@
 #include "minirt.h"
 
+
+
 void add_token(char *line, t_scene *scene)
 {
 	
