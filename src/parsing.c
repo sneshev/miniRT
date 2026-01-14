@@ -2,233 +2,113 @@
 
 #define BUFFER_SIZE 42
 
-void	free_arr(char **arr)
+int vec3_compare(t_vec3 v1, t_vec3 v2)
 {
-	int	i;
+    if (fabs(v1[X] - v2[X]) > 0.001f)
+		return 1;
+    if (fabs(v1[Y] - v2[Y]) > 0.001f)
+		return 1;
+    if (fabs(v1[Z] - v2[Z]) > 0.001f)
+		return 1;
 
-	i = 0;
-	if (!arr)
-		return ;
-	while (arr[i])
-	{
-		if (arr[i])
-		{
-			free(arr[i]);
-		}
-		i++;
-	}
-	free(arr);
+    return 0;
 }
 
-// float	add_decimals(char *str)
-// {
-// 	int		i;
-// 	float	nbr;
-// 	int		divide;
-
-// 	i = 0;
-// 	nbr = 0;
-// 	divide = 10;
-// 	while (str[i] != '.' && str[i])
-// 		i++;
-// 	if (str[i] == '.')
-// 		i++;
-// 	while (str[i])
-// 	{
-// 		nbr += str[i] - '0';
-// 		if (str[i + 1] != '\0')
-// 		{
-// 			nbr *= 10;
-// 			divide *= 10;
-// 		}
-// 		i++;
-// 	}
-// 	nbr /= divide;
-// 	return (nbr);
-// }
-
-// float	to_float(char *str)
-// {
-// 	int		i;
-// 	int		sign;
-// 	float	nbr;
-
-// 	i = 0;
-// 	sign = 1;
-// 	nbr = 0;
-// 	if (str[i] == '-')
-// 		sign = -1;
-// 	if (str[i] == '+' || str[i] == '-')
-// 		i++;
-// 	while (str[i] && str[i] != '.')
-// 	{
-// 		nbr += (str[i] - '0');
-// 		if (str[i + 1] != '\0' && str[i + 1] != '.')
-// 			nbr *= 10;
-// 		i++;
-// 	}
-// 	return ((nbr + add_decimals(str)) * sign);
-// }
-
-// void	fill_vec3(t_vec3 *vec3, char **split)
-// {
-// 	vec3[X] = ft_atoi(split[0]);
-// 	vec3[Y] = ft_atoi(split[1]);
-// 	vec3[Z] = ft_atoi(split[2]);
-// }
-
-// //NEED TO CHANGE FT_ATOI TO FT_ATOF
-// char	**receive_information(char **line)
-// {
-// 	char	*temp;
-// 	int		temp_len;
-// 	char	**split;
-
-// 	while (is_splace(**line) == true)
-// 		(*line)++;
-// 	temp = ft_strtrim(*line, " ");
-// 	if (!temp)
-// 		return NULL;
-// 	split = ft_split(temp, ",");
-// 	if (!split)
-// 		return NULL;
-// 	temp_len = ft_strlen(temp);
-// 	while (temp_len > 0)
-// 	{
-// 		(*char)++;
-// 		temp_len--;
-// 	}
-// 	return (split);
-// }
-
-// int vec3_compare(t_vec3 v1, t_vec3 v2)
-// {
-//     if (fabs(v1[X] - v2[X]) > 0.001f)
-// 		return 1;
-//     if (fabs(v1[Y] - v2[Y]) > 0.001f)
-// 		return 1;
-//     if (fabs(v1[Z] - v2[Z]) > 0.001f)
-// 		return 1;
-
-//     return 0;
-// }
-
-// t_vec3	get_orthogonal_base(t_vec3 dir_normal)
-// {
-// 	t_vec3	up;
-// 	t_vec3	uvw;
-
-// 	uvw[W] = dir_normal;
-// 	up = (t_vec3){0.0f, 1.0f, 0.0f};
-// 	if (vec3_compare(up, uvw[W]) == 0)
-// 		up = (t_vec3){0.0f, 0.0f, -1.0f};
-// 	uvw[U] = cross(up, cam->w);
-// 	normalize(&uvw[U]);
-// 	uvw[V] = cross(uvw[W], uvw[U]);
-// 	normalize(&uvw[V]);
-// 	return uvw;
-// }
-
-// void	setup_camera(t_camera *camera, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)
-// {
-// 	float	theta;
-// 	float	width;
-// 	float	height;
-// 	t_vec3	uvw;
-// 	t_vec3	center;
-
-
-// 	theta = hfov * M_PI / 180;
-// 	width = 2 * tan(theta/2);
-// 	height = width / ((float)WIDTH / (float)HEIGHT);
-
-// 	uvw = get_orthogonal_base(dir_normal);
-
-// 	cam->origin = viewpoint;
-// 	center = cam->origin + uvw[W];
-// 	cam->horizontal = width * uvw[U];
-// 	cam->vertical = height * uvw[V];
-// 	cam->upper_left = center - 0.5f * cam->horizontal + 0.5f * cam->vertical;
-// }
-
-// void	parse_camera(t_camera *camera, char *line)
-// {
-// 	char	**split;
-// 	t_vec3	viewpoint;
-// 	t_vec3	dir_normal;
-// 	float	hfov;
-
-// 	split = receive_information(&line);
-// 	if (!split)
-// 		return NULL;
-// 	fill_vec3(&viewpoint, split);
-// 	free(split);
-// 	split = receive_information(&line);
-// 	if (!split)
-// 		return NULL;
-// 	fill_vec3(&dir_normal, split);
-// 	free(split);
-// 	hfov = ft_atoi(line);
-// 	setup_camera(camera, viewpoint, dir_normal, hfov);
-// }
-
-// void	parse_sphere(t_sphere *sphere, char *line)
-// {
-// 	char	**split;
-
-// 	split = receive_information(&line);
-// 	if (!split)
-// 		return NULL;
-// 	fill_vec3(sphere.)
-// }
-
-// void	parse_element(char *line, t_scene *scene)
-// {
-// 	while (is_space(*line) == true)
-// 		line++;
-// 	if (*line == 'C')
-// 		parse_camera(scene->camera, line++);
-// 	else if (*line == 's')
-// 	{
-// 		scene->objects[x]. = 
-// 		parse_sphere(scene->objects[], line += 2);
-// }
-
-// bool	is_valid_float(char *str)
-// {
-
-// }
-
-bool	is_valid_vec3(char *str)
+t_vec3	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 {
-	char	**vec3;
+	t_vec3	up;
 
-	vec3 = ft_split(str, ',');
-	if (!vec3)
-		return (printf("Error mallocating\n"), false);
-	while (*vec3)
-	{
-		if ((*vec3)[0] == '+' || (*vec3)[0] == '-')
-			(*vec3)++;
-		if ((*vec3)[1] == '.')
-			return (printf("Invalid float\n"), false);
-		
-		if (ft_strlen(str) > 8)
-			return (printf("Try a less precise float\n"), false);
-		
-	}
-	
+	ortho[W] = dir_normal;
+	up = (t_vec3){0.0f, 1.0f, 0.0f};
+	if (vec3_compare(up, ortho[W]) == 0)
+		up = (t_vec3){0.0f, 0.0f, -1.0f};
+	ortho[U] = cross(up, cam->w);
+	normalize(&ortho[U]);
+	ortho[V] = cross(ortho[W], ortho[U]);
+	normalize(&ortho[V]);
 }
 
-bool	is_valid_info(char **info)
+void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)
 {
-	
+	float	theta;
+	float	width;
+	float	height;
+	t_vec3	ortho;
+	t_vec3	center;
+
+	theta = hfov * M_PI / 180;
+	width = 2 * tan(theta / 2);
+	height = width / ((float)WIDTH / (float)HEIGHT);
+	get_orthonogal_base(&ortho, dir_normal);
+	cam->origin = viewpoint;
+	center = cam->origin + ortho[W];
+	cam->horizontal = width * ortho[U];
+	cam->vertical = height * ortho[V];
+	cam->upper_left = center - 0.5f * cam->horizontal + 0.5f * cam->vertical;
+}
+
+bool	to_vec3(t_vec3 *vec3, char *str)
+{
+	char	**split;
+
+	split = ft_split(str, ',');
+	if (!split)
+		return (false);
+	if (arr_count(split) != 3)
+		return (false);
+	if (!to_float(&vec3[X], *split))
+		return (false);
+	split++;
+	if (!to_float(&vec3[Y], *split))
+		return (false);
+	split++;
+	if (!to_float(&vec3[Z], *split))
+		return (false);
+	return (true);
+}
+
+bool	parse_camera(char **info, t_scene *scene)
+{
+	t_camera	camera;
+	t_vec3		viewpoint;
+	t_vec3		dir_normal;
+	float		hfov;
+
+	if (count_arr(info) != 4)
+		return (printf("Error\n: Invalid element information\n"), false);
+	info++;
+	if (!to_vec3(&viewpoint, *info))
+		return (printf("Error\n: Invalid vector\n"), false);
+	info++;
+	if (!to_vec3(&dir_normal, *info))
+		return (false);
+	if (length(dir_normal != 1))
+		return (printf("Error\n: Camera orientation not normalized\n"), false);
+	info++;
+	if (!to_float(&hfov, *info))
+		return (printf("Error\n: Invalid field of view\n"), false);
+	setup_camera(scene->camera, viewpoint, dir_normal, hfov);
 }
 
 bool	parse_info(char **info, t_scene *scene)
 {
-	(void)info;
-	(void)scene;
+	if (!ft_strcmp(*info, "A"))
+		parse_ambient(info);
+	else if (!ft_strcmp(*info, "C"))
+		return (parse_camera(info, scene));
+	else if (!ft_strcmp(*info, "L"))
+		parse_light();
+	else if (!ft_strcmp(*info, "sp"))
+		parse_sphere();
+	else if (!ft_strcmp(*info, "pl"))
+		parse_plane();
+	else if (!ft_strcmp(*info, "cy"))
+		parse_cylinder();
+	else
+	{
+		printf("Error\n: Invalid identifier\n");
+		return (false);
+	}
 	return (true);
 }
 
@@ -236,7 +116,7 @@ bool	is_valid_input(char *file, t_scene *scene)
 {
 	int		fd;
 	char	*line;
-	char	**split;
+	char	**info;
 
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
@@ -246,12 +126,11 @@ bool	is_valid_input(char *file, t_scene *scene)
 	{
 		if (is_newline(*line) == false)
 		{
-			split = ft_split(line, ' ');
-			if (!split)
-				return (free(line), printf("Error mallocating\n"), false);
-			if (is_valid_info(split) == false)
-				return (free(line), free_arr(split), printf("Invalid information\n"), false);
-			parse_info(split, scene);
+			info = ft_split(line, ' ');
+			if (!info)
+				return (free(line), printf("Error\n: Failed to allocate space\n"), false);
+			if (parse_info(info, scene) == false)
+				return (free(line), free_arr(info), false);
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -263,7 +142,7 @@ bool	is_valid_input(char *file, t_scene *scene)
 // {
 // 	int		fd;
 // 	char	*line;
-// 	char	**split;
+// 	char	**info;
 
 // 	fd = open(file, O_RDONLY);
 // 	line = get_next_line(fd);

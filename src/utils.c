@@ -1,5 +1,40 @@
 #include "stdbool.h"
 
+void	free_arr(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		if (arr[i])
+		{
+			free(arr[i]);
+		}
+		i++;
+	}
+	free(arr);
+}
+
+int	arr_count(char **arr)
+{
+	int	i;
+	int	count;
+
+	if (!arr)
+		return ;
+	i = 0;
+	count = 0;
+	while (arr[i])
+	{
+		i++;
+		count++;
+	}
+	return (count);
+}
+
 bool	is_space(char c)
 {
 	if (c == ' ')
@@ -30,5 +65,73 @@ bool	is_empty_line(char *line)
 			return (false);
 		line++;
 	}
+	return (true);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+bool	to_decimal(float *d, char *str)
+{
+	float	divide;
+
+	*d = 0.0f;
+	divide = 10.0f;
+	if (*str == '.' && !*(str + 1))
+		return (false);
+	if (*str)
+		str++;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		*d += (*str - '0');
+		str++;
+		if (*str)
+		{
+			*d *= 10.0f;
+			divide *= 10.0f;
+		}
+	}
+	*d /= divide;
+	return (true);
+}
+
+bool	to_float(float *f, char *str)
+{
+	float	sign;
+	float	d;
+
+	*f = 0.0f;
+	sign = 1.0f;
+	if (*str == '-')
+		sign = -1.0f;
+	if (*str == '-' || *str == '+')
+		str++;
+	if (*str == '.' || !ft_strlen(str))
+		return (false);
+	while (*str)
+	{
+		if (*str == '.')
+			break ;
+		if (!ift_sdigit(*str))
+			return (false);
+		*f += (*str - '0');
+		str++;
+		if (*str && *str != '.')
+			*f *= 10.0f;
+	}
+	if (!to_decimal(&d, str))
+		return (false);
+	*f = (*f + d) * sign;
 	return (true);
 }

@@ -9,8 +9,8 @@ typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 # define Y 1
 # define Z 2
 
-# define V 0;
-# define U 1;
+# define U 0;
+# define V 1;
 # define W 2;
 
 float	length(t_vec3 v);

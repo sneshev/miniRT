@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/14 19:18:26 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/15 00:25:31 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@
 bool	is_valid_input(char *file, t_scene *scene);
 
 // utils
+void	free_arr(char **arr);
+int		arr_count(char **arr);
 bool	is_space(char c);
 bool	is_newline(char c);
-bool	is_whitespace(char c);
-bool	is_empty_line(char *line);
+int		ft_strcmp(char *s1, char *s2);
+bool	to_float(float *f, char *str);
+
 
 #endif

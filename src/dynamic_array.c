@@ -1,6 +1,7 @@
 #include "minirt.h"
 
 /*	put meta at the back so we can also free() the arr from our code normally	*/
+/* create ft_realloc */
 
 #define DARR_EXPAN_ADD 4
 #define DARR_EXPAN_MUL 1
@@ -41,7 +42,7 @@ int	reallocate_array(t_vec_meta **meta_p, void **arr)
 	meta->capacity = meta->capacity * DARR_EXPAN_MUL + DARR_EXPAN_ADD;
 	new_size = sizeof(t_vec_meta) + meta->capacity * meta->elem_size;
 
-	meta = ft_realloc(meta, new_size);
+	meta = realloc(meta, new_size);
 	if (!meta)
 		return (-1);
 
