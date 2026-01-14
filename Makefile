@@ -6,7 +6,7 @@
 #    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/14 14:01:56 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/01/14 18:07:18 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ $(LIBFT):
 # 	@[ -f "$(MLX_DIR)/libmlx.a" ] || (cd $(MLX_DIR) && make)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(OBJS) -Llibft -lft -o $(NAME)
-#  $(MLX_FLAGS) -lm
+	$(CC) $(OBJS) -Llibft -lm -lft -o $(NAME)
+#  $(MLX_FLAGS)
 
 .obj/%.o: src/%.c
 	$(CC) -c $< -o $@
