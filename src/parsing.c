@@ -199,120 +199,38 @@ void	free_arr(char **arr)
 
 // }
 
-// bool	is_valid_vec3(char *str)
-// {
-
-// }
-
-bool	is_valid_line(char *line)
+bool	is_valid_vec3(char *str)
 {
-	(void)line;
-	return (true);
+	char	**vec3;
+
+	vec3 = ft_split(str, ',');
+	if (!vec3)
+		return (printf("Error mallocating\n"), false);
+	while (*vec3)
+	{
+		if ((*vec3)[0] == '+' || (*vec3)[0] == '-')
+			(*vec3)++;
+		if ((*vec3)[1] == '.')
+			return (printf("Invalid float\n"), false);
+		
+		if (ft_strlen(str) > 8)
+			return (printf("Try a less precise float\n"), false);
+		
+	}
+	
 }
 
-bool	parse_line(char *line, t_scene *scene)
+bool	is_valid_info(char **info)
 {
-	(void)line;
+	
+}
+
+bool	parse_info(char **info, t_scene *scene)
+{
+	(void)info;
 	(void)scene;
 	return (true);
 }
-
-bool	is_whitespace(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\v' || c == '\t')
-		return (true);
-	return (false);
-
-}
-
-bool	is_empty_line(char *line)
-{
-	while (*line)
-	{
-		if (is_whitespace(*line) == false)
-			return (false);
-		line++;
-	}
-	return (true);
-}
-
-
-
-int	find_newline(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (i + 1);
-		i++;
-	}
-	return (-1);
-}
-
-char	*return_line(char **ptr)
-{
-	int		x;
-	char	*line;
-	char	*temp;
-
-	x = find_newline(*ptr);
-	line = ft_substr(*ptr, 0, x);
-	temp = ft_substr(*ptr, x, ft_strlen(*ptr));
-	free (*ptr);
-	*ptr = temp;
-	return (line);
-}
-
-char	*last_line(char **ptr)
-{
-	char	*line;
-
-	if (*ptr && **ptr)
-	{
-		line = ft_strdup(*ptr);
-		free(*ptr);
-		*ptr = NULL;
-		return (line);
-	}
-	free(*ptr);
-	*ptr = NULL;
-	return (NULL);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*ptr = NULL;
-	char		*buf;
-	char		*temp;
-	int			n;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	while (1)
-	{
-		if (find_newline(ptr) != -1)
-			return (free(buf), return_line(&ptr));
-		n = read(fd, buf, BUFFER_SIZE);
-		if (n == -1)
-			return (free(ptr), ptr = NULL, free(buf), NULL);
-		if (n == 0)
-			return (free(buf), last_line(&ptr));
-		buf[n] = '\0';
-		temp = ft_strjoin(ptr, buf);
-		free(ptr);
-		ptr = temp;
-	}
-	return (free(buf), NULL);
-}
-
 
 bool	is_valid_input(char *file, t_scene *scene)
 {
@@ -321,32 +239,49 @@ bool	is_valid_input(char *file, t_scene *scene)
 	char	**split;
 
 	fd = open(file, O_RDONLY);
-	printf("succesful opening fd\n");
-	if (fd < 0)
-		return (printf("invalid fd\n"), false);
 	line = get_next_line(fd);
 	if (!line)
-		return (printf("no line\n"), false);
-	printf("succesful line\n");
-	if (is_empty_line(line) == true)
-	{
-		printf("empty line\n");
-		return false;
-	}
-	printf("nonempty line\n");
+		return (printf("Error reading file\n"), false);
 	while (line)
 	{
-		if (is_empty_line(line) == false)
+		if (is_newline(*line) == false)
 		{
 			split = ft_split(line, ' ');
 			if (!split)
-				return (free(line), false);
-			if (is_valid_line(line) == false)
-				return (free(line), free_arr(split), false);
-			parse_line(line, scene);
+				return (free(line), printf("Error mallocating\n"), false);
+			if (is_valid_info(split) == false)
+				return (free(line), free_arr(split), printf("Invalid information\n"), false);
+			parse_info(split, scene);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	return (true);
 }
+
+// bool	is_valid_input(char *file, t_scene *scene)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	char	**split;
+
+// 	fd = open(file, O_RDONLY);
+// 	line = get_next_line(fd);
+// 	if (!line)
+// 		return (printf("Error reading file\n"), false);
+// 	while (line)
+// 	{
+// 		if (is_empty_line(line) == false)
+// 		{
+// 			split = ft_split(line, ' ');
+// 			if (!split)
+// 				return (free(line), false);
+// 			if (is_valid_line(line) == false)
+// 				return (free(line), free_arr(split), false);
+// 			parse_line(line, scene);
+// 		}
+// 		free(line);
+// 		line = get_next_line(fd);
+// 	}
+// 	return (true);
+// }

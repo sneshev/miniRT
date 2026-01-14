@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/14 14:13:19 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/14 19:18:26 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,8 @@ bool	is_valid_input(char *file, t_scene *scene);
 
 // utils
 bool	is_space(char c);
+bool	is_newline(char c);
+bool	is_whitespace(char c);
+bool	is_empty_line(char *line);
 
 #endif
