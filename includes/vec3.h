@@ -9,6 +9,10 @@ typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 # define Y 1
 # define Z 2
 
+# define V 0;
+# define U 1;
+# define W 2;
+
 float	length(t_vec3 v);
 void	normalize(t_vec3 *v);
 float	dot(t_vec3 v1, t_vec3 v2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/13 16:42:11 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/13 17:46:34 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ typedef struct s_cylinder
 {
 	t_vec3	center;
 	float	radius;
+	float	height;
+	t_vec3	dir_normal;
 	t_color	albedo;
 }			t_cylinder;
 
 typedef struct s_plane
 {
 	t_vec3	center;
+	t_vec3	dir_normal;
 	t_color	albedo;
 }			t_plane;
 
@@ -98,11 +101,32 @@ typedef struct s_objects
 	t_object	object;
 }				t_objects;
 
+typedef struct s_camera
+{
+	t_vec3	origin;
+	t_vec3	upper_left;
+	t_vec3	horizontal;
+	t_vec3	vertical;	
+}			t_camera;
+
+typedef struct s_light
+{
+	t_vec3	origin;
+	float	brightness;
+}			t_light;
+
+typedef struct s_ambient
+{
+	float	color;
+	t_color	albedo;
+}			t_ambient;
+
 typedef struct s_scene
 {
 	t_objects		*objects;
-	// t_camera		camera;
-	// t_ambient	ambient;
+	t_camera		camera;
+	t_light			light;
+	t_ambient		ambient;
 }				t_scene;
 
 #endif

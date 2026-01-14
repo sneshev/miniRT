@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:54:47 by mmisumi           #+#    #+#             */
-/*   Updated: 2025/05/01 17:20:14 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/13 17:13:18 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ char	**ft_split(char const *s, char c)
 }
 // int	main(void)
 // {
-// 	const char *s = "hallo hoe gaat het";
-// 	char **result = ft_split(s, ' ');
+// 	const char *s = "-50.0,0,20";
+// 	char **result = ft_split(s, ',');
 // 	if(!result)
 // 		return (0);
 // 	int	i = 0;

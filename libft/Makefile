@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/18 14:23:34 by mmisumi           #+#    #+#              #
-#    Updated: 2025/11/03 17:46:46 by mmisumi          ###   ########.fr        #
+#    Updated: 2026/01/14 13:55:35 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS := src/ft_atoi.c src/ft_bzero.c src/ft_calloc.c src/ft_isalnum.c src/ft_isa
 		src/ft_striteri.c src/ft_strjoin.c src/ft_strlcat.c src/ft_strlcpy.c src/ft_strlen.c \
 		src/ft_strmapi.c src/ft_strncmp.c src/ft_strnstr.c src/ft_strrchr.c \
 		src/ft_strtrim.c src/ft_substr.c src/ft_tolower.c \
-		src/ft_toupper.c
+		src/ft_toupper.c src/get_next_line.c
 
 
 OBJS := $(addprefix obj/, $(notdir $(SRCS:.c=.o)))
