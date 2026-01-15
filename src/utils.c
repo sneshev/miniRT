@@ -123,7 +123,7 @@ bool	to_float(float *f, char *str)
 	{
 		if (*str == '.')
 			break ;
-		if (!ift_sdigit(*str))
+		if (!ft_isdigit(*str))
 			return (false);
 		*f += (*str - '0');
 		str++;

@@ -14,7 +14,7 @@ int vec3_compare(t_vec3 v1, t_vec3 v2)
     return 0;
 }
 
-t_vec3	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
+void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 {
 	t_vec3	up;
 
@@ -22,7 +22,7 @@ t_vec3	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 	up = (t_vec3){0.0f, 1.0f, 0.0f};
 	if (vec3_compare(up, ortho[W]) == 0)
 		up = (t_vec3){0.0f, 0.0f, -1.0f};
-	ortho[U] = cross(up, cam->w);
+	ortho[U] = cross(up, ortho[W]);
 	normalize(&ortho[U]);
 	ortho[V] = cross(ortho[W], ortho[U]);
 	normalize(&ortho[V]);
@@ -33,13 +33,13 @@ void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov
 	float	theta;
 	float	width;
 	float	height;
-	t_vec3	ortho;
+	t_vec3	ortho[3];
 	t_vec3	center;
 
 	theta = hfov * M_PI / 180;
 	width = 2 * tan(theta / 2);
 	height = width / ((float)WIDTH / (float)HEIGHT);
-	get_orthonogal_base(&ortho, dir_normal);
+	get_orthogonal_base(ortho, dir_normal);
 	cam->origin = viewpoint;
 	center = cam->origin + ortho[W];
 	cam->horizontal = width * ortho[U];
@@ -49,32 +49,31 @@ void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov
 
 bool	to_vec3(t_vec3 *vec3, char *str)
 {
-	char	**split;
+	char 	**split;
+	float	f[3];
 
 	split = ft_split(str, ',');
 	if (!split)
 		return (false);
 	if (arr_count(split) != 3)
 		return (false);
-	if (!to_float(&vec3[X], *split))
+	if (!to_float(&(f[0]), split[0]))
 		return (false);
-	split++;
-	if (!to_float(&vec3[Y], *split))
+	if (!to_float(&(f[1]), split[1]))
 		return (false);
-	split++;
-	if (!to_float(&vec3[Z], *split))
+	if (!to_float(&(f[2]), split[2]))
 		return (false);
+	*vec3 = (t_vec3){f[0], f[1], f[2]};
 	return (true);
 }
 
 bool	parse_camera(char **info, t_scene *scene)
 {
-	t_camera	camera;
 	t_vec3		viewpoint;
 	t_vec3		dir_normal;
 	float		hfov;
 
-	if (count_arr(info) != 4)
+	if (arr_count(info) != 4)
 		return (printf("Error\n: Invalid element information\n"), false);
 	info++;
 	if (!to_vec3(&viewpoint, *info))
@@ -87,29 +86,29 @@ bool	parse_camera(char **info, t_scene *scene)
 	info++;
 	if (!to_float(&hfov, *info))
 		return (printf("Error\n: Invalid field of view\n"), false);
-	setup_camera(scene->camera, viewpoint, dir_normal, hfov);
+	setup_camera(&(scene->camera), viewpoint, dir_normal, hfov);
+	return (true);
 }
 
 bool	parse_info(char **info, t_scene *scene)
 {
-	if (!ft_strcmp(*info, "A"))
-		parse_ambient(info);
-	else if (!ft_strcmp(*info, "C"))
+	// if (!ft_strcmp(*info, "A"))
+	// 	parse_ambient(info);
+	if (!ft_strcmp(*info, "C"))
 		return (parse_camera(info, scene));
-	else if (!ft_strcmp(*info, "L"))
-		parse_light();
-	else if (!ft_strcmp(*info, "sp"))
-		parse_sphere();
-	else if (!ft_strcmp(*info, "pl"))
-		parse_plane();
-	else if (!ft_strcmp(*info, "cy"))
-		parse_cylinder();
+	// else if (!ft_strcmp(*info, "L"))
+	// 	parse_light();
+	// else if (!ft_strcmp(*info, "sp"))
+	// 	parse_sphere();
+	// else if (!ft_strcmp(*info, "pl"))
+	// 	parse_plane();
+	// else if (!ft_strcmp(*info, "cy"))
+	// 	parse_cylinder();
 	else
 	{
 		printf("Error\n: Invalid identifier\n");
 		return (false);
 	}
-	return (true);
 }
 
 bool	is_valid_input(char *file, t_scene *scene)
@@ -137,30 +136,3 @@ bool	is_valid_input(char *file, t_scene *scene)
 	}
 	return (true);
 }
-
-// bool	is_valid_input(char *file, t_scene *scene)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	char	**info;
-
-// 	fd = open(file, O_RDONLY);
-// 	line = get_next_line(fd);
-// 	if (!line)
-// 		return (printf("Error reading file\n"), false);
-// 	while (line)
-// 	{
-// 		if (is_empty_line(line) == false)
-// 		{
-// 			split = ft_split(line, ' ');
-// 			if (!split)
-// 				return (free(line), false);
-// 			if (is_valid_line(line) == false)
-// 				return (free(line), free_arr(split), false);
-// 			parse_line(line, scene);
-// 		}
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	return (true);
-// }
