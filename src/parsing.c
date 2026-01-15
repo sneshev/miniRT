@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 18:11:14 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/15 19:06:08 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,80 @@ bool	parse_camera(char **info, t_camera *camera)
 	return (true);
 }
 
+int	to_pos_int(char *s)
+{
+	int	i;
+	int	nbr;
 
-// bool	parse_sphere(char **info, t_scene *scene)
-// {
-// 	if (arr_count(info) != 3)
-// 		return (printf("invalid sphere arr count\n"), false);
-// 	if (to_vec3(&(scene->sphere.center)))
-// }
+	if (!s)
+		return (-1);
+	i = 0;
+	nbr = 0;
+	while (s[i])
+	{
+		nbr = nbr + (s[i] - '0');
+		if (s[i + 1] != '\0')
+			nbr = nbr * 10;
+		i++;
+	}
+	return (nbr);
+}
+
+bool	to_rgb_value(int *v, char *str)
+{
+
+	if (ft_strlen(str) > 4)
+		return (printf("invalid color length\n"), false);
+	*v = 0;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (printf("invalid color char\n"), false);
+		*v += (*str - '0');
+		str++;
+		if (*str)
+			*v *= 10;
+	}
+	if (*v < 0 || *v > 255)
+		return (printf("invalid color\n"), false);
+	return (true);
+}
+
+bool	to_color(t_color *color, char *str)
+{
+	char	**split;
+	
+	split = ft_split(str, ',');
+	if (!split)
+		return (printf("split error\n"), false);
+	if (arr_count(split) != 3)
+		return (printf("invalid color arr count\n"), false);
+	if (!to_rgb_value(&(color->r), split[0]))
+		return (printf("invalid color r\n"), false);
+	printf("color r: %d\n", color->r);
+	if (!to_rgb_value(&(color->g), split[1]))
+		return (printf("invalid color g\n"), false);
+	printf("color g: %d\n", color->g);
+	if (!to_rgb_value(&(color->b), split[2]))
+		return (printf("invalid color b\n"), false);
+	printf("color b: %d\n", color->b);
+	return (true);
+}
+
+bool	parse_sphere(char **info, t_sphere *sphere)
+{
+	if (arr_count(info) != 3)
+		return (printf("invalid sphere arr count\n"), false);
+	if (!to_vec3(&(sphere->center), info[0]))
+		return (printf("invalid sphere center\n"), false);
+	print_vec3("sphere center", sphere->center);
+	if (!to_float(&(sphere->radius), info[1]))
+		return (printf("invalid sphere radius\n"), false);
+	printf("sphere radius: %f\n", sphere->radius);
+	if (!to_color(&(sphere->albedo), info[2]))
+		return (printf("invalid color\n"), false);
+	return (true);
+}
 
 bool	parse_info(char **info, t_scene *scene)
 {
@@ -123,8 +190,8 @@ bool	parse_info(char **info, t_scene *scene)
 		return (parse_camera(info, &(scene->camera)));
 	// else if (!ft_strcmp(*info, "L"))
 	// 	parse_light();
-	// else if (!ft_strcmp(*info, "sp"))
-	// 	return (parse_sphere(info, &(scene->objs->type.sphere)));
+	else if (!ft_strcmp(*info, "sp"))
+		return (parse_sphere(info, &(scene->objs->type.sphere)));
 	// else if (!ft_strcmp(*info, "pl"))
 	// 	parse_plane();
 	// else if (!ft_strcmp(*info, "cy"))

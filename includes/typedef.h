@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/15 18:09:13 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/15 19:03:09 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,16 @@ typedef enum e_obj_type
 	PLANE
 }			t_obj_type;
 
-typedef struct s_rgb
+// COLOR = the final color we see after all the calculations including
+// things such as albedo, light, ambient, shadow
+// ALBEDO = the color of a specifik material, like red acrylic paint
+// would (obviously) be red
+// ATTENUATION = how much the light weakens the more it bounces
+typedef struct s_color
 {
-	uint8_t	b;
-	uint8_t	g;
-	uint8_t	r;
-	uint8_t	a;
-}			t_rgb;
-
-typedef union u_color
-{
-	uint32_t	value;
-	t_rgb		rgb;
+	int	r;
+	int	g;
+	int	b;
 }			t_color;
 
 typedef struct s_sphere
@@ -100,7 +98,6 @@ typedef struct s_objects
 	bool (*intersect)(t_ray * ray, t_object * obj);
 	t_object	type;
 }				t_objects;
-
 
 typedef struct s_camera
 {

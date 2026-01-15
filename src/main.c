@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 17:46:34 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/15 19:09:15 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@ void	print_vec3(char const *s, t_vec3 v)
 	printf("%s: %f, %f, %f\n", s, v[X], v[Y], v[Z]);
 }
 
-void	print_obj(t_sphere *sphere)
+void	print_color(char const *s, t_color color)
 {
-	print_vec3("center", sphere->center);
-	printf("radius: %f\n", sphere->radius);
-	printf("albedo: %u\n", sphere->albedo.value);
+	printf("%s: %d, %d, %d\n", s, color.r, color.g, color.b);
 }
 
 void	print_scene(t_scene *scene)
 {
 	// print camera
-	print_vec3("origin", scene->camera.origin);
-	print_vec3("upper_left", scene->camera.upper_left);
-	print_vec3("horizontal", scene->camera.horizontal);
-	print_vec3("vertical", scene->camera.vertical);
+	print_vec3("C origin", scene->camera.origin);
+	print_vec3("C upper_left", scene->camera.upper_left);
+	print_vec3("C horizontal", scene->camera.horizontal);
+	print_vec3("C vertical", scene->camera.vertical);
 	
-	// print_sphere(scene->objects->object.sphere);
+	// print sphere
+	print_vec3("sp center", scene->objs->type.sphere.center);
+	printf("sp radius: %f\n", scene->objs->type.sphere.radius);
+	print_color("sp albedo", scene->objs->type.sphere.albedo);
 }
 
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
