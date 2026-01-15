@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-/*	put meta at the back so we can also free() the arr from our code normally	*/
 /* create ft_realloc */
 
 #define DARR_EXPAN_ADD 4
@@ -13,24 +12,36 @@ typedef struct s_vec_meta
 	size_t	elem_size;
 }	t_vec_meta;
 
+
 static t_vec_meta	*access_meta(void *arr)
 {
 	return ((t_vec_meta *)arr) - 1;
 }
 
-int	make_dynamic_array(void **arr, size_t in_capacity, size_t el_size) {
+void	free_dynamic_array(void *arr_ptr)
+{
 	t_vec_meta	*meta;
+	void		**arr;
 
-	meta = malloc(sizeof(t_vec_meta) + in_capacity * el_size);
-	if (!meta)
-		return (-1);
+	arr = (void **)arr_ptr;
+	meta = access_meta(*arr);
+	free(meta);
+}
+
+void	*make_dynamic_array(size_t in_capacity, size_t el_size) {
+	t_vec_meta	*meta;
+	void		*arr;
+	
 	if (in_capacity < 1)
 		in_capacity = 1;
+	meta = malloc(sizeof(t_vec_meta) + in_capacity * el_size);
+	if (!meta)
+		return (NULL);
 	meta->elem_size = el_size;
 	meta->capacity = in_capacity;
 	meta->count = 0;
-	*arr = (void *)(meta + 1);
-	return (1);
+	arr = (void *)(meta + 1);
+	return (arr);
 }
 
 int	reallocate_array(t_vec_meta **meta_p, void **arr)
@@ -51,10 +62,12 @@ int	reallocate_array(t_vec_meta **meta_p, void **arr)
 	return (1);
 }
 
-int	vec_push(void **arr, void *elem)
+int	vec_push(void *arr_ptr, void *elem)
 {
 	t_vec_meta	*meta;
+	void 		**arr;
 
+	arr = (void **)arr_ptr;
 	meta = ((t_vec_meta *)(*arr)) - 1;
 	if (meta->count == meta->capacity)
 	{
