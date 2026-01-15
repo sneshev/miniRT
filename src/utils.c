@@ -1,4 +1,16 @@
-#include "stdbool.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 16:13:55 by mmisumi           #+#    #+#             */
+/*   Updated: 2026/01/15 16:14:16 by mmisumi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
 
 void	free_arr(char **arr)
 {
@@ -24,7 +36,7 @@ int	arr_count(char **arr)
 	int	count;
 
 	if (!arr)
-		return ;
+		return (0);
 	i = 0;
 	count = 0;
 	while (arr[i])

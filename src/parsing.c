@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
+/*   Updated: 2026/01/15 18:11:14 by mmisumi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 #define BUFFER_SIZE 42
@@ -54,52 +66,65 @@ bool	to_vec3(t_vec3 *vec3, char *str)
 
 	split = ft_split(str, ',');
 	if (!split)
-		return (false);
+		return (printf("split error\n"), false);
 	if (arr_count(split) != 3)
-		return (false);
+		return (printf("invalid arr count\n"), false);
 	if (!to_float(&(f[0]), split[0]))
-		return (false);
+		return (printf("invalid f[0]\n"), false);
+	printf("f[0]: %f\n", f[0]);
 	if (!to_float(&(f[1]), split[1]))
-		return (false);
+		return (printf("invlaid f[1]\n"), false);
+	printf("f[1]: %f\n", f[1]);
 	if (!to_float(&(f[2]), split[2]))
-		return (false);
+		return (printf("invalid f[2]\n"), false);
+	printf("f[2]: %f\n", f[2]);
 	*vec3 = (t_vec3){f[0], f[1], f[2]};
 	return (true);
 }
 
-bool	parse_camera(char **info, t_scene *scene)
+bool	parse_camera(char **info, t_camera *camera)
 {
 	t_vec3		viewpoint;
 	t_vec3		dir_normal;
 	float		hfov;
 
 	if (arr_count(info) != 4)
-		return (printf("Error\n: Invalid element information\n"), false);
-	info++;
-	if (!to_vec3(&viewpoint, *info))
-		return (printf("Error\n: Invalid vector\n"), false);
-	info++;
-	if (!to_vec3(&dir_normal, *info))
-		return (false);
-	if (length(dir_normal != 1))
-		return (printf("Error\n: Camera orientation not normalized\n"), false);
-	info++;
-	if (!to_float(&hfov, *info))
-		return (printf("Error\n: Invalid field of view\n"), false);
-	setup_camera(&(scene->camera), viewpoint, dir_normal, hfov);
+		return (printf("invlaid camera arr count\n"), false);
+	if (!to_vec3(&viewpoint, info[1]))
+		return (printf("invalid viewpoint\n"), false);
+	print_vec3("viewpoint", viewpoint);
+	if (!to_vec3(&dir_normal, info[2]))
+		return (printf("invalid dir_normal\n"), false);
+	print_vec3("dir_normal", dir_normal);
+	if (length(dir_normal) != 1)
+		return (printf("not normalized\n"), false);
+	if (!to_float(&hfov, info[3]))
+		return (printf("invalid hfov\n"), false);
+	if (hfov < 1.0f || hfov > 179.0f)
+		return (printf("incorrect hfov\n"), false);
+	printf("hfov: %f\n", hfov);
+	setup_camera(camera, viewpoint, dir_normal, hfov);
 	return (true);
 }
+
+
+// bool	parse_sphere(char **info, t_scene *scene)
+// {
+// 	if (arr_count(info) != 3)
+// 		return (printf("invalid sphere arr count\n"), false);
+// 	if (to_vec3(&(scene->sphere.center)))
+// }
 
 bool	parse_info(char **info, t_scene *scene)
 {
 	// if (!ft_strcmp(*info, "A"))
 	// 	parse_ambient(info);
 	if (!ft_strcmp(*info, "C"))
-		return (parse_camera(info, scene));
+		return (parse_camera(info, &(scene->camera)));
 	// else if (!ft_strcmp(*info, "L"))
 	// 	parse_light();
 	// else if (!ft_strcmp(*info, "sp"))
-	// 	parse_sphere();
+	// 	return (parse_sphere(info, &(scene->objs->type.sphere)));
 	// else if (!ft_strcmp(*info, "pl"))
 	// 	parse_plane();
 	// else if (!ft_strcmp(*info, "cy"))
@@ -125,11 +150,14 @@ bool	is_valid_input(char *file, t_scene *scene)
 	{
 		if (is_newline(*line) == false)
 		{
+			printf("line: %s\n", line);
+			if (is_space(*line) || is_space(line[ft_strlen(line) - 1]))
+				return (printf("space error\n"), false);
 			info = ft_split(line, ' ');
 			if (!info)
-				return (free(line), printf("Error\n: Failed to allocate space\n"), false);
+				return (printf("split error\n"), free(line), false);
 			if (parse_info(info, scene) == false)
-				return (free(line), free_arr(info), false);
+				return (printf("failed parse info\n"), free(line), free_arr(info), false);
 		}
 		free(line);
 		line = get_next_line(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/13 17:46:34 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/15 18:09:13 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,16 @@ typedef union s_object
 typedef struct s_objects
 {
 	bool (*intersect)(t_ray * ray, t_object * obj);
-	t_object	object;
+	t_object	type;
 }				t_objects;
+
 
 typedef struct s_camera
 {
 	t_vec3	origin;
 	t_vec3	upper_left;
 	t_vec3	horizontal;
-	t_vec3	vertical;	
+	t_vec3	vertical;
 }			t_camera;
 
 typedef struct s_light
@@ -123,7 +124,7 @@ typedef struct s_ambient
 
 typedef struct s_scene
 {
-	t_objects		*objects;
+	t_objects		*objs;
 	t_camera		camera;
 	t_light			light;
 	t_ambient		ambient;

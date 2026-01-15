@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 13:26:06 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/15 17:16:00 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 // int		init_minilibx(t_mlx_data *data);
 // void	free_data_exit(t_mlx_data *data, int exitcode);
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
+
+// main
+void	print_vec3(char const *s, t_vec3 v);
 
 // parsing
 bool	is_valid_input(char *file, t_scene *scene);
