@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/15 19:03:09 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/16 13:22:50 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ typedef struct s_mlx_data
 	t_img_info	*img_info;
 }				t_mlx_data;
 
-typedef enum e_obj_type
+typedef union s_type
 {
-	SPHERE,
-	CYLINDER,
-	PLANE
-}			t_obj_type;
+	t_sphere	sphere;
+	t_cylinder	cylinder;
+	t_plane		plane;
+	t_object	object;
+}			t_type;
 
 // COLOR = the final color we see after all the calculations including
 // things such as albedo, light, ambient, shadow
@@ -56,6 +57,7 @@ typedef struct s_color
 
 typedef struct s_sphere
 {
+	bool 	(*intersect)(t_ray *ray, t_type *obj);
 	t_vec3	center;
 	float	radius;
 	t_color	albedo;
@@ -63,6 +65,7 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
+	bool 	(*intersect)(t_ray *ray, t_type *obj);
 	t_vec3	center;
 	float	radius;
 	float	height;
@@ -72,10 +75,16 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
+	bool 	(*intersect)(t_ray *ray, t_type *obj);
 	t_vec3	center;
 	t_vec3	dir_normal;
 	t_color	albedo;
 }			t_plane;
+
+typedef struct s_object
+{
+	bool (*intersect)(t_ray * ray, t_type * obj);
+}				t_object;
 
 typedef struct s_ray
 {
@@ -84,20 +93,6 @@ typedef struct s_ray
 	float	closest_t;
 	t_vec3	attenuation;
 }			t_ray;
-
-typedef union s_object
-{
-	t_sphere	sphere;
-	t_cylinder	cylinder;
-	t_plane		plane;
-	// t_object	object;
-}			t_object;
-
-typedef struct s_objects
-{
-	bool (*intersect)(t_ray * ray, t_object * obj);
-	t_object	type;
-}				t_objects;
 
 typedef struct s_camera
 {
@@ -119,9 +114,10 @@ typedef struct s_ambient
 	t_color	albedo;
 }			t_ambient;
 
+
 typedef struct s_scene
 {
-	t_objects		*objs;
+	t_type			*objs;
 	t_camera		camera;
 	t_light			light;
 	t_ambient		ambient;
