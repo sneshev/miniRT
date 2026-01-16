@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/16 13:22:50 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/16 13:59:05 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
+typedef union u_type t_type;
 
 typedef struct s_img_info
 {
@@ -35,13 +36,13 @@ typedef struct s_mlx_data
 	t_img_info	*img_info;
 }				t_mlx_data;
 
-typedef union s_type
+typedef struct s_ray
 {
-	t_sphere	sphere;
-	t_cylinder	cylinder;
-	t_plane		plane;
-	t_object	object;
-}			t_type;
+	t_vec3	origin;
+	t_vec3	direction;
+	float	closest_t;
+	t_vec3	attenuation;
+}			t_ray;
 
 // COLOR = the final color we see after all the calculations including
 // things such as albedo, light, ambient, shadow
@@ -54,6 +55,11 @@ typedef struct s_color
 	int	g;
 	int	b;
 }			t_color;
+
+typedef struct s_object
+{
+	bool (*intersect)(t_ray * ray, t_type * obj);
+}				t_object;
 
 typedef struct s_sphere
 {
@@ -79,20 +85,15 @@ typedef struct s_plane
 	t_vec3	center;
 	t_vec3	dir_normal;
 	t_color	albedo;
-}			t_plane;
+}		t_plane;
 
-typedef struct s_object
+typedef union u_type
 {
-	bool (*intersect)(t_ray * ray, t_type * obj);
-}				t_object;
-
-typedef struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	direction;
-	float	closest_t;
-	t_vec3	attenuation;
-}			t_ray;
+	t_sphere	sphere;
+	t_cylinder	cylinder;
+	t_plane		plane;
+	t_object	object;
+}			t_type;
 
 typedef struct s_camera
 {
