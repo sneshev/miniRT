@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/16 13:59:05 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 18:02:30 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 typedef union u_type t_type;
+
+typedef enum e_return_code
+{
+	SUCCES,
+	INVALID_VEC3,
+	INVALID_FLOAT,
+	MALLOC_ERROR,
+}			t_return_code;
 
 typedef struct s_img_info
 {
