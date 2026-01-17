@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   dynamic_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 16:13:48 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/17 20:11:07 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+size_t	get_count(void	*arr_ptr);
+void	*make_dynamic_array(size_t in_capacity, size_t el_size);
+int		push(void *arr_ptr, void *elem);
+void	free_dynamic_array(void *arr_ptr);
 
 /* create ft_realloc */
 
@@ -28,6 +32,14 @@ typedef struct s_vec_meta
 static t_vec_meta	*access_meta(void *arr)
 {
 	return ((t_vec_meta *)arr) - 1;
+}
+
+size_t	get_count(void	*arr_ptr)
+{
+	t_vec_meta	*meta;
+
+	meta = access_meta(*(void **)arr_ptr);
+	return (meta->count);
 }
 
 void	free_dynamic_array(void *arr_ptr)
@@ -74,7 +86,7 @@ int	reallocate_array(t_vec_meta **meta_p, void **arr)
 	return (1);
 }
 
-int	vec_push(void *arr_ptr, void *elem)
+int	push(void *arr_ptr, void *elem)
 {
 	t_vec_meta	*meta;
 	void 		**arr;
