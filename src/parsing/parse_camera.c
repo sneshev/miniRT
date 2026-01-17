@@ -74,26 +74,3 @@ bool	parse_camera(char **info, t_camera *camera)
 	setup_camera(camera, viewpoint, dir_normal, hfov);
 	return (true);
 }
-
-// bool	parse_camera(char **info, t_camera *camera)
-// {
-// 	t_vec3		viewpoint;
-// 	t_vec3		dir_normal;
-// 	float		hfov;
-
-// 	if (arr_count(info) != 4)
-// 		return (printf("invlaid camera arr count\n"), false);
-// 	if (!valid_position(&viewpoint, info[1]))
-// 		return (printf("invalid viewpoint\n"), false);
-// 	print_vec3("viewpoint", viewpoint);
-// 	if (!valid_dir_normal(&dir_normal, info[2]))
-// 		return (printf("invalid dir_normal\n"), false);
-// 	print_vec3("dir_normal", dir_normal);
-// 	if (!to_float(&hfov, info[3]))
-// 		return (printf("invalid hfov\n"), false);
-// 	if (hfov < 1.0f || hfov > 179.0f)
-// 		return (printf("incorrect hfov\n"), false);
-// 	printf("hfov: %f\n", hfov);
-// 	setup_camera(camera, viewpoint, dir_normal, hfov);
-// 	return (true);
-// }

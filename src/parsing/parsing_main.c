@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 22:04:23 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 22:25:54 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,27 @@
 
 bool	valid_element(char identifyer, t_element *element)
 {
-	if (identifyer == 'C' && element->camera)
-		return (false);
-	else if (identifyer == 'A' && element->ambient)
-		return (false);
-	else if (identifyer == 'L' && element->light)
-		return (false);
+	if (identifyer == 'C')
+	{
+		if (!element->camera)
+			element->camera = true;
+		else
+			return (false);
+	}
+	else if (identifyer == 'A')
+	{
+		if (!element->ambient)
+			element->ambient = true;
+		else
+			return (false);
+	}
+	else if (identifyer == 'L')
+	{
+		if (!element->light)
+			element->light = true;
+		else
+			element->light = false;
+	}
 	return (true);	
 }
 
