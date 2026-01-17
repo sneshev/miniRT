@@ -6,15 +6,13 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/17 18:02:30 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 21:45:39 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-# include <stdint.h>
-# include <stdlib.h>
 # include <stdbool.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));

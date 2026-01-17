@@ -6,72 +6,40 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 18:29:01 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 22:04:23 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	parse_sphere(char **info, t_scene *scene)
+bool	valid_element(char identifyer, t_element *element)
 {
-	t_sphere	sphere;
-	float		diameter;
-
-	if (arr_count(info) != 4)
-		return (printf("invalid sphere arr count\n"), false);
-	print_arr(info);
-	if (!to_vec3(&(sphere.center), info[1]))
-		return (printf("invalid sphere center\n"), false);
-	print_vec3("sphere center", sphere.center);
-	if (!to_float(&diameter, info[2]))
-		return (printf("invalid sphere radius\n"), false);
-	sphere.radius = 0.5f * diameter;
-	printf("sphere radius: %f\n", sphere.radius);
-	if (!to_color(&(sphere.albedo), info[3]))
-		return (printf("invalid color\n"), false);
-	scene->objs[0].sphere = sphere;
-	return (true);
+	if (identifyer == 'C' && element->camera)
+		return (false);
+	else if (identifyer == 'A' && element->ambient)
+		return (false);
+	else if (identifyer == 'L' && element->light)
+		return (false);
+	return (true);	
 }
 
-bool	parse_line(char *line, t_scene *scene)
+bool	parse_line(char *line, t_scene *scene, t_element *element)
 {
 	char	**info;
+	bool	ret_status;
 
 	info = ft_split(line, ' ');
 	if (!info)
 		return (false);
-	if (!ft_strcmp(*info, "C"))
-		return (parse_camera(info, &(scene->camera)));
-	else if (!ft_strcmp(*info, "sp"))
-		return (parse_sphere(info, scene));
+	if (!str_diff(*info, "C") && valid_element('C', element))
+		ret_status = parse_camera(info, &(scene->camera));
+	else if (!str_diff(*info, "sp"))
+		ret_status = parse_sphere(info, scene);
 	else
-	{
-		printf("Error: Invalid identifier\n");
-		return (false);
-	}
-	return (true);
+		ret_status = false;
+	free_arr(info);
+	return (ret_status);
 }
-
-// bool	parse_info(char **info, t_scene *scene)
-// {
-// 	// if (!ft_strcmp(*info, "A"))
-// 	// 	parse_ambient(info);
-// 	if (!ft_strcmp(*info, "C"))
-// 		return (parse_camera(info, &(scene->camera)));
-// 	// else if (!ft_strcmp(*info, "L"))
-// 	// 	parse_light();
-// 	else if (!ft_strcmp(*info, "sp"))
-// 		return (parse_sphere(info, &(scene->objs->sphere)));
-// 	// else if (!ft_strcmp(*info, "pl"))
-// 	// 	parse_plane();
-// 	// else if (!ft_strcmp(*info, "cy"))
-// 	// 	parse_cylinder();
-// 	else
-// 	{
-// 		printf("Error\n: Invalid identifier\n");
-// 		return (false);
-// 	}
-// }
 
 bool	check_line(char **line)
 {
@@ -85,12 +53,21 @@ bool	check_line(char **line)
 	return (true);	
 }
 
+void	init_element(t_element *element)
+{
+	element->camera = false;
+	element->ambient = false;
+	element->light = false;
+}
+
 bool	is_valid_input(char *file, t_scene *scene)
 {
 	int			fd;
 	char		*line;
 	t_status	status;
+	t_element	element;
 
+	init_element(&element);
 	fd = open(file, O_RDONLY);
 	while (1)
 	{
@@ -101,13 +78,12 @@ bool	is_valid_input(char *file, t_scene *scene)
 			return (free(line), false);
 		if (!is_newline(*line))
 		{
-			if (parse_line(line, scene) == false)
+			if (parse_line(line, scene, &element) == false)
 				return (free(line), false);
 		}
 		free(line);
 		if (status == GNL_EOF)
 			break ;
 	}
-	//check the correct elements and stuff
 	return (true);
 }

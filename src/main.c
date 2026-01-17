@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 17:55:10 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 22:06:00 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void	print_scene(t_scene *scene)
 	print_vec3("C upper_left", scene->camera.upper_left);
 	print_vec3("C horizontal", scene->camera.horizontal);
 	print_vec3("C vertical", scene->camera.vertical);
+	printf("\n");
 	
 	// print sphere
 	print_vec3("sp center", scene->objs->sphere.center);
 	printf("sp radius: %f\n", scene->objs->sphere.radius);
 	print_color("sp albedo", scene->objs->sphere.albedo);
+	printf("\n");
 }
 
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
@@ -47,7 +49,7 @@ int main(int argc, char *argv[])
 		return (1);
 
 	t_scene scene;
-	scene.objs = malloc(2 * sizeof(t_object));
+	scene.objs = malloc(sizeof(t_type));
 	if (!scene.objs)
 		return (1);
 	printf("argv: %s\n", argv[1]);
@@ -57,6 +59,7 @@ int main(int argc, char *argv[])
 	}
 	printf("\nVALID INPUT\n\n");
 	print_scene(&scene);
+	free(scene.objs);
 	// t_mlx_data data;
 	// if (!init_minilibx(&data))
 	// 	return (free_data_exit(&data, 1), 1);

@@ -6,31 +6,79 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/15 22:46:12 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 22:04:00 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	to_vec3(t_vec3 *vec3, char *str)
+bool	is_space(char c)
 {
-	char 	**split;
-	float	f[3];
+	if (c == ' ')
+		return (true);
+	return (false);
+}
 
-	split = ft_split(str, ',');
-	if (!split)
-		return (printf("split error\n"), false);
-	if (arr_count(split) != 3)
-		return (printf("invalid arr count\n"), false);
-	if (!to_float(&(f[0]), split[0]))
-		return (printf("invalid f[0]\n"), false);
-	printf("f[0]: %f\n", f[0]);
-	if (!to_float(&(f[1]), split[1]))
-		return (printf("invlaid f[1]\n"), false);
-	printf("f[1]: %f\n", f[1]);
-	if (!to_float(&(f[2]), split[2]))
-		return (printf("invalid f[2]\n"), false);
-	printf("f[2]: %f\n", f[2]);
-	*vec3 = (t_vec3){f[0], f[1], f[2]};
+bool	is_newline(char c)
+{
+	if (c == '\n')
+		return (true);
+	return (false);
+}
+
+int	str_diff(char *s1, char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
+}
+
+bool	valid_rgb(int *n, char *str)
+{
+	if (ft_strlen(str) > 3 || !ft_strlen(str))
+		return (false);
+	*n = 0;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		*n += (*str - '0');
+		str++;
+		if (*str)
+			*n *= 10;
+	}
+	if (*n < 0 || *n > 255)
+		return (false);
+	return (true);
+}
+
+bool	valid_decimal(float *d, char *str)
+{
+	float	divide;
+
+	*d = 0.0f;
+	divide = 10.0f;
+	if (*str == '.' && !*(str + 1))
+		return (false);
+	if (*str)
+		str++;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		*d += (*str - '0');
+		str++;
+		if (*str)
+		{
+			*d *= 10.0f;
+			divide *= 10.0f;
+		}
+	}
+	*d /= divide;
 	return (true);
 }
