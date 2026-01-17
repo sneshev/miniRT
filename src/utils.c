@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:55 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 16:14:16 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/16 13:58:36 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	free_arr(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+void	print_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		printf("arr[%d]: %s\n", i, arr[i]);
+		i++;
+	}
 }
 
 int	arr_count(char **arr)
@@ -59,25 +71,6 @@ bool	is_newline(char c)
 	if (c == '\n')
 		return (true);
 	return (false);
-}
-
-bool	is_whitespace(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\v' || c == '\t')
-		return (true);
-	return (false);
-
-}
-
-bool	is_empty_line(char *line)
-{
-	while (*line)
-	{
-		if (is_whitespace(*line) == false)
-			return (false);
-		line++;
-	}
-	return (true);
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -129,12 +122,10 @@ bool	to_float(float *f, char *str)
 		sign = -1.0f;
 	if (*str == '-' || *str == '+')
 		str++;
-	if (*str == '.' || !ft_strlen(str))
+	if (*str == '.' || !ft_strlen(str) || ft_strlen(str) > 7)
 		return (false);
-	while (*str)
+	while (*str && *str != '.')
 	{
-		if (*str == '.')
-			break ;
 		if (!ft_isdigit(*str))
 			return (false);
 		*f += (*str - '0');

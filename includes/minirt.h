@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 17:16:00 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/15 22:43:25 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ bool	is_valid_input(char *file, t_scene *scene);
 
 // utils
 void	free_arr(char **arr);
+void	print_arr(char **arr);
 int		arr_count(char **arr);
 bool	is_space(char c);
 bool	is_newline(char c);
 int		ft_strcmp(char *s1, char *s2);
 bool	to_float(float *f, char *str);
 
+// parsing
+bool	parse_camera(char **info, t_camera *camera);
+bool	to_color(t_color *color, char *str);
+bool	to_vec3(t_vec3 *vec3, char *str);
 
 #endif

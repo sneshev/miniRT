@@ -6,12 +6,16 @@
 #    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/14 20:21:34 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/01/15 21:13:44 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
-SRCS := $(wildcard src/*.c)
+
+SRCS := src/main.c src/mlx.c src/utils.c src/vec3.c \
+		src/parsing/parsing_main.c src/parsing/parse_camera.c \
+		src/parsing/parse_color.c src/parsing/parsing_utils.c 
+		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
 # MLX_FLAGS	:= -Lmlx_linux -lmlx -lXext -lX11 -lz
@@ -19,6 +23,7 @@ OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 # MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
+
 CC := cc -Wall -Werror -Wextra -g -Iincludes -O0
 # $(MLX_INC)
 
@@ -41,6 +46,7 @@ $(NAME): $(OBJS) $(LIBFT)
 #  $(MLX_FLAGS)
 
 .obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) -c $< -o $@
 
 clean:
