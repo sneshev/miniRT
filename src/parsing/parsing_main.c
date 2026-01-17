@@ -6,190 +6,11 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 13:48:17 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 16:46:35 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-#define BUFFER_SIZE 33
-
-int	find_newline(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (i + 1);
-		i++;
-	}
-	return (-1);
-}
-
-char	*return_line(char **ptr)
-{
-	int		x;
-	char	*line;
-	char	*temp;
-
-	x = find_newline(*ptr);
-	line = ft_substr(*ptr, 0, x);
-	temp = ft_substr(*ptr, x, ft_strlen(*ptr));
-	free (*ptr);
-	*ptr = temp;
-	return (line);
-}
-
-char	*last_line(char **ptr)
-{
-	char	*line;
-
-	if (*ptr)
-	{
-		line = ft_strdup(*ptr);
-		free(*ptr);
-		*ptr = NULL;
-		return (line);
-	}
-	free(*ptr);
-	*ptr = NULL;
-	return (NULL);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*ptr = NULL;
-	char		*buf;
-	char		*temp;
-	int			n;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	while (1)
-	{
-		if (find_newline(ptr) != -1)
-			return (free(buf), return_line(&ptr));
-		n = read(fd, buf, BUFFER_SIZE);
-		if (n == -1)
-			return (free(ptr), ptr = NULL, free(buf), NULL);
-		if (n == 0)
-			return (free(buf), last_line(&ptr));
-		buf[n] = '\0';
-		temp = ft_strjoin(ptr, buf);
-		free(ptr);
-		ptr = temp;
-	}
-	return (free(buf), NULL);
-}
-
-// typedef enum e_status
-// {
-// 	GNL_OK,
-// 	GNL_EOF,
-// 	GNL_ERROR
-// }			t_status;
-
-// int	find_newline(const char *str)
-// {
-// 	int	i;
-
-// 	if (!str)
-// 		return (0);
-// 	i = 0;
-// 	while(str[i])
-// 	{
-// 		if (str[i] == '\n')
-// 			return (i + 1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// t_status	exit_status(char **ptr, t_status status)
-// {
-// 	if (*ptr && **ptr)
-// 		free(*ptr);
-// 	*ptr = NULL;
-// 	return (status);
-// }
-
-// t_status	last_line(char **line, char *ptr)
-// {
-// 	*line = ft_strdup(ptr);
-// 	if (!*line)
-// 		return (exit_status(&ptr, GNL_ERROR));
-// 	if (!**line)
-// 		*line = NULL;
-// 	return (exit_status(&ptr, GNL_EOF));
-// }
-
-// t_status	return_line(char **line, char **ptr)
-// {
-// 	int		x;
-// 	char	*temp;
-
-// 	x = find_newline(*ptr);
-// 	*line = ft_substr(*ptr, 0, x);
-// 	if (!*line)
-// 		return (exit_status(ptr, GNL_ERROR));
-// 	temp = ft_substr(*ptr, x, ft_strlen(*ptr));
-// 	free(*ptr);
-// 	*ptr = temp;
-// 	return (GNL_OK);
-// }
-
-// t_status	get_next_line(char **line, int fd)
-// {
-// 	static char	*ptr = NULL;
-// 	char		*buf;
-// 	int			n;
-
-// 	if (!fd || BUFFER_SIZE < 1)
-// 		return (GNL_ERROR);
-// 	while (1)
-// 	{
-// 		if (find_newline(ptr))
-// 			return (return_line(line, &ptr));
-// 		buf = malloc(BUFFER_SIZE + 1);
-// 		if (!buf)
-// 			return (exit_status(&ptr, GNL_ERROR));
-// 		n = read(fd, buf, BUFFER_SIZE);
-// 		if (n == -1)
-// 			return (free(buf), exit_status(&ptr, GNL_ERROR));
-// 		if (n == 0)
-// 			return (free(buf), last_line(line, ptr));
-// 		buf[n] = '\0';
-// 		ptr = ft_strjoin(ptr, buf);
-// 		if (!ptr)
-// 			return (free(buf), exit_status(&ptr, GNL_ERROR));
-// 		free(buf);
-// 		buf = NULL;
-// 	}
-// }
-
-// int	main(void)
-// {
-// 	int			fd;
-// 	char		*line;
-// 	t_status	status;
-	
-// 	fd = open("test", O_RDONLY);
-// 	while (get_next_line(&line, fd) != GNL_ERROR)
-// 	{
-// 		if (!line)
-// 			break ;
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	return (0);
-// }
 
 bool	parse_sphere(char **info, t_sphere *sphere)
 {
@@ -233,8 +54,9 @@ bool	parse_info(char **info, t_scene *scene)
 
 char	*get_line(int fd)
 {
-	char	*line;
-	int		len;
+	char		*line;
+	int			len;
+	t_status	status;
 
 	line = get_next_line(fd);
 	if (!line)

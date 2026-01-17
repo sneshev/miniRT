@@ -6,85 +6,71 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 13:41:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/14 13:42:37 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/17 16:44:04 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-#define BUFFER_SIZE 42
-
-int	find_newline(const char *s)
+t_status	last_line(char **line, char **ptr)
 {
-	int	i;
-
-	i = 0;
-	if (s == NULL)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (i + 1);
-		i++;
-	}
-	return (-1);
+	*line = ft_strdup(*ptr);
+	if (!*line)
+		return (exit_status(ptr, GNL_ERROR));
+	return (exit_status(ptr, GNL_EOF));
 }
 
-char	*return_line(char **ptr)
+t_status	return_line(char **line, char **ptr)
 {
 	int		x;
-	char	*line;
 	char	*temp;
 
 	x = find_newline(*ptr);
-	line = ft_substr(*ptr, 0, x);
+	*line = ft_substr(*ptr, 0, x);
+	if (!*line)
+		return (exit_status(ptr, GNL_ERROR));
 	temp = ft_substr(*ptr, x, ft_strlen(*ptr));
-	free (*ptr);
-	*ptr = temp;
-	return (line);
-}
-
-char	*last_line(char **ptr)
-{
-	char	*line;
-
-	if (*ptr && **ptr)
-	{
-		line = ft_strdup(*ptr);
-		free(*ptr);
-		*ptr = NULL;
-		return (line);
-	}
 	free(*ptr);
-	*ptr = NULL;
-	return (NULL);
+	*ptr = temp;
+	return (GNL_OK);
 }
 
-char	*get_next_line(int fd)
+t_status	gnl_strjoin(char **buf, char **ptr)
+{
+	char	*temp;
+
+	temp = ft_strjoin(*ptr, *buf);
+	if (!temp)
+		return (GNL_ERROR);
+	free(*buf);
+	*buf = NULL;
+	free(*ptr);
+	*ptr = temp;
+	return (GNL_OK);
+}
+
+t_status	get_next_line(char **line, int fd)
 {
 	static char	*ptr = NULL;
 	char		*buf;
-	char		*temp;
 	int			n;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (GNL_ERROR);
 	while (1)
 	{
-		if (find_newline(ptr) != -1)
-			return (free(buf), return_line(&ptr));
+		if (find_newline(ptr))
+			return (return_line(line, &ptr));
+		buf = malloc(BUFFER_SIZE + 1);
+		if (!buf)
+			return (exit_status(&ptr, GNL_ERROR));
 		n = read(fd, buf, BUFFER_SIZE);
 		if (n == -1)
-			return (free(ptr), ptr = NULL, free(buf), NULL);
+			return (free(buf), exit_status(&ptr, GNL_ERROR));
 		if (n == 0)
-			return (free(buf), last_line(&ptr));
+			return (free(buf), last_line(line, &ptr));
 		buf[n] = '\0';
-		temp = ft_strjoin(ptr, buf);
-		free(ptr);
-		ptr = temp;
+		if (gnl_strjoin(&buf, &ptr) == GNL_ERROR)
+			return (free(buf), exit_status(&ptr, GNL_ERROR));
 	}
-	return (free(buf), NULL);
 }
