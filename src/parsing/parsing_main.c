@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 19:50:04 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 20:48:06 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	is_valid_input(char *file, t_scene *scene)
 		if (*line && !is_newline(*line))
 		{
 			if (parse_line(line, scene, &element) == false)
-				return (free(line), false);
+				return (free(line), get_next_line(&line, fd), false);
 		}
 		free(line);
 		if (status == GNL_EOF)

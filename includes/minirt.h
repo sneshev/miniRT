@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 19:33:32 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 21:22:25 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 // int		init_minilibx(t_mlx_data *data);
 // void	free_data_exit(t_mlx_data *data, int exitcode);
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
+
+// dynamic array
+void	*make_dynamic_array(size_t in_capacity, size_t el_size);
+int		push(void *arr_ptr, void *elem);
 
 // temp
 void	print_vec3(char const *s, t_vec3 v);

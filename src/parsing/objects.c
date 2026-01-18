@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 19:39:08 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 21:21:37 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 	sphere.radius = 0.5f * diameter;
 	if (!valid_color(&(sphere.albedo), info[3]))
 		return (false);
-	scene->objs[0].sphere = sphere;
+	push(&(scene->objs), &sphere);
 	print_sphere(sphere);
 	return (true);
 }
@@ -45,7 +45,7 @@ bool	parse_plane(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(plane.albedo), info[3]))
 		return (false);
-	scene->objs[1].plane = plane;
+	push(&(scene->objs), &plane);
 	print_plane(plane);
 	return (true);
 }
@@ -69,7 +69,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
-	scene->objs[2].cylinder = cylinder;
+	push(&(scene->objs), &cylinder);
 	print_cylinder(cylinder);
 	return (true);
 }

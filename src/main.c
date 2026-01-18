@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 19:51:25 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 21:17:03 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int main(int argc, char *argv[])
 		return (1);
 
 	t_scene scene;
-	scene.objs = malloc(3 * sizeof(t_type));
+	// scene.objs = malloc(3 * sizeof(t_type));
+	scene.objs = make_dynamic_array(3, sizeof(t_type));
 	if (!scene.objs)
 		return (1);
 	printf("argv: %s\n", argv[1]);

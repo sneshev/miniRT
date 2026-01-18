@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dynamic_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 20:11:07 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/18 20:35:50 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	free_dynamic_array(void *arr_ptr)
 	free(meta);
 }
 
-void	*make_dynamic_array(size_t in_capacity, size_t el_size) {
+void	*make_dynamic_array(size_t in_capacity, size_t el_size)
+{
 	t_vec_meta	*meta;
 	void		*arr;
 	
