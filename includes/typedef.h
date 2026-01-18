@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/17 22:31:22 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 13:31:54 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_cylinder
 	t_vec3	center;
 	float	radius;
 	float	height;
-	t_vec3	dir_normal;
+	t_vec3	dir;
 	t_color	albedo;
 }			t_cylinder;
 
@@ -89,7 +89,7 @@ typedef struct s_plane
 {
 	bool 	(*intersect)(t_ray *ray, t_type *obj);
 	t_vec3	center;
-	t_vec3	dir_normal;
+	t_vec3	dir;
 	t_color	albedo;
 }		t_plane;
 

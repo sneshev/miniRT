@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/17 22:04:00 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 15:24:58 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 bool	is_space(char c)
 {
 	if (c == ' ')
+		return (true);
+	return (false);
+}
+
+bool	is_whitespace(char c)
+{
+	if (c == '\n' || c == ' ' || c == '\t' || c == '\v')
 		return (true);
 	return (false);
 }

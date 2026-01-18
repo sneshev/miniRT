@@ -60,17 +60,17 @@ void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov
 bool	parse_camera(char **info, t_camera *camera)
 {
 	t_vec3	viewpoint;
-	t_vec3	dir_normal;
+	t_vec3	dir;
 	float	hfov;
 
 	if (arr_count(info) != 4)
 		return (false);
 	if (!valid_position(&viewpoint, info[1]))
 		return (false);
-	if (!valid_dir_normal(&dir_normal, info[2]))
+	if (!valid_unit_direction(&dir, info[2]))
 		return (false);
 	if(!valid_hfov(&hfov, info[3]))
 		return (false);
-	setup_camera(camera, viewpoint, dir_normal, hfov);
+	setup_camera(camera, viewpoint, dir, hfov);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/17 21:39:02 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 13:30:56 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	valid_float(float *f, char *str)
 	return (true);
 }
 
-bool	valid_dir_normal(t_vec3 *dir_normal, char *str)
+bool	valid_unit_direction(t_vec3 *dir, char *str)
 {
 	char	**split;
 	float	f[3];
@@ -65,8 +65,8 @@ bool	valid_dir_normal(t_vec3 *dir_normal, char *str)
 		return (free_arr(split), false);
 	if (!valid_float(&(f[2]), split[2]))
 		return (free_arr(split), false);
-	*dir_normal = (t_vec3){f[0], f[1], f[2]};
-	if (length(*dir_normal) != 1.0f)
+	*dir = (t_vec3){f[0], f[1], f[2]};
+	if (length(*dir) != 1.0f)
 		return (free_arr(split), false);
 	free_arr(split);
 	return (true);

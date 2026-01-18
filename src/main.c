@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/17 22:06:00 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 13:43:11 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,23 @@ void	print_scene(t_scene *scene)
 	printf("\n");
 	
 	// print sphere
-	print_vec3("sp center", scene->objs->sphere.center);
-	printf("sp radius: %f\n", scene->objs->sphere.radius);
-	print_color("sp albedo", scene->objs->sphere.albedo);
+	print_vec3("sp center", scene->objs[0].sphere.center);
+	printf("sp radius: %f\n", scene->objs[0].sphere.radius);
+	print_color("sp albedo", scene->objs[0].sphere.albedo);
 	printf("\n");
+
+	// print plane
+	print_vec3("pl center", scene->objs[1].plane.center);
+	print_vec3("pl dir", scene->objs[1].plane.dir);
+	print_color("pl albedo", scene->objs[1].plane.albedo);
+	printf("\n");
+
+	// print cylinder
+	print_vec3("cy center", scene->objs[2].cylinder.center);
+	print_vec3("cy dir", scene->objs[2].cylinder.dir);
+	printf("cy radius: %f\n", scene->objs[2].cylinder.radius);
+	printf("cy height: %f\n", scene->objs[2].cylinder.height);
+	print_color("cy albedo", scene->objs[2].cylinder.albedo);
 }
 
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
@@ -49,7 +62,7 @@ int main(int argc, char *argv[])
 		return (1);
 
 	t_scene scene;
-	scene.objs = malloc(sizeof(t_type));
+	scene.objs = malloc(3 * sizeof(t_type));
 	if (!scene.objs)
 		return (1);
 	printf("argv: %s\n", argv[1]);
