@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 17:54:43 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/18 18:53:55 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include <float.h>
 # include "../libft/libft.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
@@ -32,6 +33,19 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, uint32_t color);
 
 // main
 
+
+// new
+t_ray	new_ray(t_vec3 *in_origin, t_vec3 *in_direction);
+t_type	new_sphere(t_vec3 in_center, float in_radius, t_color in_albedo);
+
+
+
+
+// dynamic array
+size_t	get_count(void	*arr_ptr);
+void	*make_dynamic_array(size_t in_capacity, size_t el_size);
+int		push(void *arr_ptr, void *elem);
+void	free_dynamic_array(void *arr_ptr);
 
 // parsing
 bool	is_valid_input(char *file, t_scene *scene);
