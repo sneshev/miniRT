@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/18 13:31:54 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 18:51:26 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPEDEF_H
 
 # include <stdbool.h>
+# include <stdint.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 typedef union u_type t_type;
@@ -55,11 +56,19 @@ typedef struct s_ray
 // ALBEDO = the color of a specifik material, like red acrylic paint
 // would (obviously) be red
 // ATTENUATION = how much the light weakens the more it bounces
-typedef struct s_color
+
+typedef struct s_rgb
 {
-	int	r;
-	int	g;
-	int	b;
+	uint8_t	a;
+	uint8_t	b;
+	uint8_t	g;
+	uint8_t	r;
+}			t_rgb;
+
+typedef union u_color
+{
+	t_rgb		rgb;
+	uint32_t	value;
 }			t_color;
 
 typedef struct s_object
@@ -113,11 +122,12 @@ typedef struct s_light
 {
 	t_vec3	origin;
 	float	brightness;
+	t_color	albedo;
 }			t_light;
 
 typedef struct s_ambient
 {
-	float	color;
+	float	lightness;
 	t_color	albedo;
 }			t_ambient;
 

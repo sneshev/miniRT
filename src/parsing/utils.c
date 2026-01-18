@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 15:24:58 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 19:45:01 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	is_space(char c)
+bool	is_comma(char c)
 {
-	if (c == ' ')
+	if (c == ',')
 		return (true);
 	return (false);
 }
 
 bool	is_whitespace(char c)
 {
-	if (c == '\n' || c == ' ' || c == '\t' || c == '\v')
+	if (c == ' ' || c == '\t' || c == '\v' || c == '\f' || c == '\r')
 		return (true);
 	return (false);
 }
@@ -35,6 +35,8 @@ bool	is_newline(char c)
 
 int	str_diff(char *s1, char *s2)
 {
+	if (!s1 || !s2)
+		return (1);
 	while (*s1 && *s2)
 	{
 		if (*s1 != *s2)
@@ -45,47 +47,10 @@ int	str_diff(char *s1, char *s2)
 	return (*s1 - *s2);
 }
 
-bool	valid_rgb(int *n, char *str)
+void	init_element(t_element *element)
 {
-	if (ft_strlen(str) > 3 || !ft_strlen(str))
-		return (false);
-	*n = 0;
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (false);
-		*n += (*str - '0');
-		str++;
-		if (*str)
-			*n *= 10;
-	}
-	if (*n < 0 || *n > 255)
-		return (false);
-	return (true);
+	element->camera = false;
+	element->ambient = false;
+	element->light = false;
 }
 
-bool	valid_decimal(float *d, char *str)
-{
-	float	divide;
-
-	*d = 0.0f;
-	divide = 10.0f;
-	if (*str == '.' && !*(str + 1))
-		return (false);
-	if (*str)
-		str++;
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (false);
-		*d += (*str - '0');
-		str++;
-		if (*str)
-		{
-			*d *= 10.0f;
-			divide *= 10.0f;
-		}
-	}
-	*d /= divide;
-	return (true);
-}

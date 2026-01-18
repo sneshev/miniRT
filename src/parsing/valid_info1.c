@@ -1,52 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_info.c                                       :+:      :+:    :+:   */
+/*   valid_info1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 13:30:56 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 19:20:35 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-bool	valid_hfov(float *hfov, char *str)
+bool	valid_element(char identifyer, t_element *element)
 {
-	if (!valid_float(hfov, str))
-		return (false);
-	if (*hfov < 1.0f || *hfov > 179.0f)
-		return (false);
-	return (true);
-}
-
-bool	valid_float(float *f, char *str)
-{
-	float	sign;
-	float	d;
-
-	*f = 0.0f;
-	sign = 1.0f;
-	if (*str == '-')
-		sign = -1.0f;
-	if (*str == '-' || *str == '+')
-		str++;
-	if (*str == '.' || !ft_strlen(str) || ft_strlen(str) > 7)
-		return (false);
-	while (*str && *str != '.')
+	if (identifyer == 'C')
 	{
-		if (!ft_isdigit(*str))
+		if (!element->camera)
+			element->camera = true;
+		else
 			return (false);
-		*f += (*str - '0');
-		str++;
-		if (*str && *str != '.')
-			*f *= 10.0f;
 	}
-	if (!valid_decimal(&d, str))
-		return (false);
-	*f = (*f + d) * sign;
-	return (true);
+	else if (identifyer == 'A')
+	{
+		if (!element->ambient)
+			element->ambient = true;
+		else
+			return (false);
+	}
+	else if (identifyer == 'L')
+	{
+		if (!element->light)
+			element->light = true;
+		else
+			element->light = false;
+	}
+	return (true);	
 }
 
 bool	valid_unit_direction(t_vec3 *dir, char *str)
@@ -54,7 +43,7 @@ bool	valid_unit_direction(t_vec3 *dir, char *str)
 	char	**split;
 	float	f[3];
 
-	split = ft_split(str, ',');
+	split = ft_split(str, is_comma);
 	if (!split)
 		return (false);
 	if (arr_count(split) != 3)
@@ -77,7 +66,7 @@ bool	valid_position(t_vec3 *pos, char *str)
 	char	**split;
 	float	f[3];
 
-	split = ft_split(str, ',');
+	split = ft_split(str, is_comma);
 	if (!split)
 		return (false);
 	if (arr_count(split) != 3)
@@ -93,21 +82,42 @@ bool	valid_position(t_vec3 *pos, char *str)
 	return (true);
 }
 
+bool	valid_rgb(uint8_t *rgb, char *str)
+{
+	int	n;
+	if (ft_strlen(str) > 3 || !ft_strlen(str))
+		return (false);
+	n = 0;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (false);
+		n = n * 10 + (*str - '0');
+		str++;
+	}
+	if (n < 0 || n > 255)
+		return (false);
+	*rgb = (uint8_t)n;
+	return (true);
+}
+
 bool	valid_color(t_color *color, char *str)
 {
 	char	**split;
+	t_rgb	rgb;
 	
-	split = ft_split(str, ',');
+	split = ft_split(str, is_comma);
 	if (!split)
 		return (false);
 	if (arr_count(split) != 3)
 		return (free_arr(split), false);
-	if (!valid_rgb(&(color->r), split[0]))
+	if (!valid_rgb(&(rgb.r), split[0]))
 		return (free_arr(split), false);
-	if (!valid_rgb(&(color->g), split[1]))
+	if (!valid_rgb(&(rgb.g), split[1]))
 		return (free_arr(split), false);
-	if (!valid_rgb(&(color->b), split[2]))
+	if (!valid_rgb(&(rgb.b), split[2]))
 		return (free_arr(split), false);
 	free_arr(split);
+	color->rgb = rgb;
 	return (true);
 }

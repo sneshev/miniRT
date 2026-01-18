@@ -6,15 +6,19 @@
 #    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/17 21:30:50 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/01/18 19:35:00 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
 
-SRCS := src/main.c src/mlx.c src/utils.c src/vec3.c \
-		src/parsing/parsing_main.c src/parsing/parse_camera.c \
-		src/parsing/parsing_utils.c src/parsing/parse_objects.c src/parsing/parse_info.c
+PARSING := src/parsing
+
+SRCS := src/main.c src/mlx.c src/utils.c src/vec3.c src/temp.c\
+		$(PARSING)/parsing_main.c $(PARSING)/elements.c $(PARSING)/objects.c \
+		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils.c \
+		$(PARSING)/camera_utils.c
+		
 		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 

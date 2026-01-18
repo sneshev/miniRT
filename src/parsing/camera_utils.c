@@ -1,16 +1,16 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_camera.c                                     :+:      :+:    :+:   */
+/*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 20:45:29 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/17 20:55:56 by winnitytrin      ###   ########.fr       */
+/*   Created: 2026/01/18 18:32:27 by winnitytrin       #+#    #+#             */
+/*   Updated: 2026/01/18 18:35:28 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "parsing.h"
 
 int vec3_compare(t_vec3 v1, t_vec3 v2)
 {
@@ -55,22 +55,4 @@ void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov
 	cam->horizontal = width * ortho[U];
 	cam->vertical = height * ortho[V];
 	cam->upper_left = center - 0.5f * cam->horizontal + 0.5f * cam->vertical;
-}
-
-bool	parse_camera(char **info, t_camera *camera)
-{
-	t_vec3	viewpoint;
-	t_vec3	dir;
-	float	hfov;
-
-	if (arr_count(info) != 4)
-		return (false);
-	if (!valid_position(&viewpoint, info[1]))
-		return (false);
-	if (!valid_unit_direction(&dir, info[2]))
-		return (false);
-	if(!valid_hfov(&hfov, info[3]))
-		return (false);
-	setup_camera(camera, viewpoint, dir, hfov);
-	return (true);
 }

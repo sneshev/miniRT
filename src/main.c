@@ -6,51 +6,22 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 13:43:11 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 19:51:25 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
+// {
+// 	t_vec3	hitpoint;
 
-void	print_vec3(char const *s, t_vec3 v)
-{
-	printf("%s: %f, %f, %f\n", s, v[X], v[Y], v[Z]);
-}
-
-void	print_color(char const *s, t_color color)
-{
-	printf("%s: %d, %d, %d\n", s, color.r, color.g, color.b);
-}
-
-void	print_scene(t_scene *scene)
-{
-	// print camera
-	print_vec3("C origin", scene->camera.origin);
-	print_vec3("C upper_left", scene->camera.upper_left);
-	print_vec3("C horizontal", scene->camera.horizontal);
-	print_vec3("C vertical", scene->camera.vertical);
-	printf("\n");
-	
-	// print sphere
-	print_vec3("sp center", scene->objs[0].sphere.center);
-	printf("sp radius: %f\n", scene->objs[0].sphere.radius);
-	print_color("sp albedo", scene->objs[0].sphere.albedo);
-	printf("\n");
-
-	// print plane
-	print_vec3("pl center", scene->objs[1].plane.center);
-	print_vec3("pl dir", scene->objs[1].plane.dir);
-	print_color("pl albedo", scene->objs[1].plane.albedo);
-	printf("\n");
-
-	// print cylinder
-	print_vec3("cy center", scene->objs[2].cylinder.center);
-	print_vec3("cy dir", scene->objs[2].cylinder.dir);
-	printf("cy radius: %f\n", scene->objs[2].cylinder.radius);
-	printf("cy height: %f\n", scene->objs[2].cylinder.height);
-	print_color("cy albedo", scene->objs[2].cylinder.albedo);
-}
+// 	hitpoint = cam->upper_left + h * cam->horizontal - v * cam->vertical;
+// 	ray->origin = cam->origin;
+// 	ray->direction = hitpoint - ray->origin;
+// 	ray->closest_t = -1.0f;
+// 	ray->attenuation = ?;
+// }
 
 // void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
 // 		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
@@ -68,6 +39,7 @@ int main(int argc, char *argv[])
 	printf("argv: %s\n", argv[1]);
 	if (is_valid_input(argv[1], &scene) == false)
 	{	printf("\nINVALID INPUT\n\n");
+		free(scene.objs);
 		return (1);
 	}
 	printf("\nVALID INPUT\n\n");

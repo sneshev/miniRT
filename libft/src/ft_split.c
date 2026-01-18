@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 16:54:47 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 17:34:33 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/18 17:34:43 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	word_count(char const *s, char c)
+static int	word_count(char const *s, bool (*is_whitespace)(char))
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
-		while (s[i] == c)
+		while (is_whitespace(s[i]))
 			i++;
-		if (s[i] != '\0')
+		if (s[i])
 		{
 			j++;
-			while (s[i] != c && s[i] != '\0')
+			while (s[i] && !is_whitespace(s[i]))
 				i++;
 		}
 	}
@@ -47,7 +47,7 @@ static char	**free_array(char **arr, int x)
 	return (NULL);
 }
 
-static char	**litsplit(char **arr, char const *s, char c)
+static char	**split_str(char **arr, char const *s, bool (*is_whitespace)(char))
 {
 	int	i;
 	int	x;
@@ -56,17 +56,17 @@ static char	**litsplit(char **arr, char const *s, char c)
 	i = 0;
 	x = 0;
 	start = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
-		while (s[i] == c)
+		while (is_whitespace(s[i]))
 			i++;
-		if (s[i] == '\0')
+		if (!s[i])
 			break ;
 		start = i;
-		while (s[i] != c && s[i] != '\0')
+		while (s[i] && !is_whitespace(s[i]))
 			i++;
 		arr[x] = ft_substr(s, start, i - start);
-		if (arr[x] == NULL)
+		if (!arr[x])
 			return (free_array(arr, x));
 		x++;
 	}
@@ -74,27 +74,30 @@ static char	**litsplit(char **arr, char const *s, char c)
 	return (arr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, bool (*is_whitespace)(char))
 {
 	char	**arr;
 
-	arr = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (arr == NULL)
+	arr = (char **)malloc(sizeof(char *) * (word_count(s, is_whitespace) + 1));
+	if (!arr)
 		return (NULL);
-	return (litsplit(arr, s, c));
+	return (split_str(arr, s, is_whitespace));
 }
+
 // int	main(void)
 // {
-// 	const char *s = "-50.0,0,20";
-// 	char **result = ft_split(s, ',');
-// 	if(!result)
-// 		return (0);
-// 	int	i = 0;
+// 	const char	*s = "hello 	how	are.   you 	\n";
+// 	char		**result = split(s, is_whitespace);
+// 	int			i;
+
+// 	if (!result)
+// 		return (1);
+// 	i = 0;
+// 	printf("%s\n", s);
 // 	while (result[i])
 // 	{
 // 		printf("result[%d]: %s\n", i, result[i]);
 // 		i++;
 // 	}
-// 	free_array(result, word_count(s, ' '));
-// 	return (0);
+// 	free_array(result, i);
 // }
