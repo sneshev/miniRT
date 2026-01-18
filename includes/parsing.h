@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 18:45:59 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 22:35:43 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,23 @@ typedef struct e_element
 	bool	light;
 }			t_element;
 
+typedef enum e_error
+{
+	FORMAT,
+	CAMERA,
+	AMBIENT,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	CYLINDER,
+	ELEMENT,
+	DOUBLE,
+	MALLOC
+}			t_error;
+
 // parsing main
-bool	is_valid_input(char *file, t_scene *scene);
+void	print_error(t_error error);
+bool	valid_input(char *file, t_scene *scene);
 
 // elements
 bool	parse_camera(char **info, t_camera *camera);

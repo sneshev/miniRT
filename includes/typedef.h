@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/18 18:51:26 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 22:38:57 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,7 @@
 # include <stdint.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
-typedef union u_type t_type;
-
-typedef enum e_return_code
-{
-	SUCCES,
-	INVALID_VEC3,
-	INVALID_FLOAT,
-	MALLOC_ERROR,
-}			t_return_code;
+typedef union 	u_type t_type;
 
 typedef struct s_img_info
 {
@@ -65,6 +57,13 @@ typedef struct s_rgb
 	uint8_t	r;
 }			t_rgb;
 
+typedef enum e_obj_type
+{
+	SP,
+	PL,
+	CY
+}			t_obj_type;
+
 typedef union u_color
 {
 	t_rgb		rgb;
@@ -73,33 +72,37 @@ typedef union u_color
 
 typedef struct s_object
 {
-	bool (*intersect)(t_ray * ray, t_type * obj);
+	t_obj_type	type;
+	bool 		(*intersect)(t_ray * ray, t_type * obj);
 }				t_object;
 
 typedef struct s_sphere
 {
-	bool 	(*intersect)(t_ray *ray, t_type *obj);
-	t_vec3	center;
-	float	radius;
-	t_color	albedo;
+	t_obj_type	type;
+	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	t_vec3		center;
+	float		radius;
+	t_color		albedo;
 }			t_sphere;
 
 typedef struct s_cylinder
 {
-	bool 	(*intersect)(t_ray *ray, t_type *obj);
-	t_vec3	center;
-	float	radius;
-	float	height;
-	t_vec3	dir;
-	t_color	albedo;
+	t_obj_type	type;
+	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	t_vec3		center;
+	float		radius;
+	float		height;
+	t_vec3		dir;
+	t_color		albedo;
 }			t_cylinder;
 
 typedef struct s_plane
 {
-	bool 	(*intersect)(t_ray *ray, t_type *obj);
-	t_vec3	center;
-	t_vec3	dir;
-	t_color	albedo;
+	t_obj_type	type;
+	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	t_vec3		center;
+	t_vec3		dir;
+	t_color		albedo;
 }		t_plane;
 
 typedef union u_type

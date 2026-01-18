@@ -6,36 +6,84 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 20:48:06 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 22:56:57 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	parse_line(char *line, t_scene *scene, t_element *element)
+int	parse_element(char **info, t_element *element, t_scene *scene)
+{
+	if (!str_diff(*info, "C"))
+	{
+		if (!valid_element('C', element))
+			return (-1);
+		if (parse_camera(info, &(scene->camera)) == false)
+			return (print_error(CAMERA), -1);
+		return (1);
+	}
+	else if (!str_diff(*info, "A"))
+	{
+		if (!valid_element('A', element))
+			return (-1);
+		if (parse_ambient(info, &(scene->ambient)) == false)
+			return (print_error(AMBIENT), -1);
+		return (1);
+	}
+	else if (!str_diff(*info, "L"))
+	{
+		if (!valid_element('L', element))
+			return (-1);
+		if (parse_light(info, &(scene->light)) == false)
+			return (print_error(LIGHT), -1);
+		return (1);
+	}
+	return (0);
+}
+
+int	parse_object(char **info, t_scene *scene)
+{
+	if (!str_diff(*info, "sp"))
+	{
+		if (parse_sphere(info, scene) == false)
+			return (print_error(SPHERE), -1);
+		return (1);
+	}
+	else if (!str_diff(*info, "pl"))
+	{
+		if (parse_plane(info, scene) == false)
+			return (print_error(PLANE), -1);
+		return (1);
+	}
+	else if (!str_diff(*info, "cy"))
+	{
+		if (parse_cylinder(info, scene) == false)
+			return (print_error(CYLINDER), -1);
+		return (1);
+	}
+	return (0);
+}
+
+bool	parse_line(char *line, t_element *element, t_scene *scene)
 {
 	char	**info;
-	bool	ret_status;
-
+	int		state;
+	
 	info = ft_split(line, is_whitespace);
 	if (!info)
-		return (false);
-	if (!str_diff(*info, "C") && valid_element('C', element))
-		ret_status = parse_camera(info, &(scene->camera));
-	else if (!str_diff(*info, "A") && valid_element('A', element))
-		ret_status = parse_ambient(info, &(scene->ambient));
-	else if (!str_diff(*info, "L") && valid_element('L', element))
-		ret_status = parse_light(info, &(scene->light));
-	else if (!str_diff(*info, "sp"))
-		ret_status = parse_sphere(info, scene);
-	else if (!str_diff(*info, "pl"))
-		ret_status = parse_plane(info, scene);
-	else if (!str_diff(*info, "cy"))
-		ret_status = parse_cylinder(info, scene);
-	else
-		ret_status = false;
-	free_arr(info);
-	return (ret_status);
+		return (print_error(MALLOC), false);
+	state = parse_element(info, element, scene);
+	if (state == -1)
+		return (free_arr(info), false);
+	if (state == 1)
+		return (free_arr(info), true);
+	state = parse_object(info, scene);
+	if (state == -1)
+		return (free_arr(info), false);
+	if (state == 1)
+		return (free_arr(info), true);
+	print_error(ELEMENT);
+	return (free_arr(info), false);		
 }
 
 bool	check_line(char **line)
@@ -47,11 +95,11 @@ bool	check_line(char **line)
 		(*line)[len - 1] = '\0';
 	if (is_whitespace(**line) ||
 		is_whitespace((*line)[ft_strlen(*line) - 1]))
-		return (false);
+		return (print_error(FORMAT), false);
 	return (true);
 }
 
-bool	is_valid_input(char *file, t_scene *scene)
+bool	valid_input(char *file, t_scene *scene)
 {
 	int			fd;
 	char		*line;
@@ -64,17 +112,18 @@ bool	is_valid_input(char *file, t_scene *scene)
 	{
 		status = get_next_line(&line, fd);
 		if (status == GNL_ERROR)
-			return (false);
+			return (print_error(MALLOC), false);
 		if (*line && check_line(&line) == false)
-			return (free(line), false);
+			return (free(line), get_next_line(&line, -1), false);
 		if (*line && !is_newline(*line))
 		{
-			if (parse_line(line, scene, &element) == false)
-				return (free(line), get_next_line(&line, fd), false);
+			if (parse_line(line, &element, scene) == false)
+				return (free(line), get_next_line(&line, -1), false);
 		}
 		free(line);
 		if (status == GNL_EOF)
 			break ;
 	}
+	printf("SUCCESS\n");
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:15:51 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 19:10:43 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 22:37:49 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@ bool	valid_hfov(float *hfov, char *str)
 		return (false);
 	if (*hfov < 1.0f || *hfov > 179.0f)
 		return (false);
+	return (true);
+}
+
+bool	valid_unit_direction(t_vec3 *dir, char *str)
+{
+	char	**split;
+	float	f[3];
+
+	split = ft_split(str, is_comma);
+	if (!split)
+		return (false);
+	if (arr_count(split) != 3)
+		return (free_arr(split), false);
+	if (!valid_float(&(f[0]), split[0]))
+		return (free_arr(split), false);
+	if (!valid_float(&(f[1]), split[1]))
+		return (free_arr(split), false);
+	if (!valid_float(&(f[2]), split[2]))
+		return (free_arr(split), false);
+	*dir = (t_vec3){f[0], f[1], f[2]};
+	if (length(*dir) != 1.0f)
+		return (free_arr(split), false);
+	free_arr(split);
 	return (true);
 }
 

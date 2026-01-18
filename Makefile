@@ -6,7 +6,7 @@
 #    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/18 21:23:26 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/01/18 23:05:44 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,17 @@ SRCS := src/main.c src/mlx.c src/utils.c src/vec3.c src/temp.c src/dynamic_array
 		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
-# MLX_FLAGS	:= -Lmlx_linux -lmlx -lXext -lX11 -lz
-# MLX_DIR		:= mlx_linux
-# MLX_INC		:= -Imlx_linux
+MLX_FLAGS	:= -Lmlx_linux -lmlx -lXext -lX11 -lz
+MLX_DIR		:= mlx_linux
+MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
 
-CC := cc -Wall -Werror -Wextra -g -Iincludes -O0
-# $(MLX_INC)
+CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O0
 
 RM := rm -rf
 
-all: $(LIBFT) .obj $(NAME)
-# minilibx
+all: $(LIBFT) minilibx .obj $(NAME)
 
 .obj:
 	mkdir -p .obj
@@ -42,12 +40,11 @@ all: $(LIBFT) .obj $(NAME)
 $(LIBFT):
 	make -C libft
 
-# minilibx:
-# 	@[ -f "$(MLX_DIR)/libmlx.a" ] || (cd $(MLX_DIR) && make)
+minilibx:
+	@[ -f "$(MLX_DIR)/libmlx.a" ] || (cd $(MLX_DIR) && make)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(OBJS) -Llibft -lm -lft -o $(NAME)
-#  $(MLX_FLAGS)
+	$(CC) $(OBJS) $(MLX_FLAGS) -Llibft -lm -lft -o $(NAME)
 
 .obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
@@ -63,5 +60,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
-# minilibx
+.PHONY: all clean fclean re minilibx

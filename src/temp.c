@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 19:33:12 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 19:33:26 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 22:39:11 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,30 @@ void	print_cylinder(t_cylinder cylinder)
 	printf("cy radius: %f\n", cylinder.radius);
 	printf("cy height: %f\n", cylinder.height);
 	print_color("cy albedo", cylinder.albedo);
+	printf("\n");
 }
 
 void	print_scene(t_scene *scene)
 {
+	t_object	obj;
+	int			obj_count;
+	int			i;
+
 	print_camera(scene->camera);
 	print_ambient(scene->ambient);
 	print_light(scene->light);
-	print_sphere(scene->objs[0].sphere);
-	print_plane(scene->objs[1].plane);
-	print_cylinder(scene->objs[2].cylinder);
+	
+	obj_count = get_count(&scene->objs);
+	i = 0;
+	while (obj_count > i)
+	{
+		obj = scene->objs[i].object;
+		if (obj.type == SP)
+			print_sphere(scene->objs[i].sphere);
+		else if (obj.type == PL)
+			print_plane(scene->objs[i].plane);
+		else if (obj.type == CY)
+			print_cylinder(scene->objs[i].cylinder);
+		i++;	
+	}
 }
