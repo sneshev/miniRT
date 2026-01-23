@@ -3,30 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   dynamic_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 20:35:50 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/23 07:27:07 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-size_t	get_count(void	*arr_ptr);
-void	*make_dynamic_array(size_t in_capacity, size_t el_size);
-int		push(void *arr_ptr, void *elem);
-void	free_dynamic_array(void *arr_ptr);
-
+#include "dynamicarr.h"
 /* create ft_realloc */
+/* fix ft_memcpy err */
+
+#include <string.h>
 
 #define DARR_EXPAN_ADD 4
 #define DARR_EXPAN_MUL 1
-
-typedef struct s_vec_meta
-{
-	size_t	count;
-	size_t	capacity;
-	size_t	elem_size;
-}	t_vec_meta;
 
 
 static t_vec_meta	*access_meta(void *arr)
@@ -100,7 +91,8 @@ int	push(void *arr_ptr, void *elem)
 			return (-1);
 		meta = access_meta(*arr);
 	}
-	ft_memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
+	memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
+	// ft_memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
 	meta->count++;
 	return (1);
 }
