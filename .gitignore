@@ -1,5 +1,6 @@
+libft/obj
+libft/libft.a
+obj/*.o
 .obj
-obj
 miniRT
-libft
 mlx_linux

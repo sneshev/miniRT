@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 13:41:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/17 18:08:09 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/18 20:42:00 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_status	get_next_line(char **line, int fd)
 	int			n;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
-		return (GNL_ERROR);
+		return (exit_status(&ptr, GNL_ERROR));
 	while (1)
 	{
 		if (find_newline(ptr))
