@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 22:59:46 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/23 08:31:36 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+bool	intersect_pl(t_ray *ray, t_object *obj);
+bool	intersect_sph(t_ray *ray, t_object *obj);
+bool	intersect_cyl(t_ray *ray, t_object *obj);
+
 
 bool	parse_sphere(char **info, t_scene *scene)
 {
@@ -27,6 +32,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 	if (!valid_color(&(sphere.albedo), info[3]))
 		return (false);
 	sphere.type = SP;
+	sphere.intersect = intersect_sph;
 	push(&(scene->objs), &sphere);
 	return (true);
 }
@@ -44,6 +50,7 @@ bool	parse_plane(char **info, t_scene *scene)
 	if (!valid_color(&(plane.albedo), info[3]))
 		return (false);
 	plane.type = PL;
+	plane.intersect = intersect_pl;
 	push(&(scene->objs), &plane);
 	return (true);
 }
@@ -67,6 +74,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
 	cylinder.type = CY;
+	cylinder.intersect = intersect_cyl;
 	push(&(scene->objs), &cylinder);
 	return (true);
 }

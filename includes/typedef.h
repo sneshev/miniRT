@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/18 22:38:57 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/23 08:29:21 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,18 @@ typedef union u_color
 	uint32_t	value;
 }			t_color;
 
+typedef struct s_object t_object;
+
 typedef struct s_object
 {
 	t_obj_type	type;
-	bool 		(*intersect)(t_ray * ray, t_type * obj);
+	bool 		(*intersect)(t_ray * ray, t_object * obj);
 }				t_object;
 
 typedef struct s_sphere
 {
 	t_obj_type	type;
-	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		center;
 	float		radius;
 	t_color		albedo;
@@ -88,7 +90,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_obj_type	type;
-	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		center;
 	float		radius;
 	float		height;
@@ -99,7 +101,7 @@ typedef struct s_cylinder
 typedef struct s_plane
 {
 	t_obj_type	type;
-	bool 		(*intersect)(t_ray *ray, t_type *obj);
+	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		center;
 	t_vec3		dir;
 	t_color		albedo;

@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/23 07:25:14 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/23 08:18:41 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@
 # define HEIGHT	500
 # define WIDTH	750
 
+// intersect
+bool	intersect_objs(t_ray *ray, t_type objs[]);
+
 // mlx stuff
 int		init_minilibx(t_mlx_data *data);
 void	free_data_exit(t_mlx_data *data, int exitcode);
-// void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
+void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
 
 // temp
 void	print_vec3(char const *s, t_vec3 v);
@@ -47,6 +50,7 @@ void	print_scene(t_scene *scene);
 void	free_arr(char **arr);
 void	print_arr(char **arr);
 int		arr_count(char **arr);
+
 
 
 #endif

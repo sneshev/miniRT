@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
+#    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/18 23:05:44 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/01/23 08:34:01 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ PARSING := src/parsing
 SRCS := src/main.c src/mlx.c src/utils.c src/vec3.c src/temp.c src/dynamic_array.c \
 		$(PARSING)/parsing_main.c $(PARSING)/elements.c $(PARSING)/objects.c \
 		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils.c \
-		$(PARSING)/camera_utils.c
+		$(PARSING)/camera_utils.c \
+		src/intersect.c
 		
 		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
