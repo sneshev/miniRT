@@ -4,11 +4,9 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 {
 	(void)ray;
 	t_plane *pl = (t_plane *)obj;	
-	printf("hi"); fflush(NULL);
-	print_vec3("normal", pl->normal); fflush(NULL);
-	print_vec3("dir", ray->direction); fflush(NULL);
-	float denom = dot(pl->normal, ray->direction);
-	float t = dot(pl->point, pl->normal) / denom;
+	float denom = dot(&pl->normal, &ray->direction);
+	t_vec3 dist = pl->point - ray->origin;
+	float t = dot(&dist, &pl->normal) / denom;
 
 	if (t < ray->closest_t && t > T_MIN)
 	{

@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/23 08:58:59 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/24 17:47:38 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
+typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4)))); //size == 16
 typedef union 	u_type t_type;
 
 typedef struct s_img_info
@@ -26,6 +26,18 @@ typedef struct s_img_info
 	int		endian;
 	char	*addr;
 }				t_img_info;
+
+// int bpp              | int line_len        |
+//	byte byte byte byte | byte byte byte byte | byte byte byte byte | 
+
+
+// char c	............| int bpp
+//	byte byte byte byte | byte byte byte byte | byte byte byte byte | 
+
+
+// char c	..................................| int bpp
+//	byte byte byte byte | byte byte byte byte | byte byte byte byte | 
+
 
 typedef struct s_mlx_data
 {
@@ -108,6 +120,10 @@ typedef struct s_plane
 	t_vec3		normal;
 	t_color		albedo;
 }		t_plane;
+
+
+
+
 
 typedef union u_type
 {

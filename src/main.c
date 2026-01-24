@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/23 09:07:03 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/24 20:20:12 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 		return (1);
 	if (valid_input(argv[1], &scene) == false)
 		return (free_dynamic_array(&scene), 1);
-	print_scene(&scene);
+	// print_scene(&scene);
 	if (!init_minilibx(&data))
 		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
 

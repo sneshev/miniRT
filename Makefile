@@ -6,7 +6,7 @@
 #    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/23 08:34:01 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/24 08:17:03 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
 
-CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O0
+CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O0 -mpreferred-stack-boundary=4
 
 RM := rm -rf
 

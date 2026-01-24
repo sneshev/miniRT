@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/23 08:57:28 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/24 07:32:10 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_data_exit(t_mlx_data *data, int exitcode);
 void	put_image_pixel(t_mlx_data *data, int x, int y, t_color color);
 
 // temp
-void	print_vec3(char const *s, t_vec3 v);
+void	print_vec3(char const *s, t_vec3 *v);
 void	print_color(char const *s, t_color color);
 void	print_camera(t_camera camera);
 void	print_ambient(t_ambient ambient);

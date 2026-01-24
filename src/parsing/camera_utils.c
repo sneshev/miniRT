@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils2.c                                     :+:      :+:    :+:   */
+/*   camera_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:32:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 18:35:28 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/24 07:44:04 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 	up = (t_vec3){0.0f, 1.0f, 0.0f};
 	if (vec3_compare(up, ortho[W]) == 0)
 		up = (t_vec3){0.0f, 0.0f, -1.0f};
-	ortho[U] = cross(up, ortho[W]);
+	ortho[U] = cross(&up, &ortho[W]);
 	normalize(&ortho[U]);
-	ortho[V] = cross(ortho[W], ortho[U]);
+	ortho[V] = cross(&ortho[W], &ortho[U]);
 	normalize(&ortho[V]);
 }
 
