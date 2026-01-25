@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dynamic_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/23 08:30:16 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/25 15:47:00 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	reallocate_array(t_vec_meta **meta_p, void **arr)
 	return (1);
 }
 
-int	push(void *arr_ptr, void *elem)
+int	push(void *arr_ptr, void *elem, size_t el_size)
 {
 	t_vec_meta	*meta;
 	void 		**arr;
@@ -91,7 +91,9 @@ int	push(void *arr_ptr, void *elem)
 			return (-1);
 		meta = access_meta(*arr);
 	}
-	memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
+	if (el_size <= 0)
+		el_size = meta->elem_size;
+	memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, el_size);
 	// ft_memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
 	meta->count++;
 	return (1);

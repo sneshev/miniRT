@@ -4,7 +4,7 @@
 # include <stdlib.h>
 
 
-typedef struct s_vec_meta
+typedef struct __attribute__((aligned(16))) s_vec_meta
 {
 	size_t	count;
 	size_t	capacity;
@@ -15,7 +15,7 @@ typedef struct s_vec_meta
 void	free_dynamic_array(void *arr_ptr);
 size_t	get_count(void	*arr_ptr);
 void	*make_dynamic_array(size_t in_capacity, size_t el_size);
-int		push(void *arr_ptr, void *elem);
+int		push(void *arr_ptr, void *elem, size_t el_size);
 
 
 

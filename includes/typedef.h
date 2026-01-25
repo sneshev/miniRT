@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/25 14:53:41 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/25 15:49:17 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ typedef union u_color
 
 typedef struct s_object t_object;
 
-typedef struct ALIGN16 s_object
+typedef struct s_object
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray * ray, t_object * obj);
 }				t_object;
 
-typedef struct ALIGN16 s_sphere
+typedef struct s_sphere
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -89,7 +89,7 @@ typedef struct ALIGN16 s_sphere
 	t_color		albedo;
 }			t_sphere;
 
-typedef struct ALIGN16 s_cylinder
+typedef struct s_cylinder
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -100,7 +100,7 @@ typedef struct ALIGN16 s_cylinder
 	t_color		albedo;
 }			t_cylinder;
 
-typedef struct ALIGN16 s_plane
+typedef struct s_plane
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -109,7 +109,7 @@ typedef struct ALIGN16 s_plane
 	t_color		albedo;
 }		t_plane;
 
-typedef union ALIGN16 u_type
+typedef union u_type
 {
 	t_sphere	sphere;
 	t_cylinder	cylinder;
@@ -145,6 +145,16 @@ typedef struct s_scene
 	t_camera		camera;
 	t_light			light;
 	t_ambient		ambient;
+}				t_scene;
+
+typedef struct s_scene
+{
+	t_camera	camera;
+	t_light		light;
+	t_ambient	ambient;
+	t_sphere	spheres;
+	t_plane		planes;
+	t_cylinder	cylinders;
 }				t_scene;
 
 #endif

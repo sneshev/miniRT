@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/23 08:31:36 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/25 15:48:17 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 		return (false);
 	sphere.type = SP;
 	sphere.intersect = intersect_sph;
-	push(&(scene->objs), &sphere);
+	push(&(scene->objs), &sphere, sizeof(t_sphere));
 	return (true);
 }
 
@@ -51,7 +51,7 @@ bool	parse_plane(char **info, t_scene *scene)
 		return (false);
 	plane.type = PL;
 	plane.intersect = intersect_pl;
-	push(&(scene->objs), &plane);
+	push(&(scene->objs), &plane, sizeof(t_plane));
 	return (true);
 }
 
@@ -75,6 +75,6 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	cylinder.type = CY;
 	cylinder.intersect = intersect_cyl;
-	push(&(scene->objs), &cylinder);
+	push(&(scene->objs), &cylinder, sizeof(t_cylinder));
 	return (true);
 }
