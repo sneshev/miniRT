@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/23 08:18:41 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/25 15:56:24 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 # include "../libft/libft.h"
-# include "dynamicarr.h"
+# include "dynamicarray.h"
 # include "vec3.h"
 # include "parsing.h"
 # include "typedef.h"

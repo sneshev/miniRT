@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/25 14:12:28 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/25 15:58:51 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 int main(int argc, char *argv[])
 {
 	t_scene scene;
-	// t_mlx_data data;
+	t_mlx_data data;
 
 	if (argc != 2)
 		return (1);
@@ -65,28 +65,24 @@ int main(int argc, char *argv[])
 	if (valid_input(argv[1], &scene) == false)
 		return (free_dynamic_array(&scene), 1);
 	print_scene(&scene);
-	scene.objs[0].plane.center += 1;
-	print_vec3("pl center", scene.objs[0].plane.center);
 
-	
-	// if (!init_minilibx(&data))
-	// 	return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
+	if (!init_minilibx(&data))
+		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
 
-	// for (int j = HEIGHT - 1; j >= 0; j--) {
-	// 	for (int i = 0; i < WIDTH; i++) {
-	// 		t_ray ray;
-	// 		get_ray(&scene.camera, &ray, i, j);
+	for (int j = HEIGHT - 1; j >= 0; j--) {
+		for (int i = 0; i < WIDTH; i++) {
+			t_ray ray;
+			get_ray(&scene.camera, &ray, i, j);
 
-	// 		t_color color = get_color(&ray, scene.objs);
-	// 		put_image_pixel(&data, i, HEIGHT - j, color);
-	// 	}
-	// }
+			t_color color = get_color(&ray, scene.objs);
+			put_image_pixel(&data, i, HEIGHT - j, color);
+		}
+	}
 
-	
-	// mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-	// mlx_loop(data.mlx);
-	// free_dynamic_array(&scene);
-	// free_data_exit(&data, 0);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	mlx_loop(data.mlx);
+	free_dynamic_array(&scene);
+	free_data_exit(&data, 0);
 	return (0);
 }
 

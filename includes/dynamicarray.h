@@ -1,10 +1,12 @@
-#ifndef DYNAMICARR_H
-# define DYNAMICARR_H
+#ifndef DYNAMICARRAY_H
+# define DYNAMICARRAY_H
 
 # include <stdlib.h>
+# include "minirt.h"
 
+#define ALIGN16 __attribute__((aligned(16)))
 
-typedef struct __attribute__((aligned(16))) s_vec_meta
+typedef struct ALIGN16 s_vec_meta
 {
 	size_t	count;
 	size_t	capacity;

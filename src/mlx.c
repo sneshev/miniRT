@@ -69,6 +69,5 @@ int	init_minilibx(t_mlx_data *data)
 		return (0);
 	mlx_hook(data->win, 17, 0, close_window, data);
 	mlx_key_hook(data->win, set_keyhooks, data);
-
 	return (1);
 }

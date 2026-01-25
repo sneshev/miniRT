@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/25 15:49:17 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/25 15:53:35 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-#define ALIGN16 __attribute__((aligned(16)))
-typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4), aligned(16)));
+typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4)));
 typedef union 	u_type t_type;
-
+typedef struct s_object t_object;
 
 typedef struct s_img_info
 {
@@ -45,12 +44,6 @@ typedef struct s_ray
 	t_vec3	attenuation;
 }			t_ray;
 
-// COLOR = the final color we see after all the calculations including
-// things such as albedo, light, ambient, shadow
-// ALBEDO = the color of a specifik material, like red acrylic paint
-// would (obviously) be red
-// ATTENUATION = how much the light weakens the more it bounces
-
 typedef struct s_rgb
 {
 	uint8_t	a;
@@ -71,8 +64,6 @@ typedef union u_color
 	t_rgb		rgb;
 	uint32_t	value;
 }			t_color;
-
-typedef struct s_object t_object;
 
 typedef struct s_object
 {
@@ -145,16 +136,6 @@ typedef struct s_scene
 	t_camera		camera;
 	t_light			light;
 	t_ambient		ambient;
-}				t_scene;
-
-typedef struct s_scene
-{
-	t_camera	camera;
-	t_light		light;
-	t_ambient	ambient;
-	t_sphere	spheres;
-	t_plane		planes;
-	t_cylinder	cylinders;
 }				t_scene;
 
 #endif

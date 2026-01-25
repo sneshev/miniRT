@@ -6,11 +6,11 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/25 15:47:00 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/25 15:57:12 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dynamicarr.h"
+#include "dynamicarray.h"
 /* create ft_realloc */
 /* fix ft_memcpy err */
 
@@ -93,7 +93,7 @@ int	push(void *arr_ptr, void *elem, size_t el_size)
 	}
 	if (el_size <= 0)
 		el_size = meta->elem_size;
-	memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, el_size);
+	ft_memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, el_size);
 	// ft_memcpy((char *)(*arr) + meta->count * meta->elem_size, elem, meta->elem_size);
 	meta->count++;
 	return (1);
