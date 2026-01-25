@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/23 08:29:21 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/25 14:53:41 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
+#define ALIGN16 __attribute__((aligned(16)))
+typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4), aligned(16)));
 typedef union 	u_type t_type;
+
 
 typedef struct s_img_info
 {
@@ -72,13 +74,13 @@ typedef union u_color
 
 typedef struct s_object t_object;
 
-typedef struct s_object
+typedef struct ALIGN16 s_object
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray * ray, t_object * obj);
 }				t_object;
 
-typedef struct s_sphere
+typedef struct ALIGN16 s_sphere
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -87,7 +89,7 @@ typedef struct s_sphere
 	t_color		albedo;
 }			t_sphere;
 
-typedef struct s_cylinder
+typedef struct ALIGN16 s_cylinder
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -98,7 +100,7 @@ typedef struct s_cylinder
 	t_color		albedo;
 }			t_cylinder;
 
-typedef struct s_plane
+typedef struct ALIGN16 s_plane
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
@@ -107,7 +109,7 @@ typedef struct s_plane
 	t_color		albedo;
 }		t_plane;
 
-typedef union u_type
+typedef union ALIGN16 u_type
 {
 	t_sphere	sphere;
 	t_cylinder	cylinder;
