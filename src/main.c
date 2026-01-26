@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/26 07:34:00 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/26 14:59:56 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 		{
 			// printf("TRUE\n");
 			color.value = 0x0000FF;
-			continue ;
 		}
 	}
 	return (color);
@@ -71,10 +70,12 @@ int main(int argc, char *argv[])
 	if (!init_minilibx(&data))
 		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
 
-	for (int j = HEIGHT - 1; j >= 0; j--) {
+	for (int j = 0; j < HEIGHT; j++) {
 		for (int i = 0; i < WIDTH; i++) {
+			float h = (float)i/(float)WIDTH;
+			float v = (float)j/(float)HEIGHT;
 			t_ray ray;
-			get_ray(&scene.camera, &ray, i, j);
+			get_ray(&scene.camera, &ray, h, v);
 
 			t_color color = get_color(&ray, scene.objs);
 			put_image_pixel(&data, i, HEIGHT - j, color);

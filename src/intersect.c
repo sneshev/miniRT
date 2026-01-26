@@ -1,9 +1,10 @@
 #include "minirt.h"
+
 #define T_MIN 0.000001f
 
 bool	intersect_pl(t_ray *ray, t_object *obj)
 {
-	t_plane *pl = (t_plane *)obj;	
+	t_plane *pl = (t_plane *)obj;
 
 	// print_plane(*pl);
 	// print_vec3("ray origin:", ray->origin);
