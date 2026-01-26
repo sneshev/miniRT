@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/25 15:58:51 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/26 07:34:00 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
 	hitpoint = cam->upper_left + h * cam->horizontal - v * cam->vertical;
 	ray->origin = cam->origin;
 	ray->direction = hitpoint - ray->origin;
-	ray->closest_t = -1.0f;
+	normalize(&ray->direction);
+	ray->closest_t = INFINITY;
 	ray->attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
 }
 
@@ -43,6 +44,7 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 		i++;
 		if (object->intersect(ray, object) == true)
 		{
+			// printf("TRUE\n");
 			color.value = 0x0000FF;
 			continue ;
 		}
