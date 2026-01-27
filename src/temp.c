@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 19:33:12 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 22:39:11 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 07:50:04 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,12 @@ void	print_scene(t_scene *scene)
 			print_cylinder(scene->objs[i].cylinder);
 		i++;	
 	}
+}
+
+void show_progress_bar (int j) {
+	j += 1;
+	int progress = 100 * (j) / HEIGHT;
+	char buf[64];
+	int len = snprintf(buf, sizeof(buf), "\r%d%% (%d / %d)", progress, j*WIDTH, HEIGHT * WIDTH);
+	write(STDERR_FILENO, buf, len);
 }

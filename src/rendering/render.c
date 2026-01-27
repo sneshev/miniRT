@@ -1,5 +1,10 @@
 #include "minirt.h"
 
+#define RAYSPERPIXEL 100
+#define R 0
+#define G 1
+#define B 2
+
 void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
 {
 	t_vec3	hitpoint;
@@ -28,6 +33,32 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 	return (ray->attenuation);
 }
 
+t_color	monte_carlo_color(t_ray *ray, t_type *objs)
+{
+	uint64_t	rgb[3];
+	t_color		color;
+	uint32_t	i;
+
+	i = 0;
+	rgb[R] = 0;
+	rgb[G] = 0;
+	rgb[B] = 0;
+	while (i < RAYSPERPIXEL)
+	{
+		color = get_color(ray, objs);
+		rgb[R] += color.rgb.r;
+		rgb[G] += color.rgb.g;
+		rgb[B] += color.rgb.b;
+		i++;
+	}
+	color.rgb.r = rgb[R] / RAYSPERPIXEL;
+	color.rgb.g = rgb[G] / RAYSPERPIXEL;
+	color.rgb.b = rgb[B] / RAYSPERPIXEL;
+	return (color);
+}
+
+void show_progress_bar (int j);
+
 void render(t_mlx_data *data, t_scene *scene)
 {
 	int	i;
@@ -44,10 +75,11 @@ void render(t_mlx_data *data, t_scene *scene)
 			t_ray ray;
 			get_ray(&scene->camera, &ray, h, v);
 
-			t_color color = get_color(&ray, scene->objs);
+			t_color color = monte_carlo_color(&ray, scene->objs);
 			put_image_pixel(data, i, j, color);
 			i++;
 		}
+		show_progress_bar(j);
 		j++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
