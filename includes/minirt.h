@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 07:44:09 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 07:52:34 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@
 # include <float.h>
 
 
-# define HEIGHT	500
-# define WIDTH	750
+# define HEIGHT	1000
+# define WIDTH	1500
+
+# define RAYSPERPIXEL 200
+
 
 // render
 void render(t_mlx_data *data, t_scene *scene);

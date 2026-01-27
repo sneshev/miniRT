@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 19:33:12 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/27 07:50:04 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 07:51:58 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ void show_progress_bar (int j) {
 	j += 1;
 	int progress = 100 * (j) / HEIGHT;
 	char buf[64];
-	int len = snprintf(buf, sizeof(buf), "\r%d%% (%d / %d)", progress, j*WIDTH, HEIGHT * WIDTH);
+	int len = snprintf(buf, sizeof(buf), "\r%d%% (%d / %d rays)", progress, j * WIDTH * RAYSPERPIXEL, HEIGHT * WIDTH * RAYSPERPIXEL);
 	write(STDERR_FILENO, buf, len);
 }

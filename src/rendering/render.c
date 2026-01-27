@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-#define RAYSPERPIXEL 100
 #define R 0
 #define G 1
 #define B 2
@@ -33,11 +32,28 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 	return (ray->attenuation);
 }
 
+#include <sys/time.h>
+float	randf_zero_one(int n)
+{
+	struct timeval	tv;
+	long			rand;
+	float			frand;
+	if (gettimeofday(&tv, NULL) == -1)
+		return (0);
+	rand = tv.tv_usec;
+	rand *= rand * n;
+	rand %= 1000;
+	frand = (float)rand/1000;
+	return (frand);
+}
+
+//problem is the next pixel is NOT at +1.0f 
 t_color	monte_carlo_color(t_ray *ray, t_type *objs)
 {
 	uint64_t	rgb[3];
 	t_color		color;
 	uint32_t	i;
+	t_ray		new_ray = *ray;
 
 	i = 0;
 	rgb[R] = 0;
@@ -45,7 +61,10 @@ t_color	monte_carlo_color(t_ray *ray, t_type *objs)
 	rgb[B] = 0;
 	while (i < RAYSPERPIXEL)
 	{
-		color = get_color(ray, objs);
+		new_ray.direction[0] = ray->direction[0] /*+ randf_zero_one(124)*/;
+		new_ray.direction[1] = ray->direction[1] /*+ randf_zero_one(5213)*/;
+		new_ray.direction[2] = ray->direction[2] /*+ randf_zero_one(99912)*/;
+		color = get_color(&new_ray, objs);
 		rgb[R] += color.rgb.r;
 		rgb[G] += color.rgb.g;
 		rgb[B] += color.rgb.b;
