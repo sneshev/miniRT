@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 17:36:57 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 18:45:42 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define HEIGHT	500
 # define WIDTH	700
 
-# define RAYSPERPIXEL 50
+# define RAYSPERPIXEL 10
 
 // render
 void render(t_mlx_data *data, t_scene *scene);

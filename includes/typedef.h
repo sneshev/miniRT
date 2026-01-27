@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/27 17:19:11 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 18:26:04 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		center;
 	float		radius;
@@ -78,7 +77,6 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
-	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		point;
 	t_vec3		normal;
