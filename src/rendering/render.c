@@ -8,8 +8,8 @@ void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
 	ray->origin = cam->origin;
 	ray->direction = hitpoint - ray->origin;
 	normalize(&ray->direction);
-	ray->closest_t = INFINITY;
-	ray->attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
+	ray->closest_t = FLT_MAX;
+	// ray->attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
 }
 
 t_color	get_color(t_ray *ray, t_type *objs) {

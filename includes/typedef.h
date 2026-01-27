@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/25 15:53:35 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 07:01:05 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ typedef struct s_mlx_data
 	t_img_info	*img_info;
 }				t_mlx_data;
 
-typedef struct s_ray
-{
-	t_vec3	origin;
-	t_vec3	direction;
-	float	closest_t;
-	t_vec3	attenuation;
-}			t_ray;
-
 typedef struct s_rgb
 {
 	uint8_t	a;
@@ -52,18 +44,27 @@ typedef struct s_rgb
 	uint8_t	r;
 }			t_rgb;
 
+typedef union u_color
+{
+	t_rgb		rgb;
+	uint32_t	value;
+}			t_color;
+
+
+typedef struct s_ray
+{
+	t_vec3	origin;
+	t_vec3	direction;
+	float	closest_t;
+	t_color	attenuation;
+}			t_ray;
+
 typedef enum e_obj_type
 {
 	SP,
 	PL,
 	CY
 }			t_obj_type;
-
-typedef union u_color
-{
-	t_rgb		rgb;
-	uint32_t	value;
-}			t_color;
 
 typedef struct s_object
 {

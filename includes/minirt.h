@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 06:26:45 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 06:52:41 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "typedef.h"
 # include <stdio.h>
 # include <fcntl.h>
+# include <float.h>
 
 
 # define HEIGHT	500
