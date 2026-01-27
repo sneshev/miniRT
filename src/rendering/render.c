@@ -9,13 +9,11 @@ void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
 	ray->direction = hitpoint - ray->origin;
 	normalize(&ray->direction);
 	ray->closest_t = FLT_MAX;
-	// ray->attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
+	ray->attenuation.value = 0xFFFFFF;
 }
 
 t_color	get_color(t_ray *ray, t_type *objs) {
 	size_t	i;
-	t_color	color;
-	color.value = 0xFFFF00;
 
 	i = 0;
 	while (i < get_count(&objs)) {
@@ -23,10 +21,11 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 		i++;
 		if (object->intersect(ray, object) == true)
 		{
-			color.value = 0x0000FF;
+			
+			continue ;
 		}
 	}
-	return (color);
+	return (ray->attenuation);
 }
 
 void render(t_mlx_data *data, t_scene *scene)
@@ -46,7 +45,7 @@ void render(t_mlx_data *data, t_scene *scene)
 			get_ray(&scene->camera, &ray, h, v);
 
 			t_color color = get_color(&ray, scene->objs);
-			put_image_pixel(data, i, HEIGHT - j, color);
+			put_image_pixel(data, i, j, color);
 			i++;
 		}
 		j++;

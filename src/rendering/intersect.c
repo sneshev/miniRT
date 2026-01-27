@@ -18,7 +18,7 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	if (t < ray->closest_t && t > T_MIN)
 	{
 		ray->closest_t = t;
-		// ray->attenuation = pl->albedo;
+		ray->attenuation.value = pl->albedo.value;
 		return (true);
 	}
 	return (false);
@@ -26,12 +26,29 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 
 bool	intersect_sph(t_ray *ray, t_object *obj)
 {
-	(void)ray;	
-	(void)obj;	
-	// t_vec3
+	t_sphere	*sph = (t_sphere *)obj;
+	t_vec3	q = ray->origin - sph->center;
+	float	a = dot(ray->direction, ray->direction);
+	float	b = dot(q, ray->direction);
+	float	c = dot(q, q) - sph->radius*sph->radius;
+	float	disc = b*b - a*c;
 
+	if (disc > 0) {
+		float t = (-b - sqrt(b*b - a*c)) / a;
+		if (t < ray->closest_t && t > T_MIN) {
+			ray->closest_t = t;
+			ray->attenuation.value = sph->albedo.value;
+
+			return (true);
+		}
+		t = (-b + sqrt(b*b - a*c)) / a;
+		if (t < ray->closest_t && t > T_MIN) {
+			ray->closest_t = t;
+			ray->attenuation.value = sph->albedo.value;
+			return (true);
+		}
+	}
 	return (false);
-
 }
 
 bool	intersect_cyl(t_ray *ray, t_object *obj)

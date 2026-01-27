@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 06:26:07 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 07:04:49 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,13 @@ int main(int argc, char *argv[])
 	return (0);
 }
 
+/*add to t_ray:
+	t_vec3	 normal; (of hit point)
+	? t_vec3 hitpoint; 
+	? bool	 hit;
 
+	
+*/
 
 
 
