@@ -53,8 +53,9 @@ t_color	monte_carlo_color(t_ray *ray, t_type *objs)
 	uint64_t	rgb[3];
 	t_color		color;
 	uint32_t	i;
-	t_ray		new_ray = *ray;
+	t_ray		new_ray;
 
+	new_ray = *ray;
 	i = 0;
 	rgb[R] = 0;
 	rgb[G] = 0;
