@@ -31,8 +31,15 @@ t_color	get_color(t_ray *ray, t_type *objs) {
 
 void render(t_mlx_data *data, t_scene *scene)
 {
-	for (int j = 0; j < HEIGHT; j++) {
-		for (int i = 0; i < WIDTH; i++) {
+	int	i;
+	int	j;
+
+	j = 0;
+	while(j < HEIGHT)
+	{
+		i = 0;
+		while(i < WIDTH)
+		{
 			float h = (float)i/(float)WIDTH;
 			float v = (float)j/(float)HEIGHT;
 			t_ray ray;
@@ -40,9 +47,10 @@ void render(t_mlx_data *data, t_scene *scene)
 
 			t_color color = get_color(&ray, scene->objs);
 			put_image_pixel(data, i, HEIGHT - j, color);
+			i++;
 		}
+		j++;
 	}
-
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_loop(data->mlx);
 }
