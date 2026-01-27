@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 07:52:34 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:06:57 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # include <float.h>
 
 
-# define HEIGHT	1000
-# define WIDTH	1500
+# define HEIGHT	500
+# define WIDTH	700
 
-# define RAYSPERPIXEL 200
+# define RAYSPERPIXEL 50
 
 
 // render

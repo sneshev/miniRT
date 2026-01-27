@@ -48,7 +48,7 @@ float	randf_zero_one(int n)
 }
 
 //problem is the next pixel is NOT at +1.0f 
-t_color	monte_carlo_color(t_type *objs, int i, int j)
+t_color	monte_carlo_color(t_camera *camera, t_type *objs, int x, int y)
 {
 	uint64_t	rgb[3];
 	t_color		color;
@@ -62,9 +62,9 @@ t_color	monte_carlo_color(t_type *objs, int i, int j)
 	rgb[B] = 0;
 	while (i < RAYSPERPIXEL)
 	{
-		float h = (float)i + randf_zero_one(123)/(float)WIDTH;
-		float v = (float)j + randf_zero_one(99912)/(float)HEIGHT;
-		get_ray(&scene->camera, &ray, h, v);
+		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
+		float v = ((float)y + randf_zero_one(99912)) / (float)HEIGHT;
+		get_ray(camera, &ray, h, v);
 
 		color = get_color(&ray, objs);
 		rgb[R] += color.rgb.r;
@@ -82,21 +82,21 @@ void show_progress_bar (int j);
 
 void render(t_mlx_data *data, t_scene *scene)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	j = 0;
-	while(j < HEIGHT)
+	y = 0;
+	while(y < HEIGHT)
 	{
-		i = 0;
-		while(i < WIDTH)
+		x = 0;
+		while(x < WIDTH)
 		{
-			t_color color = monte_carlo_color(scene->objs, i, j);
-			put_image_pixel(data, i, j, color);
-			i++;
+			t_color color = monte_carlo_color(&scene->camera, scene->objs, x, y);
+			put_image_pixel(data, x, y, color);
+			x++;
 		}
-		show_progress_bar(j);
-		j++;
+		show_progress_bar(y);
+		y++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_loop(data->mlx);
