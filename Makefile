@@ -6,20 +6,24 @@
 #    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/27 06:31:33 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/27 06:44:25 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
 
-PARSING := src/parsing
+PARSING  := src/parsing
+MLX		 := src/mlx
+UTILS	 := src/utils
+RENDERING := src/rendering
 
-SRCS := src/main.c src/utils.c src/vec3.c src/temp.c src/dynamic_array.c \
+SRCS := src/main.c src/temp.c \
+		$(MLX)/initialize.c $(MLX)/misc.c \
+		$(UTILS)/utils.c $(UTILS)/vec3.c $(UTILS)/dynamic_array.c \
 		$(PARSING)/parsing_main.c $(PARSING)/elements.c $(PARSING)/objects.c \
 		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils.c \
 		$(PARSING)/camera_utils.c \
-		src/mlx/initialize.c src/mlx/misc.c \
-		src/rendering/render.c src/rendering/intersect.c
+		$(RENDERING)/render.c $(RENDERING)/intersect.c
 		
 		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
