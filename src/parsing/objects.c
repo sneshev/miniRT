@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/25 15:48:17 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 06:27:23 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 bool	intersect_pl(t_ray *ray, t_object *obj);
 bool	intersect_sph(t_ray *ray, t_object *obj);
 bool	intersect_cyl(t_ray *ray, t_object *obj);
-
 
 bool	parse_sphere(char **info, t_scene *scene)
 {

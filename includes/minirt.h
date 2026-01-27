@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/25 15:56:24 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 06:26:45 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define HEIGHT	500
 # define WIDTH	750
 
-// intersect
-bool	intersect_objs(t_ray *ray, t_type objs[]);
+// render
+void render(t_mlx_data *data, t_scene *scene);
 
 // mlx stuff
 int		init_minilibx(t_mlx_data *data);
