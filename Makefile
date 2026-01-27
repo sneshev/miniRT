@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
+#    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/27 06:44:25 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/27 16:48:23 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	make -C libft fclean
+	make -C mlx_linux clean
 
 re: fclean all
 
