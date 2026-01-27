@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 22:37:42 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 18:00:05 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,21 @@ bool	valid_rgb(uint8_t *rgb, char *str)
 	return (true);
 }
 
-bool	valid_color(t_color *color, char *str)
+bool	valid_color(t_vec3 *color, char *str)
 {
 	char	**split;
-	t_rgb	rgb;
-	
+	uint8_t	rgb[3];
+
 	split = ft_split(str, is_comma);
 	if (!split)
-		return (false);
-	if (arr_count(split) != 3)
+		return (print_error(MALLOC), false);
+	if (!valid_rgb(&rgb[R], split[0]))
 		return (free_arr(split), false);
-	if (!valid_rgb(&(rgb.r), split[0]))
+	if (!valid_rgb(&rgb[G], split[1]))
 		return (free_arr(split), false);
-	if (!valid_rgb(&(rgb.g), split[1]))
-		return (free_arr(split), false);
-	if (!valid_rgb(&(rgb.b), split[2]))
+	if (!valid_rgb(&rgb[B], split[2]))
 		return (free_arr(split), false);
 	free_arr(split);
-	color->rgb = rgb;
+	*color = (t_vec3){(float)rgb[R]/255, (float)rgb[G]/255, (float)rgb[B]/255};
 	return (true);
 }

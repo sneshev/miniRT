@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 07:04:49 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/27 17:42:48 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 		return (1);
 	if (valid_input(argv[1], &scene) == false)
 		return (free_dynamic_array(&scene), 1);
-	print_scene(&scene);
+	// print_scene(&scene);
 
 	if (!init_minilibx(&data))
 		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);

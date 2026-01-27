@@ -13,10 +13,10 @@ void	get_ray(t_camera *cam, t_ray *ray, float h, float v)
 	ray->direction = hitpoint - ray->origin;
 	normalize(&ray->direction);
 	ray->closest_t = FLT_MAX;
-	ray->attenuation.value = 0xFFFFFF;
+	ray->attenuation = (t_vec3){1, 1, 1};
 }
 
-t_color	get_color(t_ray *ray, t_type *objs) {
+t_vec3	get_color(t_ray *ray, t_type *objs) {
 	size_t	i;
 
 	i = 0;
@@ -48,33 +48,24 @@ float	randf_zero_one(int n)
 }
 
 //problem is the next pixel is NOT at +1.0f 
-t_color	monte_carlo_color(t_camera *camera, t_type *objs, int x, int y)
+t_vec3	monte_carlo_color(t_camera *camera, t_type *objs, int x, int y)
 {
-	uint64_t	rgb[3];
-	t_color		color;
+	t_vec3		color;
 	uint32_t	i;
 	t_ray		ray;
-
 	
 	i = 0;
-	rgb[R] = 0;
-	rgb[G] = 0;
-	rgb[B] = 0;
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	while (i < RAYSPERPIXEL)
 	{
 		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
 		float v = ((float)y + randf_zero_one(99912)) / (float)HEIGHT;
 		get_ray(camera, &ray, h, v);
 
-		color = get_color(&ray, objs);
-		rgb[R] += color.rgb.r;
-		rgb[G] += color.rgb.g;
-		rgb[B] += color.rgb.b;
+		color += get_color(&ray, objs);
 		i++;
 	}
-	color.rgb.r = rgb[R] / RAYSPERPIXEL;
-	color.rgb.g = rgb[G] / RAYSPERPIXEL;
-	color.rgb.b = rgb[B] / RAYSPERPIXEL;
+	color /= RAYSPERPIXEL;
 	return (color);
 }
 
@@ -91,7 +82,7 @@ void render(t_mlx_data *data, t_scene *scene)
 		x = 0;
 		while(x < WIDTH)
 		{
-			t_color color = monte_carlo_color(&scene->camera, scene->objs, x, y);
+			t_vec3 color = monte_carlo_color(&scene->camera, scene->objs, x, y);
 			put_image_pixel(data, x, y, color);
 			x++;
 		}

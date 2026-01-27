@@ -9,16 +9,16 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	float	denom;
 
 	pl = (t_plane *)obj;
-	denom = dot(pl->dir, ray->direction);
+	denom = dot(pl->normal, ray->direction);
 	if (denom > -T_MIN && denom < T_MIN)
 		return (false);
-	q = pl->center - ray->origin;
-	float t = dot(q, pl->dir) / denom;
+	q = pl->point - ray->origin;
+	float t = dot(q, pl->normal) / denom;
 
 	if (t < ray->closest_t && t > T_MIN)
 	{
 		ray->closest_t = t;
-		ray->attenuation.value = pl->albedo.value;
+		ray->attenuation = pl->albedo;
 		return (true);
 	}
 	return (false);
@@ -37,14 +37,14 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 		float t = (-b - sqrt(b*b - a*c)) / a;
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
-			ray->attenuation.value = sph->albedo.value;
+			ray->attenuation = sph->albedo;
 
 			return (true);
 		}
 		t = (-b + sqrt(b*b - a*c)) / a;
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
-			ray->attenuation.value = sph->albedo.value;
+			ray->attenuation = sph->albedo;
 			return (true);
 		}
 	}

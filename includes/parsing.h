@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 22:35:43 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/27 17:33:53 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@ bool	parse_sphere(char **info, t_scene *scene);
 bool	parse_plane(char **info, t_scene *scene);
 bool	parse_cylinder(char **info, t_scene *scene);
 
+bool	intersect_pl(t_ray *ray, t_object *obj);
+bool	intersect_sph(t_ray *ray, t_object *obj);
+bool	intersect_cyl(t_ray *ray, t_object *obj);
+
 // valid info
 bool	valid_element(char identifyer, t_element *element);
 bool	valid_unit_direction(t_vec3 *dir, char *str);
 bool	valid_position(t_vec3 *pos, char *str);
-bool	valid_color(t_color *color, char *str);
+bool	valid_color(t_vec3 *color, char *str);
 bool	valid_hfov(float *hfov, char *str);
 bool	valid_unit_range(float *f, char *str);
 bool	valid_float(float *f, char *str);
