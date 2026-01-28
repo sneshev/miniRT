@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/28 08:13:45 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/28 08:25:30 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int main(int argc, char *argv[])
 		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
 
 	render(&data, &scene);
-	
-	free_dynamic_array(&scene.objs);
-	free_data_exit(&data, 0);
 	return (0);
 }
 
-/*add to t_ray:
-	t_vec3	 normal; (of hit point)
-	? t_vec3 hitpoint; 
-	? bool	 hit;
+/*	.add to t_ray:
+		? t_vec3 hitpoint; 
+		? bool	 hit;
 
-	close fd:
+	.free_dynamic array on free_data_exit()
+		->need to do it from the keyhook, no code after mlx_loop in render()
+
+
+	.close fd:
 ==12892== FILE DESCRIPTORS: 8 open (3 std) at exit.
 ==12892== Open file descriptor 3: test
 ==12892==    at 0x4BC41A5: open (open64.c:41)

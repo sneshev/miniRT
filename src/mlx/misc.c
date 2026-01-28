@@ -36,5 +36,6 @@ void	free_data_exit(t_mlx_data *data, int exitcode)
 		free(data->mlx);
 	}
 	printf("\n");
+	// free_dynamic_array(&scene.objs);
 	exit(exitcode);
 }
