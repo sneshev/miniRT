@@ -12,10 +12,10 @@
 
 #include "minirt.h"
 
-// void	print_vec3(char const *s, t_vec3 v)
-// {
-// 	printf("%s: %f, %f, %f\n", s, v[X], v[Y], v[Z]);
-
+void	print_vec3(char const *s, t_vec3 *v)
+{
+	printf("%s: %f, %f, %f\n", s, v[0][X], v[0][Y], v[0][Z]);
+}
 
 // void	print_camera(t_camera camera)
 // {

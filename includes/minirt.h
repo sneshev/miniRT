@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 18:45:42 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/28 07:54:30 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define HEIGHT	500
 # define WIDTH	700
 
-# define RAYSPERPIXEL 10
+# define RAYSPERPIXEL 5
 
 // render
 void render(t_mlx_data *data, t_scene *scene);
@@ -39,7 +39,7 @@ void	free_data_exit(t_mlx_data *data, int exitcode);
 void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color);
 
 // temp
-// void	print_vec3(char const *s, t_vec3 v);
+void	print_vec3(char const *s, t_vec3 *v);
 // void	print_color(char const *s, t__vec3 color);
 // void	print_camera(t_camera camera);
 // void	print_ambient(t_ambient ambient);

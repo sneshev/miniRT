@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/27 17:42:48 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/28 08:13:45 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ int main(int argc, char *argv[])
 	? t_vec3 hitpoint; 
 	? bool	 hit;
 
+	close fd:
+==12892== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==12892== Open file descriptor 3: test
+==12892==    at 0x4BC41A5: open (open64.c:41)
+==12892==    by 0x10B964: valid_input (parsing_main.c:110)
+==12892==    by 0x10A9B2: main (main.c:31)
 	
 */
 
