@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/28 15:56:14 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:10:55 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@
 
 int main(int argc, char *argv[])
 {
-	t_scene scene;
-	t_mlx_data data;
+	t_data	d;
 
 	if (argc != 2)
 		return (1);
-	scene.objs = make_dynamic_array(3, sizeof(t_type));
-	if (!scene.objs)
+	d.scene.objs = make_dynamic_array(3, sizeof(t_type));
+	if (!d.scene.objs)
 		return (1);
-	if (valid_input(argv[1], &scene) == false)
-		return (free_dynamic_array(&scene), 1);
+	if (valid_input(argv[1], &d.scene) == false)
+		return (free_dynamic_array(&d.scene), 1);
 	// print_scene(&scene);
 
-	if (!init_minilibx(&data))
-		return (free_dynamic_array(scene.objs), free_data_exit(&data, 1), 1);
+	if (!init_minilibx(&d.mlx))
+		return (free_dynamic_array(d.scene.objs), free_data_exit(&d.mlx, 1), 1);
 
-	render(&data, &scene);
+	render(&d.mlx, &d.scene);
+	free_dynamic_array(d.scene.objs);
 	return (0);
 }
 

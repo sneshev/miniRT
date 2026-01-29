@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/27 18:26:04 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:09:11 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,11 @@ typedef struct s_scene
 	t_light			light;
 	t_ambient		ambient;
 }				t_scene;
+
+typedef struct s_data
+{
+	t_scene		scene;
+	t_mlx_data	mlx;
+}				t_data;
 
 #endif
