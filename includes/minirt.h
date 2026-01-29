@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/29 16:37:44 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:43:56 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void render(t_mlx_data *data, t_scene *scene);
 
 // mlx stuff
 int		init_minilibx(t_data *d);
-void	free_data_exit(t_data *d, int exitcode);
+void	free_data_exit(t_data *data, int exitcode);
 void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color);
 
 // temp

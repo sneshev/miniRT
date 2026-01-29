@@ -2,15 +2,15 @@
 
 # define ESC 65307
 
-int	close_window(t_data *d)
+int	close_window(t_data *data)
 {
-	free_data_exit(d, 0);
+	free_data_exit(data, 0);
 	return (1);
 }
-int	set_keyhooks(int key, t_data *d)
+int	set_keyhooks(int key, t_data *data)
 {
 	if (key == ESC)
-		free_data_exit(d, 0);
+		free_data_exit(data, 0);
 	return (1);
 }
 

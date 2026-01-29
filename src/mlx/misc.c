@@ -22,21 +22,21 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color)
 	*(uint32_t *)pixel = (uint32_t)rgb[R] << 16 | (uint32_t)rgb[G] << 8 | (uint32_t)rgb[B];
 }
 
-void	free_data_exit(t_data *d, int exitcode)
+void	free_data_exit(t_data *data, int exitcode)
 {
-	if (d->mlx.img_info)
-		free(d->mlx.img_info);
-	if (d->mlx.img)
-		mlx_destroy_image(d->mlx.mlx, d->mlx.img);
-	if (d->mlx.win)
-		mlx_destroy_window(d->mlx.mlx, d->mlx.win);
-	if (d->mlx.mlx)
+	if (data->mlx.img_info)
+		free(data->mlx.img_info);
+	if (data->mlx.img)
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img);
+	if (data->mlx.win)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	if (data->mlx.mlx)
 	{
-		mlx_destroy_display(d->mlx.mlx);
-		free(d->mlx.mlx);
+		mlx_destroy_display(data->mlx.mlx);
+		free(data->mlx.mlx);
 	}
-	if (d->scene.objs)
-		free_dynamic_array(&d->scene.objs);
+	if (data->scene.objs)
+		free_dynamic_array(&data->scene.objs);
 	printf("\n");
 	// free_dynamic_array(&scene.objs);
 	exit(exitcode);
