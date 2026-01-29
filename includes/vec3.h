@@ -19,7 +19,8 @@ typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 
 
 float	length(t_vec3 v);
-void	normalize(t_vec3 *v);
+float	squared_length(t_vec3 v);
+t_vec3	normalize(t_vec3 v);
 float	dot(t_vec3 v1, t_vec3 v2);
 t_vec3	cross(t_vec3 v1, t_vec3 v2);
 

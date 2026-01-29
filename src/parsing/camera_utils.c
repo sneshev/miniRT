@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils2.c                                     :+:      :+:    :+:   */
+/*   camera_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:32:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 18:35:28 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/29 21:42:49 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 	up = (t_vec3){0.0f, 1.0f, 0.0f};
 	if (vec3_compare(up, ortho[W]) == 0)
 		up = (t_vec3){0.0f, 0.0f, -1.0f};
-	ortho[U] = cross(up, ortho[W]);
-	normalize(&ortho[U]);
-	ortho[V] = cross(ortho[W], ortho[U]);
-	normalize(&ortho[V]);
+	ortho[U] = normalize(cross(up, ortho[W]));
+	ortho[V] = normalize(cross(ortho[W], ortho[U]));
 }
 
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)

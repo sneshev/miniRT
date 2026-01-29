@@ -9,7 +9,7 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	float	denom;
 
 	pl = (t_plane *)obj;
-	denom = dot(pl->normal, ray->direction);
+	denom = dot(pl->normal, ray->unit_dir);
 	if (denom > -T_MIN && denom < T_MIN)
 		return (false);
 	q = pl->point - ray->origin;
@@ -19,6 +19,7 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	{
 		ray->closest_t = t;
 		ray->attenuation = pl->albedo;
+		ray->object = obj;
 		return (true);
 	}
 	return (false);

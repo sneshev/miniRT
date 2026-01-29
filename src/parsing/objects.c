@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/27 18:24:54 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/29 22:10:48 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-
-bool	intersect_pl(t_ray *ray, t_object *obj);
-bool	intersect_sph(t_ray *ray, t_object *obj);
-bool	intersect_cyl(t_ray *ray, t_object *obj);
 
 bool	parse_sphere(char **info, t_scene *scene)
 {
@@ -31,6 +26,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 	sphere.radius = 0.5f * diameter;
 	if (!valid_color(&(sphere.albedo), info[3]))
 		return (false);
+	sphere.type = SP;
 	sphere.intersect = intersect_sph;
 	push(&(scene->objs), &sphere, sizeof(t_sphere));
 	return (true);
@@ -48,6 +44,7 @@ bool	parse_plane(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(plane.albedo), info[3]))
 		return (false);
+	plane.type = PL;
 	plane.intersect = intersect_pl;
 	push(&(scene->objs), &plane, sizeof(t_plane));
 	return (true);
@@ -62,7 +59,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	if (!valid_position(&(cylinder.center), info[1]))
 		return (false);
-	if (!valid_unit_direction(&(cylinder.dir), info[2]))
+	if (!valid_unit_direction(&(cylinder.unit_dir), info[2]))
 		return (false);
 	if (!valid_float(&diameter, info[3]))
 		return (false);
@@ -71,6 +68,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
+	cylinder.type = CY;
 	cylinder.intersect = intersect_cyl;
 	push(&(scene->objs), &cylinder, sizeof(t_cylinder));
 	return (true);

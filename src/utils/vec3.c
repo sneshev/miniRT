@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:57 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/15 16:13:57 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/01/29 22:34:26 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,24 @@ float length(t_vec3 v)
 				+ v[Z] * v[Z]));
 }
 
-void	normalize(t_vec3 *v)
+float	squared_length(t_vec3 v)
 {
-	float len = length(*v);
+	return (v[X] * v[X]
+		  + v[Y] * v[Y]
+		  + v[Z] * v[Z]);
+}
+
+t_vec3	normalize(t_vec3 v)
+{
+	float len = length(v);
 	if (len == 0.0f) {
-		*v = (t_vec3){0.0f, 0.0f, 0.0f, 0.0f};
-		return ;
+		v = (t_vec3){0.0f, 0.0f, 0.0f, 0.0f};
+		return (v);
 	}
-	(*v)[X] /= len;
-	(*v)[Z] /= len;
-	(*v)[Y] /= len;
+	(v)[X] /= len;
+	(v)[Z] /= len;
+	(v)[Y] /= len;
+	return (v);
 }
 
 float	dot(t_vec3 v1, t_vec3 v2)
