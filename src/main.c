@@ -6,7 +6,7 @@
 /*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/29 16:16:06 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/29 16:37:04 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,21 @@ int main(int argc, char *argv[])
 	if (!d.scene.objs)
 		return (1);
 	if (valid_input(argv[1], &d.scene) == false)
-		return (free_dynamic_array(&d.scene), 1);
+		return (free_dynamic_array(&d.scene.objs), 1);
 	// print_scene(&scene);
 
 	if (!init_minilibx(&d))
-		return (free_dynamic_array(d.scene.objs), free_data_exit(&d.mlx, 1), 1);
+		return (free_data_exit(&d, 1), 1);
 
 	render(&d.mlx, &d.scene);
 	free_dynamic_array(d.scene.objs);
 	return (0);
 }
 
-/*	.add to t_ray:
+/*	
+	.check for .rt extension
+	
+	.add to t_ray:
 		? t_vec3 hitpoint; 
 		? bool	 hit;
 

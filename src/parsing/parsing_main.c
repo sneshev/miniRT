@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/18 22:56:57 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/29 16:37:26 by stefuntu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,21 @@ bool	valid_input(char *file, t_scene *scene)
 
 	init_element(&element);
 	fd = open(file, O_RDONLY);
-	while (1)
+	status = GNL_OK;
+	while (status != GNL_EOF)
 	{
 		status = get_next_line(&line, fd);
 		if (status == GNL_ERROR)
-			return (print_error(MALLOC), false);
+			return (print_error(MALLOC), close(fd), false);
 		if (*line && check_line(&line) == false)
-			return (free(line), get_next_line(&line, -1), false);
+			return (free(line), get_next_line(&line, -1), close(fd), false);
 		if (*line && !is_newline(*line))
 		{
 			if (parse_line(line, &element, scene) == false)
-				return (free(line), get_next_line(&line, -1), false);
+				return (free(line), get_next_line(&line, -1), close(fd), false);
 		}
 		free(line);
-		if (status == GNL_EOF)
-			break ;
 	}
-	printf("SUCCESS\n");
+	close(fd);
 	return (true);
 }

@@ -4,13 +4,13 @@
 
 int	close_window(t_data *d)
 {
-	free_data_exit(&d->mlx, 0);
+	free_data_exit(d, 0);
 	return (1);
 }
 int	set_keyhooks(int key, t_data *d)
 {
 	if (key == ESC)
-		free_data_exit(&d->mlx, 0);
+		free_data_exit(d, 0);
 	return (1);
 }
 
