@@ -23,6 +23,7 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->attenuation = sph->albedo;
+
 			return (true);
 		}
 	}

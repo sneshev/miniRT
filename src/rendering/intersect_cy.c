@@ -14,7 +14,7 @@ float hits_cap(t_cylinder *cy, t_plane *pl, t_ray ray)
 		if (length(p - pl->point) <= cy->radius)
 			return (t);
 	}
-	return (0);
+	return (false);
 }
 
 bool	hits_caps(t_cylinder *cy, t_ray *ray)
@@ -26,7 +26,7 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	pl.albedo = cy->albedo;
 	pl.point = cy->center + cy->dir * (cy->height / 2);
 	t = hits_cap(cy, &pl, *ray);
-	if (t) {
+	if (t > T_MIN) {
 		ray->closest_t = t;
 		ray->normal = pl.normal;
 		ray->attenuation = cy->albedo;
@@ -35,7 +35,7 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	pl.normal *= -1;
 	pl.point = cy->center - cy->dir * (cy->height / 2);
 	t = hits_cap(cy, &pl, *ray);
-	if (t) {
+	if (t > T_MIN) {
 		ray->closest_t = t;
 		ray->normal = pl.normal;
 		ray->attenuation = cy->albedo;
@@ -44,11 +44,49 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	return (false);
 }
 
-bool	hits_side(t_cylinder *cy, t_ray *ray) {
-	(void)cy;
-	(void)ray;
+bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc) 
+{
+	t_vec3 d_perp = ray->direction - cy->dir * dot(ray->direction, cy->dir);
+	t_vec3 oc_perp = oc - cy->dir * dot(oc, cy->dir);
 
+	float a = dot(d_perp, d_perp);
+	float b = 2.0f * dot(d_perp, oc_perp);
+	float c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
+
+	float disc = b*b - 4*a*c;
+	if (disc < 0)
+		return (false);
+	*t = (-b - sqrtf(disc)) / (2*a);
+	if (*t >= T_MIN && *t < ray->closest_t)
+		return (true);
+	*t = (-b + sqrtf(disc)) / (2*a);
+	if (*t >= T_MIN && *t < ray->closest_t)
+		return (true);
 	return (false);
+}
+
+
+bool	hits_side(t_cylinder *cy, t_ray *ray)
+{
+	t_vec3 hitpoint;
+	float height;
+	float t;
+
+	if (!hits_2d(cy, ray, &t, ray->origin - cy->center))
+		return (false);
+
+	hitpoint = ray->origin + ray->direction * t;
+	height = dot(hitpoint - cy->center, cy->dir);
+
+	if (height < -cy->height * 0.5f || height > cy->height * 0.5f)
+		return (false);
+
+	ray->closest_t = t;
+	ray->normal = hitpoint - cy->center + cy->dir * height;
+	normalize(&ray->normal);
+	ray->attenuation = cy->albedo;
+
+	return (true);
 }
 
 bool	intersect_cyl(t_ray *ray, t_object *obj)
@@ -61,8 +99,7 @@ bool	intersect_cyl(t_ray *ray, t_object *obj)
 	if (hits_caps(cy, ray)) {
 		hit = true;
 	}
-	if (hits_side(cy, ray))
-	{
+	if (hits_side(cy, ray)) {
 		hit = true;
 	}
 	return (hit);
