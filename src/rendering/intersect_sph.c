@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-#define T_MIN 0.000001f
 
 bool	intersect_sph(t_ray *ray, t_object *obj)
 {

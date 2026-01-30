@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/30 12:45:56 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 16:24:07 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool	parse_cylinder(char **info, t_scene *scene);
 bool	intersect_pl(t_ray *ray, t_object *obj);
 bool	intersect_sph(t_ray *ray, t_object *obj);
 bool	intersect_cyl(t_ray *ray, t_object *obj);
+bool	intersect_light(t_ray *ray, t_object *obj);
 
 // valid info
 bool	valid_element(char identifyer, t_element *element);

@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/30 16:20:17 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 18:38:28 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef union u_type
 	t_sphere	sphere;
 	t_cylinder	cylinder;
 	t_plane		plane;
+	t_light		light;
 	t_object	object;
 }			t_type;
 

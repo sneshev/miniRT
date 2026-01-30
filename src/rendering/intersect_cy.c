@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-#define T_MIN 0.000001f
 
 float hits_cap(t_cylinder *cy, t_plane *pl, t_ray ray)
 {

@@ -51,6 +51,8 @@ bool	parse_light(char **info, t_light *light)
 		return (false);
 	if (!valid_color(&(light->albedo), info[3]))
 		return (false);
+	light->type = L;
+	light->intersect = intersect_light;
 	return (true);
 }
 

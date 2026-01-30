@@ -132,7 +132,7 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	
 	if (direct_light(&scene->light, scene->objs, ray->hitpoint) == true)
 		attenuation += scene->light.brightness;
-	// 
+
 	if (hit_object(scatter, scene->objs) == false)
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
 	

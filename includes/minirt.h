@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/30 15:01:22 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 19:48:07 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 
 # define RAYSPERPIXEL 100
 # define MAX_DEPTH 50
+
+#define T_MIN 0.000001f
 
 // render
 void render(t_mlx_data *data, t_scene *scene);
