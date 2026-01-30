@@ -28,7 +28,6 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	t = hits_cap(cy, &pl, *ray);
 	if (t > T_MIN) {
 		ray->closest_t = t;
-		ray->attenuation = cy->albedo;
 		return (true);
 	}
 	pl.normal *= -1;
@@ -36,7 +35,6 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	t = hits_cap(cy, &pl, *ray);
 	if (t > T_MIN) {
 		ray->closest_t = t;
-		ray->attenuation = cy->albedo;
 		return (true);
 	}
 	return (false);
@@ -80,7 +78,6 @@ bool	hits_side(t_cylinder *cy, t_ray *ray)
 		return (false);
 
 	ray->closest_t = t;
-	ray->attenuation = cy->albedo;
 
 	return (true);
 }

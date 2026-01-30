@@ -18,7 +18,6 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	if (t < ray->closest_t && t > T_MIN)
 	{
 		ray->closest_t = t;
-		ray->attenuation = pl->albedo;
 		ray->object = obj;
 		return (true);
 	}

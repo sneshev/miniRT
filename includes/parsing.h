@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/27 17:33:53 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 12:45:56 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum e_error
 	CYLINDER,
 	ELEMENT,
 	DOUBLE,
-	MALLOC
+	MALLOC,
+	FD
 }			t_error;
 
 // parsing main

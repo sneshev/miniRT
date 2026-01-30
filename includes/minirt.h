@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/29 23:48:08 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 15:01:22 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # include <float.h>
 
 
-# define HEIGHT	500
-# define WIDTH	700
+# define HEIGHT	350
+# define WIDTH	500
 
-# define RAYSPERPIXEL 2
-# define DEPTH 50
+# define RAYSPERPIXEL 100
+# define MAX_DEPTH 50
 
 // render
 void render(t_mlx_data *data, t_scene *scene);

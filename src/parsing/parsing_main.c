@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/29 16:37:26 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/01/30 16:10:29 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,19 @@ bool	check_line(char **line)
 	return (true);
 }
 
+int	open_file(char *file)
+{
+	int	fd;
+	// check the extension
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		print_error(FD);
+		exit(1);
+	}
+	return (fd);	
+}
+
 bool	valid_input(char *file, t_scene *scene)
 {
 	int			fd;
@@ -107,7 +120,7 @@ bool	valid_input(char *file, t_scene *scene)
 	t_element	element;
 
 	init_element(&element);
-	fd = open(file, O_RDONLY);
+	fd = open_file(file);
 	status = GNL_OK;
 	while (status != GNL_EOF)
 	{

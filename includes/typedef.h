@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/29 23:52:34 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/30 16:20:17 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4)));
 typedef union 	u_type t_type;
-typedef struct s_object t_object;
+typedef struct	s_object t_object;
 
 typedef struct s_img_info
 {
@@ -39,11 +39,10 @@ typedef struct s_mlx_data
 typedef struct s_ray
 {
 	t_vec3		origin;
-	t_vec3		hitpoint;
 	t_vec3		unit_dir;
 	float		closest_t;
-	// i think we can remove attenuation
-	t_vec3		attenuation;
+	t_vec3		hitpoint;
+	t_vec3		normal;
 	t_object	*object;
 }			t_ray;
 
@@ -51,42 +50,44 @@ typedef enum e_obj_type
 {
 	SP,
 	PL,
-	CY
+	CY,
+	L
 }			t_obj_type;
 
 typedef struct s_object
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray * ray, t_object * obj);
+	// t_vec3		albedo;
 }				t_object;
 
 typedef struct s_sphere
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	t_vec3		albedo;
 	t_vec3		center;
 	float		radius;
-	t_vec3		albedo;
 }			t_sphere;
 
 typedef struct s_cylinder
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	t_vec3		albedo;
 	t_vec3		center;
 	float		radius;
 	float		height;
 	t_vec3		unit_dir;
-	t_vec3	albedo;
 }			t_cylinder;
 
 typedef struct s_plane
 {
 	t_obj_type	type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	t_vec3		albedo;
 	t_vec3		point;
 	t_vec3		normal;
-	t_vec3		albedo;
 }		t_plane;
 
 typedef union u_type
@@ -107,9 +108,12 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_vec3	origin;
-	float	brightness;
-	t_vec3	albedo;
+	t_obj_type	type;
+	bool		(*intersect)(t_ray *ray, t_object *obj);
+	t_vec3		origin;
+	float		brightness;
+	t_vec3		albedo;
+	t_ray		ray;
 }			t_light;
 
 typedef struct s_ambient

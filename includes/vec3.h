@@ -23,5 +23,6 @@ float	squared_length(t_vec3 v);
 t_vec3	normalize(t_vec3 v);
 float	dot(t_vec3 v1, t_vec3 v2);
 t_vec3	cross(t_vec3 v1, t_vec3 v2);
+int 	vec3_compare(t_vec3 v1, t_vec3 v2);
 
 #endif

@@ -15,14 +15,12 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 		float t = (-b - sqrt(b*b - a*c)) / a;
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
-			ray->attenuation = sph->albedo;
 			ray->object = obj;
 			return (true);
 		}
 		t = (-b + sqrt(b*b - a*c)) / a;
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
-			ray->attenuation = sph->albedo;
 			ray->object = obj;
 			return (true);
 		}
