@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/30 16:09:27 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/31 16:18:53 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ int	str_diff(char *s1, char *s2)
 	return (*s1 - *s2);
 }
 
-
-
+void	print_error(t_error error)
+{
+	if (error == FORMAT)
+		printf("Error: Invalid line\n");
+	else if (error == CAMERA)
+		printf("Error: Invalid camera\n");
+	else if (error == AMBIENT)
+		printf("Error: Invalid ambient\n");
+	else if (error == LIGHT)
+		printf("Error: Invalid light\n");
+	else if (error == SPHERE)
+		printf("Error: Invalid sphere\n");
+	else if (error == PLANE)
+		printf("Error: Invalid plane\n");
+	else if (error == CYLINDER)
+		printf("Error: Invalid cylinder\n");
+	else if (error == ELEMENT)
+		printf("Error: Invalid element\n");
+	else if (error == DOUBLE)
+		printf("Error: Double element\n");
+	else if (error == MALLOC)
+		printf("Error: Malloc error\n");
+}
 

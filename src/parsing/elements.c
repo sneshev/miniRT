@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "parsing.h"
 
 bool	parse_camera(char **info, t_camera *camera)
 {
@@ -41,7 +41,8 @@ bool	parse_ambient(char **info, t_ambient *ambient)
 	return (true);
 }
 
-bool	parse_light(char **info, t_light *light)
+
+bool	parse_light(char **info, t_light *light, t_scene *scene)
 {
 	if (arr_count(info) != 4)
 		return (print_error(MALLOC), false);
@@ -53,6 +54,7 @@ bool	parse_light(char **info, t_light *light)
 		return (false);
 	light->type = L;
 	light->intersect = intersect_light;
+	push(&scene->objs, light, sizeof(t_light));
 	return (true);
 }
 

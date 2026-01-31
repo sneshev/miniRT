@@ -1,18 +1,5 @@
 #include "minirt.h"
 
-// int	open_file(char *file)
-// {
-// 	int	fd;
-// 	// check the extension
-// 	fd = open(file, O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		print_error(FD);
-// 		exit(1);
-// 	}
-// 	return (fd);	
-// }
-
 int vec3_diff(t_vec3 v1, t_vec3 v2)
 {
     if (fabs(v1[X] - v2[X]) > 0.001f)
@@ -72,16 +59,17 @@ bool	hit_object(t_ray *ray, t_type *objs)
 	return (true);
 }
 
-t_vec3	direct_light(t_light *light, t_type *objs, t_vec3 hitpoint)
+bool	direct_light(t_light *light, t_type *objs, t_vec3 hitpoint)
 {
+	t_ray	light_ray;
 	t_vec3	closest_hit;
 
-	light->ray.origin = hitpoint;
-	light->ray.unit_dir = normalize(light->origin - hitpoint);
-	light->ray.closest_t = FLT_MAX;
-	light->ray.object = NULL;
-	hit_object(&light->ray, objs);
-	closest_hit = light->ray.origin + light->ray.closest_t * light->ray.unit_dir;
+	light_ray.origin = hitpoint;
+	light_ray.unit_dir = normalize(light->origin - hitpoint);
+	light_ray.closest_t = FLT_MAX;
+	light_ray.object = NULL;
+	hit_object(&light_ray, objs);
+	closest_hit = light_ray.origin + light_ray.closest_t * light_ray.unit_dir;
 	if (vec3_diff(closest_hit, light->origin))
 		return (false);
 	return (true);
@@ -100,106 +88,76 @@ t_vec3	random_point_in_unit_sphere(void)
 	return (point);
 }
 
-
 t_vec3	get_normal(t_object *object, t_vec3 hitpoint)
 {
 	t_vec3	normal;
 
-	if (object->type == SP)
-		normal = normalize(hitpoint = object.center);
+	if (object->type == SP) {
+		t_sphere *sph = (t_sphere *)object;
+		normal = normalize(hitpoint - sph->center);
+	}
 	else if (object->type == PL)
-		normal = object->normal;
+	{
+		t_plane *pl = (t_plane *)object;
+		normal = pl->normal;
+	}
 	// get the normal for cylinder
 	return (normal);
 }
 
-t_vec3	random_scatter_ray(t_object *object, t_vec3 hitpoint, t_vec3 normal)
+t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 {
-	t_ray	ray;
+	t_ray	scatter_ray;
 
-	ray.origin = hitpoint;
-	ray.unit_dir = ray->hitpoint + normal + random_point_in_unit_sphere();
-	ray.closest_t = FLT_MAX;
-	ray.object = NULL;
-	return (ray);
+	scatter_ray.origin = hitpoint;
+	scatter_ray.unit_dir = hitpoint + normal + random_point_in_unit_sphere();
+	scatter_ray.closest_t = FLT_MAX;
+	scatter_ray.object = NULL;
+	return (scatter_ray);
 }
 
 t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 {
+	t_vec3	color;
 	t_ray	scatter;
-	t_vec3	albedo;
-	int		status;
-	
-	if (direct_light(&scene->light, scene->objs, ray->hitpoint) == true)
-		attenuation += scene->light.brightness;
+	t_vec3	hitpoint;
+	t_vec3	normal;
 
-	if (hit_object(scatter, scene->objs) == false)
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	if (hit_object(ray, scene->objs) == false)
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
+	if (ray->object->type == L)
+		return (scene->light.brightness * (scene->light.albedo));
+
+	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
+	normal = get_normal(ray->object, hitpoint);
+
+	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
+		color += scene->light.brightness * ray->object->albedo * attenuation;
 	
+	attenuation *= ray->object->albedo;
 
-}
+	scatter = random_scatter_ray(hitpoint, normal);
 
-t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
-{
-	t_ray	scatter;
-	t_vec3	albedo;
-	int		status;
-
-	// scatter random bounced ray
-	scatter = random_scatter_ray(ray->object, ray->hitpoint, ray->normal);
-	status = hit_object(scatter, scene->objs);
-	if (status == true)
-		albedo = ray->object->albedo;
-	if (status == false)
-		return (attenuation *= (t_vec3){0.0f, 0.0f, 0.0f});
-
-	// see if we have direct light
-	status = direct_light(&scene->light, scene->objs, ray->hitpoint);
-	if (status == true)
-		attenuation += albedo * scene->light.brightness;
-	// if there is no direct light
-	if (status == false)
-		attenuation *= albedo;
-	if (depth < MAX_DEPTH)
-		sample_color(scene, &scatter, attenuation, depth);
-	return (attenuation);
-}
-
-
-t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 *attenuation, int *depth)
-{
-	t_ray	scatter;
-
-	// return color if we have direct light
-	if (direct_light_hit(&scene->light, scene->objs, ray->hitpoint) == true)
-		return (*attenuation += scene->light.brightness * ray->object->albedo);
-	
-	// if not we scatter a ray to try again
-	scatter = random_scatter_ray(ray->object, ray->hitpoint, ray->normal);
-	if (hit_object(scatter, scene->objs) == true && *depth < MAX_DEPTH)
-		*attenuation *= sample_color(scene, &scatter, *attenuation, (*depth)++);
-
-	return ((t_vec3){0.0f, 0.0f, 0.0f});
+	while (depth < MAX_DEPTH)
+		color += sample_color(scene, &scatter, attenuation, depth++);
+	return (color);
 }
 
 t_vec3	get_color(t_scene *scene, t_ray *ray)
 {
+	t_vec3	color;
 	t_vec3	attenuation;
 	int		depth;
 
-	if (hit_object(ray, scene->objs) == false)
-		return ((t_vec3){0.0f, 0.0f, 0.0f});
-	
-	ray->hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
-	ray->normal = get_normal(ray->object, ray->hitpoint);
-
 	depth = 0;
 	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
-	sample_color(ray, attenuation, depth);
-	return (attenuation);
+	color = sample_color(scene, ray, attenuation, depth);
+	color /= (float)depth;
+	return (color);
 }
 
-t_vec3	monte_carlo_color(t_scene *scene, t_type *objs, int x, int y)
+t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 {
 	uint32_t	i;
 	t_ray		ray;
@@ -218,41 +176,6 @@ t_vec3	monte_carlo_color(t_scene *scene, t_type *objs, int x, int y)
 	return (color);
 }
 
-// t_vec3	get_color(t_scene *scene, t_ray *ray, t_type *objs)
-// {
-// 	(void)scene;
-
-// 	if (get_closest_hit(ray, objs) == false)
-// 		return ((t_vec3){0.0f, 0.0f, 0.0f});
-// 	return (ray->object->albedo);
-// }
-
-//problem is the next pixel is NOT at +1.0f 
-// t_vec3	monte_carlo_color(t_scene *scene, t_type *objs, int x, int y)
-// {
-// 	uint32_t	i;
-// 	// int			depth;
-// 	// t_vec3		attenuation;
-// 	t_ray		ray;
-// 	t_vec3		color;
-	
-// 	i = 0;
-// 	// depth = 0;
-// 	// attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
-// 	while (i < RAYSPERPIXEL)
-// 	{
-// 		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
-// 		float v = ((float)y + randf_zero_one(99912)) / (float)HEIGHT;
-// 		ray = get_ray(&scene->camera, h, v);
-
-// 		color += get_color(scene, &ray, objs);
-// 		// color += get_color(scene, &ray, objs, depth);
-// 		i++;
-// 	}
-// 	color /= RAYSPERPIXEL;
-// 	return (color);
-// }
-
 void show_progress_bar (int j);
 
 void render(t_mlx_data *data, t_scene *scene)
@@ -267,7 +190,7 @@ void render(t_mlx_data *data, t_scene *scene)
 		x = 0;
 		while(x < WIDTH)
 		{
-			color = monte_carlo_color(scene, scene->objs, x, y);
+			color = monte_carlo_color(scene, x, y);
 			put_image_pixel(data, x, y, color);
 			x++;
 		}
@@ -277,35 +200,3 @@ void render(t_mlx_data *data, t_scene *scene)
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	mlx_loop(data->mlx);
 }
-
-
-// t_vec3	get_light_ray(t_light *light, t_ray *ray)
-// {
-// 	t_ray	l_ray;
-
-// 	l_ray.origin = ray->hitpoint;
-// 	l_ray.unit_dir = normalize(light->origin - ray->hitpoint);
-// 	l_ray.closest_t = FLT_MAX;
-// 	l_ray.attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
-// 	return (l_ray);
-// }
-
-// t_vec3	get_color(t_scene *scene, t_ray *ray, t_type *objs, int depth)
-// {
-// 	t_vec3	hitpoint;
-// 	t_ray	l_ray;
-// 	t_ray	scatter_ray;
-// 	t_vec3	color;
-
-// 	// make boolean
-// 	get_closest_hit(ray, objs);
-// 	ray->hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
-// 	l_ray = get_light_ray(&scene->light, ray);
-// 	get_closest_t(&l_ray, objs);
-// 	scatter_ray = random_scatter_ray(ray);
-// 	if (scene->light.center == l_ray->hitpoint)
-// 		return (color += att * scene->light.brightness);
-// 	if (depth == DEPTH)
-// 			return (color *= att);
-// 	get_color(scene, &scatter_ray, depth++);
-// }

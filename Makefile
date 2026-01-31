@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
+#    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/28 15:52:09 by stefuntu         ###   ########.fr        #
+#    Updated: 2026/01/31 16:21:54 by winnitytrin      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS := src/main.c src/temp.c \
 		$(PARSING)/camera_utils.c \
 		$(RENDERING)/render.c $(RENDERING)/intersect_sph.c \
 		$(RENDERING)/intersect_pl.c $(RENDERING)/intersect_cy.c \
+		$(RENDERING)/intersect_light.c
 		
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 

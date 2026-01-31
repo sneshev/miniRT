@@ -6,23 +6,11 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:32:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/30 16:10:59 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/31 16:20:28 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int vec3_compare(t_vec3 v1, t_vec3 v2)
-{
-    if (fabs(v1[X] - v2[X]) > 0.001f)
-		return 1;
-    if (fabs(v1[Y] - v2[Y]) > 0.001f)
-		return 1;
-    if (fabs(v1[Z] - v2[Z]) > 0.001f)
-		return 1;
-
-    return 0;
-}
 
 void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 {

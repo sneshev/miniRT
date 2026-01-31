@@ -6,23 +6,11 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:37:07 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/30 20:20:55 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/31 16:22:45 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int vec3_compare(t_vec3 v1, t_vec3 v2)
-{
-    if (fabs(v1[X] - v2[X]) > 0.001f)
-		return 1;
-    if (fabs(v1[Y] - v2[Y]) > 0.001f)
-		return 1;
-    if (fabs(v1[Z] - v2[Z]) > 0.001f)
-		return 1;
-
-    return 0;
-}
 
 bool	intersect_light(t_ray *ray, t_object *obj)
 {

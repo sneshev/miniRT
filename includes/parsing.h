@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/30 16:24:07 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/31 15:58:10 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	valid_input(char *file, t_scene *scene);
 // elements
 bool	parse_camera(char **info, t_camera *camera);
 bool	parse_ambient(char **info, t_ambient *ambient);
-bool	parse_light(char **info, t_light *light);
+bool	parse_light(char **info, t_light *light, t_scene *scene);
 
 // objects
 bool	parse_sphere(char **info, t_scene *scene);

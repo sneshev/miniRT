@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/30 16:10:29 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/01/31 15:48:37 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 	{
 		if (!valid_element('C', element))
 			return (-1);
-		if (parse_camera(info, &(scene->camera)) == false)
+		if (parse_camera(info, &scene->camera) == false)
 			return (print_error(CAMERA), -1);
 		return (1);
 	}
@@ -26,7 +26,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 	{
 		if (!valid_element('A', element))
 			return (-1);
-		if (parse_ambient(info, &(scene->ambient)) == false)
+		if (parse_ambient(info, &scene->ambient) == false)
 			return (print_error(AMBIENT), -1);
 		return (1);
 	}
@@ -34,7 +34,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 	{
 		if (!valid_element('L', element))
 			return (-1);
-		if (parse_light(info, &(scene->light)) == false)
+		if (parse_light(info, &scene->light, scene) == false)
 			return (print_error(LIGHT), -1);
 		return (1);
 	}
