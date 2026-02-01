@@ -114,21 +114,23 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	return (scatter_ray);
 }
 
-t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
+t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 {
 	t_vec3	color;
 	t_ray	scatter;
 	t_vec3	hitpoint;
 	t_vec3	normal;
+	t_vec3	light_emission;
 
 	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	// if we hit black we immediately return, adding zero light
 	if (hit_object(ray, scene->objs) == false)
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
 	
+	light_emission = scene->light.brightness * scene->light.albedo;
 	// if we hit the light we add the intesity of the color
 	if (ray->object->type == L)
-		return (scene->light.brightness * (scene->light.albedo));
+		return (light_emission * attenuation);
 	
 	// if we hit neither it means we hit an object. with direct lighting the
 	// color gets added, otherwise we simply filter the light with the objects albedo
@@ -138,15 +140,18 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 
 	// add the light
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
-		color += scene->light.brightness * ray->object->albedo * attenuation;
+		color += light_emission * ray->object->albedo * attenuation;
 	
 	// alter the attenuation
 	attenuation *= ray->object->albedo;
 
 	scatter = random_scatter_ray(hitpoint, normal);
 
-	while (depth < MAX_DEPTH)
-		color += sample_color(scene, &scatter, attenuation, depth + 1);
+	if (*depth < MAX_DEPTH)
+	{
+		*depth += 1;
+		color += sample_color(scene, &scatter, attenuation, depth);
+	}
 	return (color);
 }
 
@@ -158,8 +163,9 @@ t_vec3	get_color(t_scene *scene, t_ray *ray)
 
 	depth = 0;
 	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
-	color = sample_color(scene, ray, attenuation, depth);
-	color /= (float)depth;
+	color = sample_color(scene, ray, attenuation, &depth);
+	if (depth != 0)
+		color /= (float)depth;
 	return (color);
 }
 
