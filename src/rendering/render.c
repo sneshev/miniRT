@@ -40,8 +40,6 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	return (ray);
 }
 
-// get the closest hit: the closest t, albedo and pointer to the object
-// return false when there is no hit
 bool	hit_object(t_ray *ray, t_type *objs)
 {
 	size_t		i;
@@ -124,23 +122,31 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	t_vec3	normal;
 
 	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	// if we hit black we immediately return, adding zero light
 	if (hit_object(ray, scene->objs) == false)
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
+	
+	// if we hit the light we add the intesity of the color
 	if (ray->object->type == L)
 		return (scene->light.brightness * (scene->light.albedo));
+	
+	// if we hit neither it means we hit an object. with direct lighting the
+	// color gets added, otherwise we simply filter the light with the objects albedo
 
 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
 	normal = get_normal(ray->object, hitpoint);
 
+	// add the light
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
 		color += scene->light.brightness * ray->object->albedo * attenuation;
 	
+	// alter the attenuation
 	attenuation *= ray->object->albedo;
 
 	scatter = random_scatter_ray(hitpoint, normal);
 
 	while (depth < MAX_DEPTH)
-		color += sample_color(scene, &scatter, attenuation, depth++);
+		color += sample_color(scene, &scatter, attenuation, depth + 1);
 	return (color);
 }
 
