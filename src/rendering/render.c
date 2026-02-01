@@ -15,16 +15,18 @@ int vec3_diff(t_vec3 v1, t_vec3 v2)
 #include <sys/time.h>
 float	randf_zero_one(int n)
 {
-	struct timeval	tv;
-	long			rand;
-	float			frand;
-	if (gettimeofday(&tv, NULL) == -1)
-		return (0);
-	rand = tv.tv_usec;
-	rand *= rand * n;
-	rand %= 1000;
-	frand = (float)rand/1000;
-	return (frand);
+	(void)n;
+	return (drand48());
+	// struct timeval	tv;
+	// long			rand;
+	// float			frand;
+	// if (gettimeofday(&tv, NULL) == -1)
+	// 	return (0);
+	// rand = tv.tv_usec;
+	// rand *= rand * n;
+	// rand %= 1000;
+	// frand = (float)rand/1000;
+	// return (frand);
 }
 
 t_ray	get_ray(t_camera *cam, float h, float v)
@@ -60,17 +62,15 @@ bool	hit_object(t_ray *ray, t_type *objs)
 bool	direct_light(t_light *light, t_type *objs, t_vec3 hitpoint)
 {
 	t_ray	light_ray;
-	t_vec3	closest_hit;
 
 	light_ray.origin = hitpoint;
 	light_ray.unit_dir = normalize(light->origin - hitpoint);
 	light_ray.closest_t = FLT_MAX;
 	light_ray.object = NULL;
 	hit_object(&light_ray, objs);
-	closest_hit = light_ray.origin + light_ray.closest_t * light_ray.unit_dir;
-	if (vec3_diff(closest_hit, light->origin))
-		return (false);
-	return (true);
+	if (light_ray.object->type == L)
+		return (true);
+	return (false);
 }
 
 t_vec3	random_point_in_unit_sphere(void)
@@ -108,7 +108,7 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	t_ray	scatter_ray;
 
 	scatter_ray.origin = hitpoint;
-	scatter_ray.unit_dir = hitpoint + normal + random_point_in_unit_sphere();
+	scatter_ray.unit_dir = normal + random_point_in_unit_sphere();
 	scatter_ray.closest_t = FLT_MAX;
 	scatter_ray.object = NULL;
 	return (scatter_ray);

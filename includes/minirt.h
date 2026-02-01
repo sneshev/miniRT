@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/01 15:09:01 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/01 16:12:07 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # include <float.h>
 
 
-# define HEIGHT	350
-# define WIDTH	500
+# define HEIGHT	500
+# define WIDTH	750
 
 # define RAYSPERPIXEL 50
-# define MAX_DEPTH 10
+# define MAX_DEPTH 25
 
 #define T_MIN 0.000001f
 
