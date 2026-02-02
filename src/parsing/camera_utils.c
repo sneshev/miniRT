@@ -6,13 +6,13 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:32:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/31 16:20:28 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 12:34:55 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
+t_vec3	get_orthogonal_base(t_vec3 ortho, t_vec3 dir_normal)
 {
 	t_vec3	up;
 
@@ -22,6 +22,7 @@ void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 		up = (t_vec3){0.0f, 0.0f, -1.0f};
 	ortho[U] = normalize(cross(up, ortho[W]));
 	ortho[V] = normalize(cross(ortho[W], ortho[U]));
+	return (ortho);
 }
 
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)
@@ -35,7 +36,7 @@ void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov
 	theta = hfov * M_PI / 180;
 	width = 2 * tan(theta / 2);
 	height = width / ((float)WIDTH / (float)HEIGHT);
-	get_orthogonal_base(ortho, dir_normal);
+	ortho = get_orthonogol_base(ortho, dir_normal);
 	cam->origin = viewpoint;
 	center = cam->origin + ortho[W];
 	cam->horizontal = width * ortho[U];

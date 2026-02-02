@@ -19,7 +19,7 @@ bool	parse_camera(char **info, t_camera *camera)
 	float	hfov;
 
 	if (arr_count(info) != 4)
-		return (print_error(MALLOC), false);
+		return (print_error(ERR_MALLOC), false);
 	if (!valid_position(&viewpoint, info[1]))
 		return (false);
 	if (!valid_unit_direction(&dir, info[2]))
@@ -27,17 +27,19 @@ bool	parse_camera(char **info, t_camera *camera)
 	if(!valid_hfov(&hfov, info[3]))
 		return (false);
 	setup_camera(camera, viewpoint, dir, hfov);
+	camera->type = CAMERA;
 	return (true);
 }
 
 bool	parse_ambient(char **info, t_ambient *ambient)
 {
 	if (arr_count(info) != 3)
-		return (print_error(MALLOC), false);
+		return (print_error(ERR_MALLOC), false);
 	if (!valid_unit_range(&(ambient->lightness), info[1]))
 		return (false);
 	if (!valid_color(&(ambient->albedo), info[2]))
 		return (false);
+	ambient->type = AMBIENT;
 	return (true);
 }
 
@@ -45,14 +47,14 @@ bool	parse_ambient(char **info, t_ambient *ambient)
 bool	parse_light(char **info, t_light *light, t_scene *scene)
 {
 	if (arr_count(info) != 4)
-		return (print_error(MALLOC), false);
+		return (print_error(ERR_MALLOC), false);
 	if (!valid_position(&(light->origin), info[1]))
 		return (false);
 	if (!valid_unit_range(&(light->brightness), info[2]))
 		return (false);
 	if (!valid_color(&(light->albedo), info[3]))
 		return (false);
-	light->type = L;
+	light->type = LIGHT;
 	light->intersect = intersect_light;
 	push(&scene->objs, light, sizeof(t_light));
 	return (true);

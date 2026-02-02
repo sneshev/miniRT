@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/31 15:47:54 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/01 20:08:14 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 	sphere.radius = 0.5f * diameter;
 	if (!valid_color(&(sphere.albedo), info[3]))
 		return (false);
-	sphere.type = SP;
+	sphere.type = SPHERE;
 	sphere.intersect = intersect_sph;
 	push(&scene->objs, &sphere, sizeof(t_sphere));
 	return (true);
@@ -44,7 +44,7 @@ bool	parse_plane(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(plane.albedo), info[3]))
 		return (false);
-	plane.type = PL;
+	plane.type = PLANE;
 	plane.intersect = intersect_pl;
 	push(&scene->objs, &plane, sizeof(t_plane));
 	return (true);
@@ -68,7 +68,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
-	cylinder.type = CY;
+	cylinder.type = CYLINDER;
 	cylinder.intersect = intersect_cyl;
 	push(&scene->objs, &cylinder, sizeof(t_cylinder));
 	return (true);

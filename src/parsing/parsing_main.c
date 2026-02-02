@@ -6,11 +6,17 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/01/31 15:48:37 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 12:40:41 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+bool	parse_element(char **info, t_element *element, t_scene *scene)
+{
+	if (!str_diff(*info, "C") && valid_element('C', element))
+		return (parse_camera(&scene->camera, ))
+}
 
 int	parse_element(char **info, t_element *element, t_scene *scene)
 {
@@ -19,7 +25,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 		if (!valid_element('C', element))
 			return (-1);
 		if (parse_camera(info, &scene->camera) == false)
-			return (print_error(CAMERA), -1);
+			return (print_error(ERR_CAMERA), -1);
 		return (1);
 	}
 	else if (!str_diff(*info, "A"))
@@ -27,7 +33,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 		if (!valid_element('A', element))
 			return (-1);
 		if (parse_ambient(info, &scene->ambient) == false)
-			return (print_error(AMBIENT), -1);
+			return (print_error(ERR_AMBIENT), -1);
 		return (1);
 	}
 	else if (!str_diff(*info, "L"))
@@ -35,7 +41,7 @@ int	parse_element(char **info, t_element *element, t_scene *scene)
 		if (!valid_element('L', element))
 			return (-1);
 		if (parse_light(info, &scene->light, scene) == false)
-			return (print_error(LIGHT), -1);
+			return (print_error(ERR_LIGHT), -1);
 		return (1);
 	}
 	return (0);
@@ -46,19 +52,19 @@ int	parse_object(char **info, t_scene *scene)
 	if (!str_diff(*info, "sp"))
 	{
 		if (parse_sphere(info, scene) == false)
-			return (print_error(SPHERE), -1);
+			return (print_error(ERR_SPHERE), -1);
 		return (1);
 	}
 	else if (!str_diff(*info, "pl"))
 	{
 		if (parse_plane(info, scene) == false)
-			return (print_error(PLANE), -1);
+			return (print_error(ERR_PLANE), -1);
 		return (1);
 	}
 	else if (!str_diff(*info, "cy"))
 	{
 		if (parse_cylinder(info, scene) == false)
-			return (print_error(CYLINDER), -1);
+			return (print_error(ERR_CYLINDER), -1);
 		return (1);
 	}
 	return (0);
@@ -71,7 +77,7 @@ bool	parse_line(char *line, t_element *element, t_scene *scene)
 	
 	info = ft_split(line, is_whitespace);
 	if (!info)
-		return (print_error(MALLOC), false);
+		return (print_error(ERR_MALLOC), false);
 	state = parse_element(info, element, scene);
 	if (state == -1)
 		return (free_arr(info), false);
@@ -82,7 +88,7 @@ bool	parse_line(char *line, t_element *element, t_scene *scene)
 		return (free_arr(info), false);
 	if (state == 1)
 		return (free_arr(info), true);
-	print_error(ELEMENT);
+	print_error(ERR_ELEMENT);
 	return (free_arr(info), false);		
 }
 

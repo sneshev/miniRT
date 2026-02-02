@@ -90,11 +90,11 @@ t_vec3	get_normal(t_object *object, t_vec3 hitpoint)
 {
 	t_vec3	normal;
 
-	if (object->type == SP) {
+	if (object->type == SPHERE) {
 		t_sphere *sph = (t_sphere *)object;
 		normal = normalize(hitpoint - sph->center);
 	}
-	else if (object->type == PL)
+	else if (object->type == PLANE)
 	{
 		t_plane *pl = (t_plane *)object;
 		normal = pl->normal;
@@ -123,35 +123,33 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	t_vec3	light_emission;
 
 	color = (t_vec3){0.0f, 0.0f, 0.0f};
-	// if we hit black we immediately return, adding zero light
 	if (hit_object(ray, scene->objs) == false)
-		return ((t_vec3){0.0f, 0.0f, 0.0f});
-	
+		return ((t_vec3){0.2f, 0.8f, 1.0f});
 	light_emission = scene->light.brightness * scene->light.albedo;
-	// if we hit the light we add the intesity of the color
-	if (ray->object->type == L)
+	if (ray->object->type == LIGHT)
 		return (light_emission * attenuation);
-	
-	// if we hit neither it means we hit an object. with direct lighting the
-	// color gets added, otherwise we simply filter the light with the objects albedo
-
 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
 	normal = get_normal(ray->object, hitpoint);
-
-	// add the light
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
 		color += light_emission * ray->object->albedo * attenuation;
-	
-	// alter the attenuation
 	attenuation *= ray->object->albedo;
-
 	scatter = random_scatter_ray(hitpoint, normal);
-
 	if (*depth < MAX_DEPTH)
 	{
 		*depth += 1;
 		color += sample_color(scene, &scatter, attenuation, depth);
 	}
+	return (color);
+}
+
+t_vec3	clamp(t_vec3 color)
+{
+	if (color[R] > 1.0f)
+		color[R] = 1.0f;
+	if (color[G] > 1.0f)
+		color[G] = 1.0f;	
+	if (color[B] > 1.0f)
+		color[B] = 1.0f;
 	return (color);
 }
 
@@ -166,6 +164,7 @@ t_vec3	get_color(t_scene *scene, t_ray *ray)
 	color = sample_color(scene, ray, attenuation, &depth);
 	if (depth != 0)
 		color /= (float)depth;
+	color = clamp(color);
 	return (color);
 }
 

@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/01/31 16:00:37 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 12:31:55 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,27 @@ typedef struct s_ray
 	t_object	*object;
 }			t_ray;
 
-typedef enum e_obj_type
+typedef enum etype
 {
-	SP,
-	PL,
-	CY,
-	L
-}			t_obj_type;
+	SPERE,
+	PLANE,
+	CYLINDER,
+	LIGHT,
+	AMBIENT,
+	CAMERA,
+	NONE
+}			t_type;
 
 typedef struct s_object
 {
-	t_obj_type	type;
+	t_type		type;
 	bool 		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		albedo;
 }				t_object;
 
 typedef struct s_sphere
 {
-	t_obj_type	type;
+	t_type		type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		albedo;
 	t_vec3		center;
@@ -72,7 +75,7 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_obj_type	type;
+	t_type		type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		albedo;
 	t_vec3		center;
@@ -83,7 +86,7 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
-	t_obj_type	type;
+	t_type		type;
 	bool 		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		albedo;
 	t_vec3		point;
@@ -92,24 +95,25 @@ typedef struct s_plane
 
 typedef struct s_light
 {
-	t_obj_type	type;
+	t_type		type;
 	bool		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		origin;
 	float		brightness;
 	t_vec3		albedo;
 }			t_light;
 
-typedef union u_type
+typedef union u_objs
 {
 	t_sphere	sphere;
 	t_cylinder	cylinder;
 	t_plane		plane;
 	t_light		light;
 	t_object	object;
-}			t_type;
+}			t_objs;
 
 typedef struct s_camera
 {
+	t_type	type;
 	t_vec3	origin;
 	t_vec3	upper_left;
 	t_vec3	horizontal;
@@ -118,6 +122,7 @@ typedef struct s_camera
 
 typedef struct s_ambient
 {
+	t_type	type;
 	float	lightness;
 	t_vec3	albedo;
 }			t_ambient;
@@ -125,7 +130,7 @@ typedef struct s_ambient
 
 typedef struct s_scene
 {
-	t_type			*objs;
+	t_objs			*objs;
 	t_camera		camera;
 	t_light			light;
 	t_ambient		ambient;

@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/27 18:00:05 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 12:39:35 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,23 @@ bool	valid_element(char identifyer, t_element *element)
 {
 	if (identifyer == 'C')
 	{
-		if (!element->camera)
-			element->camera = true;
-		else
-			return (print_error(DOUBLE), false);
+		if (element->camera)
+			return (print_error(ERR_DOUBLE), false);
+		element->camera = true;
 	}
 	else if (identifyer == 'A')
 	{
-		if (!element->ambient)
-			element->ambient = true;
-		else
-			return (print_error(DOUBLE), false);
+		if (element->ambient)
+			return (print_error(ERR_DOUBLE), false);
+		element->ambient = true;
 	}
 	else if (identifyer == 'L')
 	{
 		if (!element->light)
-			element->light = true;
-		else
-			return (print_error(DOUBLE), false);
+			return (print_error(ERR_DOUBLE), false);
+		element->light = true;
 	}
-	return (true);	
+	return (true);
 }
 
 bool	valid_position(t_vec3 *pos, char *str)
@@ -92,7 +89,7 @@ bool	valid_color(t_vec3 *color, char *str)
 
 	split = ft_split(str, is_comma);
 	if (!split)
-		return (print_error(MALLOC), false);
+		return (print_error(ERR_MALLOC), false);
 	if (!valid_rgb(&rgb[R], split[0]))
 		return (free_arr(split), false);
 	if (!valid_rgb(&rgb[G], split[1]))

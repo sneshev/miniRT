@@ -6,7 +6,7 @@
 /*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/31 15:58:10 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/01 20:07:37 by winnitytrin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ typedef struct e_element
 
 typedef enum e_error
 {
-	FORMAT,
-	CAMERA,
-	AMBIENT,
-	LIGHT,
-	SPHERE,
-	PLANE,
-	CYLINDER,
-	ELEMENT,
-	DOUBLE,
-	MALLOC,
-	FD
+	ERR_FORMAT,
+	ERR_CAMERA,
+	ERR_AMBIENT,
+	ERR_LIGHT,
+	ERR_SPHERE,
+	ERR_PLANE,
+	ERR_CYLINDER,
+	ERR_ELEMENT,
+	ERR_DOUBLE,
+	ERR_MALLOC,
+	ERR_FD
 }			t_error;
 
 // parsing main
