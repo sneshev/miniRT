@@ -1,33 +1,9 @@
 #include "minirt.h"
 
-int vec3_diff(t_vec3 v1, t_vec3 v2)
-{
-    if (fabs(v1[X] - v2[X]) > 0.001f)
-		return 1;
-    if (fabs(v1[Y] - v2[Y]) > 0.001f)
-		return 1;
-    if (fabs(v1[Z] - v2[Z]) > 0.001f)
-		return 1;
 
-    return 0;
-}
 
 #include <sys/time.h>
-float	randf_zero_one(int n)
-{
-	(void)n;
-	return (drand48());
-	// struct timeval	tv;
-	// long			rand;
-	// float			frand;
-	// if (gettimeofday(&tv, NULL) == -1)
-	// 	return (0);
-	// rand = tv.tv_usec;
-	// rand *= rand * n;
-	// rand %= 1000;
-	// frand = (float)rand/1000;
-	// return (frand);
-}
+
 
 t_ray	get_ray(t_camera *cam, float h, float v)
 {
@@ -42,7 +18,7 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	return (ray);
 }
 
-bool	hit_object(t_ray *ray, t_type *objs)
+bool	hit_object(t_ray *ray, t_objs *objs)
 {
 	size_t		i;
 	t_object	*object;
@@ -59,7 +35,7 @@ bool	hit_object(t_ray *ray, t_type *objs)
 	return (true);
 }
 
-bool	direct_light(t_light *light, t_type *objs, t_vec3 hitpoint)
+bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 {
 	t_ray	light_ray;
 
@@ -68,7 +44,7 @@ bool	direct_light(t_light *light, t_type *objs, t_vec3 hitpoint)
 	light_ray.closest_t = FLT_MAX;
 	light_ray.object = NULL;
 	hit_object(&light_ray, objs);
-	if (light_ray.object->type == L)
+	if (light_ray.object->type == LIGHT)
 		return (true);
 	return (false);
 }
@@ -90,6 +66,7 @@ t_vec3	get_normal(t_object *object, t_vec3 hitpoint)
 {
 	t_vec3	normal;
 
+	normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	if (object->type == SPHERE) {
 		t_sphere *sph = (t_sphere *)object;
 		normal = normalize(hitpoint - sph->center);
@@ -122,36 +99,58 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	t_vec3	normal;
 	t_vec3	light_emission;
 
-	color = (t_vec3){0.0f, 0.0f, 0.0f};
-	if (hit_object(ray, scene->objs) == false)
-		return ((t_vec3){0.2f, 0.8f, 1.0f});
+	color = scene->ambient.lightness * scene->ambient.albedo;
 	light_emission = scene->light.brightness * scene->light.albedo;
+
+	if (hit_object(ray, scene->objs) == false)
+		return ((t_vec3){0.0f, 0.0f, 0.0f});
+
 	if (ray->object->type == LIGHT)
 		return (light_emission * attenuation);
+
 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
 	normal = get_normal(ray->object, hitpoint);
+
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
 		color += light_emission * ray->object->albedo * attenuation;
-	attenuation *= ray->object->albedo;
-	scatter = random_scatter_ray(hitpoint, normal);
+
 	if (*depth < MAX_DEPTH)
 	{
 		*depth += 1;
+		scatter = random_scatter_ray(hitpoint, normal);
 		color += sample_color(scene, &scatter, attenuation, depth);
 	}
 	return (color);
 }
 
-t_vec3	clamp(t_vec3 color)
-{
-	if (color[R] > 1.0f)
-		color[R] = 1.0f;
-	if (color[G] > 1.0f)
-		color[G] = 1.0f;	
-	if (color[B] > 1.0f)
-		color[B] = 1.0f;
-	return (color);
-}
+// t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
+// {
+// 	t_vec3	color;
+// 	t_ray	scatter;
+// 	t_vec3	hitpoint;
+// 	t_vec3	normal;
+// 	t_vec3	light_emission;
+
+// 	color = (t_vec3){0.0f, 0.0f, 0.0f};
+// 	light_emission = scene->light.brightness * scene->light.albedo;
+// 	if (hit_object(ray, scene->objs) == false)
+// 		return ((t_vec3){0.2f, 0.8f, 1.0f});
+// 	if (ray->object->type == LIGHT)
+// 		return (light_emission * attenuation);
+// 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
+// 	normal = get_normal(ray->object, hitpoint);
+// 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
+// 		color += light_emission * ray->object->albedo * attenuation;
+// 	attenuation *= ray->object->albedo;
+// 	scatter = random_scatter_ray(hitpoint, normal);
+// 	if (*depth < MAX_DEPTH)
+// 	{
+// 		*depth += 1;
+// 		color += sample_color(scene, &scatter, attenuation, depth);
+// 	}
+// 	return (color);
+// }
+
 
 t_vec3	get_color(t_scene *scene, t_ray *ray)
 {
@@ -159,7 +158,8 @@ t_vec3	get_color(t_scene *scene, t_ray *ray)
 	t_vec3	attenuation;
 	int		depth;
 
-	depth = 0;
+	// i think? or 0??
+	depth = 1;
 	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
 	color = sample_color(scene, ray, attenuation, &depth);
 	if (depth != 0)
@@ -175,6 +175,7 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 	t_vec3		color;
 	
 	i = 0;
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	while (i < RAYSPERPIXEL)
 	{
 		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
@@ -184,6 +185,7 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 		i++;
 	}
 	color /= RAYSPERPIXEL;
+	color = clamp(color);
 	return (color);
 }
 
@@ -195,6 +197,7 @@ void render(t_mlx_data *data, t_scene *scene)
 	int		x;
 	int		y;
 
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	y = 0;
 	while(y < HEIGHT)
 	{

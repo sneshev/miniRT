@@ -27,7 +27,6 @@ bool	parse_camera(char **info, t_camera *camera)
 	if(!valid_hfov(&hfov, info[3]))
 		return (false);
 	setup_camera(camera, viewpoint, dir, hfov);
-	camera->type = CAMERA;
 	return (true);
 }
 
@@ -39,7 +38,6 @@ bool	parse_ambient(char **info, t_ambient *ambient)
 		return (false);
 	if (!valid_color(&(ambient->albedo), info[2]))
 		return (false);
-	ambient->type = AMBIENT;
 	return (true);
 }
 
@@ -54,11 +52,31 @@ bool	parse_light(char **info, t_light *light, t_scene *scene)
 		return (false);
 	if (!valid_color(&(light->albedo), info[3]))
 		return (false);
-	light->type = LIGHT;
 	light->intersect = intersect_light;
 	push(&scene->objs, light, sizeof(t_light));
 	return (true);
 }
 
-
+bool	parse_element(char **info, t_scene *scene)
+{
+	if (!str_diff(*info, "C") && valid_element('C', scene))
+	{
+		if (parse_camera(info, &scene->camera) == false)
+			return (print_error(ERR_CAMERA), false);
+		return (true);
+	}
+	else if (!str_diff(*info, "A") && valid_element('A', scene))
+	{
+		if (parse_ambient(info, &scene->ambient) == false)
+			return (print_error(ERR_AMBIENT), false);
+		return (true);
+	}
+	else if (!str_diff(*info, "L") && valid_element('L', scene))
+	{
+		if (parse_light(info, &scene->light, scene) == false)
+			return (print_error(ERR_LIGHT), false);
+		return (true);
+	}
+	return (false);
+}
 

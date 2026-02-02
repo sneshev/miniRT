@@ -3,41 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   valid_info1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/02 12:39:35 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 16:24:41 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	init_element(t_element *element)
-{
-	element->camera = false;
-	element->ambient = false;
-	element->light = false;
-}
-
-bool	valid_element(char identifyer, t_element *element)
+bool	valid_element(char identifyer, t_scene *scene)
 {
 	if (identifyer == 'C')
 	{
-		if (element->camera)
-			return (print_error(ERR_DOUBLE), false);
-		element->camera = true;
+		if (scene->camera.type == CAMERA)
+			return (print_error(ERR_ELEMENT), false);
+		scene->camera.type = CAMERA;
 	}
 	else if (identifyer == 'A')
 	{
-		if (element->ambient)
-			return (print_error(ERR_DOUBLE), false);
-		element->ambient = true;
+		if (scene->ambient.type == AMBIENT)
+			return (print_error(ERR_ELEMENT), false);
+		scene->ambient.type = AMBIENT;
 	}
 	else if (identifyer == 'L')
 	{
-		if (!element->light)
-			return (print_error(ERR_DOUBLE), false);
-		element->light = true;
+		if (scene->light.type == LIGHT)
+			return (print_error(ERR_ELEMENT), false);
+		scene->light.type = LIGHT;
 	}
 	return (true);
 }

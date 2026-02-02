@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/01 20:09:18 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 18:09:46 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	init_element(t_scene *scene)
+{
+	scene->camera.type = NONE;
+	scene->light.type = NONE;
+	scene->light.intersect = NULL;
+	scene->light.brightness = 1.0f;
+	scene->light.albedo = (t_vec3){1.0f, 1.0f, 1.0f};
+	scene->ambient.type = NONE;
+	scene->ambient.lightness = 0.0f;
+	scene->ambient.albedo = (t_vec3){0.0f, 0.0f, 0.0f};
+}
 
 bool	is_comma(char c)
 {
@@ -46,28 +58,3 @@ int	str_diff(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
-
-void	print_error(t_error error)
-{
-	if (error == ERR_FORMAT)
-		printf("Error: Invalid line\n");
-	else if (error == ERR_CAMERA)
-		printf("Error: Invalid camera\n");
-	else if (error == ERR_AMBIENT)
-		printf("Error: Invalid ambient\n");
-	else if (error == ERR_LIGHT)
-		printf("Error: Invalid light\n");
-	else if (error == ERR_SPHERE)
-		printf("Error: Invalid sphere\n");
-	else if (error == ERR_PLANE)
-		printf("Error: Invalid plane\n");
-	else if (error == ERR_CYLINDER)
-		printf("Error: Invalid cylinder\n");
-	else if (error == ERR_ELEMENT)
-		printf("Error: Invalid element\n");
-	else if (error == ERR_DOUBLE)
-		printf("Error: Double element\n");
-	else if (error == ERR_MALLOC)
-		printf("Error: Malloc error\n");
-}
-

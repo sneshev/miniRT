@@ -3,107 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 12:40:41 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 18:31:56 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-bool	parse_element(char **info, t_element *element, t_scene *scene)
-{
-	if (!str_diff(*info, "C") && valid_element('C', element))
-		return (parse_camera(&scene->camera, ))
-}
-
-int	parse_element(char **info, t_element *element, t_scene *scene)
-{
-	if (!str_diff(*info, "C"))
-	{
-		if (!valid_element('C', element))
-			return (-1);
-		if (parse_camera(info, &scene->camera) == false)
-			return (print_error(ERR_CAMERA), -1);
-		return (1);
-	}
-	else if (!str_diff(*info, "A"))
-	{
-		if (!valid_element('A', element))
-			return (-1);
-		if (parse_ambient(info, &scene->ambient) == false)
-			return (print_error(ERR_AMBIENT), -1);
-		return (1);
-	}
-	else if (!str_diff(*info, "L"))
-	{
-		if (!valid_element('L', element))
-			return (-1);
-		if (parse_light(info, &scene->light, scene) == false)
-			return (print_error(ERR_LIGHT), -1);
-		return (1);
-	}
-	return (0);
-}
-
-int	parse_object(char **info, t_scene *scene)
-{
-	if (!str_diff(*info, "sp"))
-	{
-		if (parse_sphere(info, scene) == false)
-			return (print_error(ERR_SPHERE), -1);
-		return (1);
-	}
-	else if (!str_diff(*info, "pl"))
-	{
-		if (parse_plane(info, scene) == false)
-			return (print_error(ERR_PLANE), -1);
-		return (1);
-	}
-	else if (!str_diff(*info, "cy"))
-	{
-		if (parse_cylinder(info, scene) == false)
-			return (print_error(ERR_CYLINDER), -1);
-		return (1);
-	}
-	return (0);
-}
-
-bool	parse_line(char *line, t_element *element, t_scene *scene)
-{
-	char	**info;
-	int		state;
-	
-	info = ft_split(line, is_whitespace);
-	if (!info)
-		return (print_error(ERR_MALLOC), false);
-	state = parse_element(info, element, scene);
-	if (state == -1)
-		return (free_arr(info), false);
-	if (state == 1)
-		return (free_arr(info), true);
-	state = parse_object(info, scene);
-	if (state == -1)
-		return (free_arr(info), false);
-	if (state == 1)
-		return (free_arr(info), true);
-	print_error(ERR_ELEMENT);
-	return (free_arr(info), false);		
-}
-
-bool	check_line(char **line)
-{
-	int	len;
-	
-	len = ft_strlen(*line);
-	if (len > 1 && (*line)[len - 1] == '\n')
-		(*line)[len - 1] = '\0';
-	if (is_whitespace(**line) ||
-		is_whitespace((*line)[ft_strlen(*line) - 1]))
-		return (print_error(FORMAT), false);
-	return (true);
-}
 
 int	open_file(char *file)
 {
@@ -112,10 +19,45 @@ int	open_file(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		print_error(FD);
+		print_error(ERR_FD);
 		exit(1);
 	}
-	return (fd);	
+	return (fd);
+}
+
+bool	check_line(char **line)
+{
+	int	len;
+	
+	len = ft_strlen(*line);
+	if (len == 0)
+		return (false);
+	if (len > 1 && (*line)[len - 1] == '\n')
+		(*line)[len - 1] = '\0';
+	if (is_whitespace(**line) ||
+		is_whitespace((*line)[ft_strlen(*line) - 1]))
+		return (print_error(ERR_FORMAT), false);
+	return (true);
+}
+
+bool	parse_line(char *line, t_scene *scene)
+{
+	char	**info;
+
+	info = ft_split(line, is_whitespace);
+	if (!info)
+	{
+		print_error(ERR_MALLOC);
+		return (false);
+	}
+	if (parse_element(info, scene) == false
+		&& parse_object(info, scene) == false)
+	{
+		free_arr(info);
+		return (false);
+	}
+	free_arr(info);
+	return (true);
 }
 
 bool	valid_input(char *file, t_scene *scene)
@@ -123,25 +65,25 @@ bool	valid_input(char *file, t_scene *scene)
 	int			fd;
 	char		*line;
 	t_status	status;
-	t_element	element;
 
-	init_element(&element);
+	init_element(scene);
 	fd = open_file(file);
 	status = GNL_OK;
 	while (status != GNL_EOF)
 	{
 		status = get_next_line(&line, fd);
 		if (status == GNL_ERROR)
-			return (print_error(MALLOC), close(fd), false);
-		if (*line && check_line(&line) == false)
+			return (print_error(ERR_MALLOC), close(fd), false);
+		if (check_line(&line) == false)
 			return (free(line), get_next_line(&line, -1), close(fd), false);
 		if (*line && !is_newline(*line))
 		{
-			if (parse_line(line, &element, scene) == false)
+			if (parse_line(line, scene) == false)
 				return (free(line), get_next_line(&line, -1), close(fd), false);
 		}
 		free(line);
 	}
-	close(fd);
-	return (true);
+	if (scene->camera.type == NONE)
+		return (print_error(ERR_CAMERA), false);
+	return (close(fd), true);
 }

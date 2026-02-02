@@ -3,30 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+         #
+#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/01/31 16:21:54 by winnitytrin      ###   ########.fr        #
+#    Updated: 2026/02/02 18:37:31 by mmisumi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := miniRT
 
-PARSING  := src/parsing
-MLX		 := src/mlx
-UTILS	 := src/utils
-RENDERING := src/rendering
+PARSING		:= src/parsing
+MLX			:= src/mlx
+UTILS		:= src/utils
+RENDERING	:= src/rendering
+VEC3		:=src/vec3
 
 SRCS := src/main.c src/temp.c \
 		$(MLX)/initialize.c $(MLX)/misc.c \
-		$(UTILS)/utils.c $(UTILS)/vec3.c $(UTILS)/dynamic_array.c \
+		$(UTILS)/utils.c $(UTILS)/dynamic_array.c \
+		$(VEC3)/vec3.c $(VEC3)/vec3_compare.c \
 		$(PARSING)/parsing_main.c $(PARSING)/elements.c $(PARSING)/objects.c \
-		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils.c \
-		$(PARSING)/camera_utils.c \
+		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils1.c \
+		$(PARSING)/utils2.c \
 		$(RENDERING)/render.c $(RENDERING)/intersect_sph.c \
 		$(RENDERING)/intersect_pl.c $(RENDERING)/intersect_cy.c \
+		$(RENDERING)/render_utils.c \
 		$(RENDERING)/intersect_light.c
-		
+
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
 MLX_FLAGS	:= -Lmlx_linux -lmlx -lXext -lX11 -lz

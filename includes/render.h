@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 16:13:55 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 18:27:53 by mmisumi          ###   ########.fr       */
+/*   Created: 2026/02/02 16:58:45 by mmisumi           #+#    #+#             */
+/*   Updated: 2026/02/02 18:15:09 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RENDER_H
+# define RENDER_H
+
+#include <sys/time.h>
 #include "minirt.h"
 
-void	free_arr(char **arr)
-{
-	int	i;
+void render(t_mlx_data *data, t_scene *scene);
 
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		if (arr[i])
-		{
-			free(arr[i]);
-		}
-		i++;
-	}
-	free(arr);
-}
+// intersect
+bool	intersect_sph(t_ray *ray, t_object *obj);
+bool	intersect_pl(t_ray *ray, t_object *obj);
+bool	intersect_cyl(t_ray *ray, t_object *obj);
+bool	intersect_light(t_ray *ray, t_object *obj);
 
-int	arr_count(char **arr)
-{
-	int	i;
-	int	count;
+// utils
+float	randf_zero_one(int n);
+t_vec3	clamp(t_vec3 color);
 
-	if (!arr)
-		return (0);
-	i = 0;
-	count = 0;
-	while (arr[i])
-	{
-		i++;
-		count++;
-	}
-	return (count);
-}
+#endif
 

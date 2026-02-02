@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/02 12:31:55 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 18:22:06 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdint.h>
 
 typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4)));
-typedef union 	u_type t_type;
+typedef union 	u_objs t_objs;
 typedef struct	s_object t_object;
 
 typedef struct s_img_info
@@ -48,7 +48,7 @@ typedef struct s_ray
 
 typedef enum etype
 {
-	SPERE,
+	SPHERE,
 	PLANE,
 	CYLINDER,
 	LIGHT,
@@ -126,7 +126,6 @@ typedef struct s_ambient
 	float	lightness;
 	t_vec3	albedo;
 }			t_ambient;
-
 
 typedef struct s_scene
 {

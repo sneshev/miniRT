@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/01 20:08:14 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 16:27:36 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,27 @@ bool	parse_cylinder(char **info, t_scene *scene)
 	cylinder.intersect = intersect_cyl;
 	push(&scene->objs, &cylinder, sizeof(t_cylinder));
 	return (true);
+}
+
+bool	parse_object(char **info, t_scene *scene)
+{
+	if (!str_diff(*info, "sp"))
+	{
+		if (parse_sphere(info, scene) == false)
+			return (print_error(ERR_SPHERE), false);
+		return (true);
+	}
+	else if (!str_diff(*info, "pl"))
+	{
+		if (parse_plane(info, scene) == false)
+			return (print_error(ERR_PLANE), false);
+		return (true);
+	}
+	else if (!str_diff(*info, "cy"))
+	{
+		if (parse_cylinder(info, scene) == false)
+			return (print_error(ERR_CYLINDER), false);
+		return (true);
+	}
+	return (false);
 }

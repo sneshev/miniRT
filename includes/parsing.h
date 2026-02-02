@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/01 20:07:37 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/02 17:07:52 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,31 @@ typedef enum e_error
 	ERR_PLANE,
 	ERR_CYLINDER,
 	ERR_ELEMENT,
-	ERR_DOUBLE,
 	ERR_MALLOC,
 	ERR_FD
 }			t_error;
 
 // parsing main
-void	print_error(t_error error);
 bool	valid_input(char *file, t_scene *scene);
 
 // elements
 bool	parse_camera(char **info, t_camera *camera);
 bool	parse_ambient(char **info, t_ambient *ambient);
 bool	parse_light(char **info, t_light *light, t_scene *scene);
+bool	parse_element(char **info, t_scene *scene);
 
 // objects
 bool	parse_sphere(char **info, t_scene *scene);
 bool	parse_plane(char **info, t_scene *scene);
 bool	parse_cylinder(char **info, t_scene *scene);
-
-bool	intersect_pl(t_ray *ray, t_object *obj);
-bool	intersect_sph(t_ray *ray, t_object *obj);
-bool	intersect_cyl(t_ray *ray, t_object *obj);
-bool	intersect_light(t_ray *ray, t_object *obj);
+bool	parse_object(char **info, t_scene *scene);
 
 // valid info
-bool	valid_element(char identifyer, t_element *element);
-bool	valid_unit_direction(t_vec3 *dir, char *str);
+bool	valid_element(char identifyer, t_scene *scene);
 bool	valid_position(t_vec3 *pos, char *str);
 bool	valid_color(t_vec3 *color, char *str);
 bool	valid_hfov(float *hfov, char *str);
+bool	valid_unit_direction(t_vec3 *dir, char *str);
 bool	valid_unit_range(float *f, char *str);
 bool	valid_float(float *f, char *str);
 
@@ -71,9 +66,8 @@ bool	is_comma(char c);
 bool	is_whitespace(char c);
 bool	is_newline(char c);
 int		str_diff(char *s1, char *s2);
-void	init_element(t_element *element);
-
-// camera utils
+void	init_element(t_scene *scene);
+void	print_error(t_error error);
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov);
 
 #endif
