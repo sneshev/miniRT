@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/02 17:07:52 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:14:52 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ typedef enum e_error
 	ERR_CYLINDER,
 	ERR_ELEMENT,
 	ERR_MALLOC,
-	ERR_FD
+	ERR_FD,
+	ERR_SPECIFYER
 }			t_error;
 
 // parsing main
 bool	valid_input(char *file, t_scene *scene);
 
 // elements
+void	init_element(t_scene *scene);
 bool	parse_camera(char **info, t_camera *camera);
 bool	parse_ambient(char **info, t_ambient *ambient);
 bool	parse_light(char **info, t_light *light, t_scene *scene);
@@ -66,8 +68,7 @@ bool	is_comma(char c);
 bool	is_whitespace(char c);
 bool	is_newline(char c);
 int		str_diff(char *s1, char *s2);
-void	init_element(t_scene *scene);
-void	print_error(t_error error);
+bool	return_error(t_error error);
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov);
 
 #endif

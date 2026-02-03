@@ -6,13 +6,13 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 18:33:52 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:05:03 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	print_error(t_error error)
+bool	return_error(t_error error)
 {
 	if (error == ERR_FORMAT)
 		printf("Error: Invalid line\n");
@@ -32,6 +32,11 @@ void	print_error(t_error error)
 		printf("Error: double element\n");
 	else if (error == ERR_MALLOC)
 		printf("Error: Malloc error\n");
+	else if (error == ERR_FD)
+		printf("Error: Invalid fd\n");
+	else if (error == ERR_SPECIFYER)
+		printf("Error: Invalid specifyer\n");
+	return (false);
 }
 
 void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)

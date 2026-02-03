@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/02 16:24:41 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:01:55 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ bool	valid_element(char identifyer, t_scene *scene)
 	if (identifyer == 'C')
 	{
 		if (scene->camera.type == CAMERA)
-			return (print_error(ERR_ELEMENT), false);
+			return (return_error(ERR_ELEMENT));
 		scene->camera.type = CAMERA;
 	}
 	else if (identifyer == 'A')
 	{
 		if (scene->ambient.type == AMBIENT)
-			return (print_error(ERR_ELEMENT), false);
+			return (return_error(ERR_ELEMENT));
 		scene->ambient.type = AMBIENT;
 	}
 	else if (identifyer == 'L')
 	{
 		if (scene->light.type == LIGHT)
-			return (print_error(ERR_ELEMENT), false);
+			return (return_error(ERR_ELEMENT));
 		scene->light.type = LIGHT;
 	}
 	return (true);
@@ -42,7 +42,7 @@ bool	valid_position(t_vec3 *pos, char *str)
 
 	split = ft_split(str, is_comma);
 	if (!split)
-		return (false);
+		return (return_error(ERR_MALLOC));
 	if (arr_count(split) != 3)
 		return (free_arr(split), false);
 	if (!valid_float(&(f[0]), split[0]))
@@ -82,7 +82,7 @@ bool	valid_color(t_vec3 *color, char *str)
 
 	split = ft_split(str, is_comma);
 	if (!split)
-		return (print_error(ERR_MALLOC), false);
+		return (return_error(ERR_MALLOC));
 	if (!valid_rgb(&rgb[R], split[0]))
 		return (free_arr(split), false);
 	if (!valid_rgb(&rgb[G], split[1]))

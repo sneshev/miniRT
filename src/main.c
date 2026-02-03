@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 18:39:06 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:36:18 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (1);
-	data.scene.objs = make_dynamic_array(3, sizeof(t_type));
+	data.scene.objs = make_dynamic_array(3, sizeof(t_objs));
 	if (!data.scene.objs)
 		return (1);
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 		return (free_data_exit(&data, 1), 1);
 
 	render(&data.mlx, &data.scene);
-	free_dynamic_array(data.scene.objs);
+	free_dynamic_array(&data.scene.objs);
 	return (0);
 }
 

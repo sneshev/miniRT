@@ -14,6 +14,8 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	ray.origin = cam->origin;
 	ray.unit_dir = normalize(hitpoint - ray.origin);
 	ray.closest_t = FLT_MAX;
+	// ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
+	// ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	ray.object = NULL;
 	return (ray);
 }
@@ -39,9 +41,13 @@ bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 {
 	t_ray	light_ray;
 
+	if (light->type == NONE)
+		return (false);
 	light_ray.origin = hitpoint;
 	light_ray.unit_dir = normalize(light->origin - hitpoint);
 	light_ray.closest_t = FLT_MAX;
+	// light_ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
+	// light_ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	light_ray.object = NULL;
 	hit_object(&light_ray, objs);
 	if (light_ray.object->type == LIGHT)
@@ -87,6 +93,8 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	scatter_ray.origin = hitpoint;
 	scatter_ray.unit_dir = normal + random_point_in_unit_sphere();
 	scatter_ray.closest_t = FLT_MAX;
+	// scatter_ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
+	// scatter_ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	scatter_ray.object = NULL;
 	return (scatter_ray);
 }
@@ -123,47 +131,16 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	return (color);
 }
 
-// t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
-// {
-// 	t_vec3	color;
-// 	t_ray	scatter;
-// 	t_vec3	hitpoint;
-// 	t_vec3	normal;
-// 	t_vec3	light_emission;
-
-// 	color = (t_vec3){0.0f, 0.0f, 0.0f};
-// 	light_emission = scene->light.brightness * scene->light.albedo;
-// 	if (hit_object(ray, scene->objs) == false)
-// 		return ((t_vec3){0.2f, 0.8f, 1.0f});
-// 	if (ray->object->type == LIGHT)
-// 		return (light_emission * attenuation);
-// 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
-// 	normal = get_normal(ray->object, hitpoint);
-// 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
-// 		color += light_emission * ray->object->albedo * attenuation;
-// 	attenuation *= ray->object->albedo;
-// 	scatter = random_scatter_ray(hitpoint, normal);
-// 	if (*depth < MAX_DEPTH)
-// 	{
-// 		*depth += 1;
-// 		color += sample_color(scene, &scatter, attenuation, depth);
-// 	}
-// 	return (color);
-// }
-
-
 t_vec3	get_color(t_scene *scene, t_ray *ray)
 {
 	t_vec3	color;
 	t_vec3	attenuation;
 	int		depth;
 
-	// i think? or 0??
 	depth = 1;
 	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
 	color = sample_color(scene, ray, attenuation, &depth);
-	if (depth != 0)
-		color /= (float)depth;
+	color /= (float)depth;
 	color = clamp(color);
 	return (color);
 }

@@ -6,23 +6,21 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/03 16:56:40 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/03 18:42:28 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	open_file(char *file)
+bool	open_file(char *file, int *fd)
 {
-	int	fd;
 	// check the extension
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	*fd = open(file, O_RDONLY);
+	if (*fd < 0)
 	{
-		print_error(ERR_FD);
-		exit(1);
+		return(return_error(ERR_FD));
 	}
-	return (fd);
+	return (true);
 }
 
 bool	check_line(char **line)
@@ -30,25 +28,40 @@ bool	check_line(char **line)
 	int	len;
 	
 	len = ft_strlen(*line);
-	if (len == 0)
-		return (false);
 	if (len > 1 && (*line)[len - 1] == '\n')
+	{
 		(*line)[len - 1] = '\0';
+	}
 	if (is_whitespace(**line) ||
 		is_whitespace((*line)[ft_strlen(*line) - 1]))
-		return (print_error(ERR_FORMAT), false);
+	{
+		return (return_error(ERR_FORMAT));
+	}
 	return (true);
+}
+
+bool	is_specifyer(char c)
+{
+	if (c == 'C' || c == 'A' || c == 'L'
+		|| c == 's' || c == 'p' || c == 'c')
+	{
+		return (true);
+	}
+	return (false);
 }
 
 bool	parse_line(char *line, t_scene *scene)
 {
 	char	**info;
 
+	if (is_specifyer(*line) == false)
+	{
+		return (return_error(ERR_SPECIFYER));
+	}
 	info = ft_split(line, is_whitespace);
 	if (!info)
 	{
-		print_error(ERR_MALLOC);
-		return (false);
+		return (return_error(ERR_MALLOC));
 	}
 	if (parse_element(info, scene) == false
 		&& parse_object(info, scene) == false)
@@ -60,8 +73,6 @@ bool	parse_line(char *line, t_scene *scene)
 	return (true);
 }
 
-
-
 bool	valid_input(char *file, t_scene *scene)
 {
 	int			fd;
@@ -69,23 +80,24 @@ bool	valid_input(char *file, t_scene *scene)
 	t_status	status;
 
 	init_element(scene);
-	fd = open_file(file);
+	if (open_file(file, &fd) == false)
+		return (false);
 	status = GNL_OK;
 	while (status != GNL_EOF)
 	{
 		status = get_next_line(&line, fd);
 		if (status == GNL_ERROR)
-			return (print_error(ERR_MALLOC), close(fd), false);
-		if (check_line(&line) == false)
-			return (free(line), get_next_line(&line, -1), close(fd), false);
+			return (close(fd), return_error(ERR_MALLOC));
 		if (*line && !is_newline(*line))
 		{
+			if (check_line(&line) == false)
+				return (free(line), get_next_line(&line, -1), close(fd), false);
 			if (parse_line(line, scene) == false)
 				return (free(line), get_next_line(&line, -1), close(fd), false);
 		}
 		free(line);
 	}
 	if (scene->camera.type == NONE)
-		return (print_error(ERR_CAMERA), false);
+		return (close(fd), return_error(ERR_CAMERA));
 	return (close(fd), true);
 }
