@@ -1,9 +1,5 @@
 #include "minirt.h"
-
-
-
 #include <sys/time.h>
-
 
 t_ray	get_ray(t_camera *cam, float h, float v)
 {
@@ -14,8 +10,6 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	ray.origin = cam->origin;
 	ray.unit_dir = normalize(hitpoint - ray.origin);
 	ray.closest_t = FLT_MAX;
-	// ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
-	// ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	ray.object = NULL;
 	return (ray);
 }
@@ -46,8 +40,6 @@ bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 	light_ray.origin = hitpoint;
 	light_ray.unit_dir = normalize(light->origin - hitpoint);
 	light_ray.closest_t = FLT_MAX;
-	// light_ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
-	// light_ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	light_ray.object = NULL;
 	hit_object(&light_ray, objs);
 	if (light_ray.object->type == LIGHT)
@@ -63,10 +55,10 @@ t_vec3	random_point_in_unit_sphere(void)
 	{
 		point = (t_vec3){randf_zero_one(35), randf_zero_one(356), randf_zero_one(23546)};
 		if (squared_length(point) < 1.0f)
-			break ;
+			return (point);
 	}
-	return (point);
 }
+
 bool	is_on_same_plane(t_vec3 *p1, t_vec3 *p2, t_vec3 *normal)
 {
 	float	d = dot(normalize(*p1 - *p2), normalize(*p1 - *normal));
@@ -123,16 +115,15 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	scatter_ray.origin = hitpoint;
 	scatter_ray.unit_dir = normal + random_point_in_unit_sphere();
 	scatter_ray.closest_t = FLT_MAX;
-	// scatter_ray.hitpoint = (t_vec3){0.0f, 0.0f, 0.0f};
-	// scatter_ray.normal = (t_vec3){0.0f, 0.0f, 0.0f};
 	scatter_ray.object = NULL;
 	return (scatter_ray);
 }
 
 t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 {
+	(void)depth;
 	t_vec3	color;
-	t_ray	scatter;
+	// t_ray	scatter;
 	t_vec3	hitpoint;
 	t_vec3	normal;
 	t_vec3	light_emission;
@@ -152,12 +143,13 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
 		color += light_emission * ray->object->albedo * attenuation;
 
-	if (*depth < MAX_DEPTH)
-	{
-		*depth += 1;
-		scatter = random_scatter_ray(hitpoint, normal);
-		color += sample_color(scene, &scatter, attenuation, depth);
-	}
+	// if (*depth < MAX_DEPTH)
+	// {
+	// 	*depth += 1;
+	// 	scatter = random_scatter_ray(hitpoint, normal);
+	// 	attenuation *= ray->object->albedo;
+	// 	color += sample_color(scene, &scatter, attenuation, depth);
+	// }
 	return (color);
 }
 
@@ -181,7 +173,7 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 	t_ray		ray;
 	t_vec3		color;
 	
-	i = 0;
+	i = 1;
 	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	while (i < RAYSPERPIXEL)
 	{
@@ -192,7 +184,6 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 		i++;
 	}
 	color /= RAYSPERPIXEL;
-	color = clamp(color);
 	return (color);
 }
 
