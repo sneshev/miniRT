@@ -30,7 +30,7 @@
 # define WIDTH	750
 
 # define RAYSPERPIXEL 10
-# define MAX_DEPTH 1
+# define MAX_DEPTH 10
 
 #define T_MIN 0.000001f
 
