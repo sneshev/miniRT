@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/02 18:37:31 by mmisumi          ###   ########.fr        #
+#    Updated: 2026/02/09 17:06:23 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,10 @@ SRCS := src/main.c src/temp.c \
 		$(PARSING)/parsing_main.c $(PARSING)/elements.c $(PARSING)/objects.c \
 		$(PARSING)/valid_info1.c $(PARSING)/valid_info2.c $(PARSING)/utils1.c \
 		$(PARSING)/utils2.c \
-		$(RENDERING)/render.c $(RENDERING)/intersect_sph.c \
-		$(RENDERING)/intersect_pl.c $(RENDERING)/intersect_cy.c \
-		$(RENDERING)/render_utils.c \
-		$(RENDERING)/intersect_light.c
+		$(RENDERING)/render.c $(RENDERING)/objects/intersect_sph.c \
+		$(RENDERING)/objects/intersect_pl.c $(RENDERING)/objects/intersect_cy.c \
+		$(RENDERING)/objects/intersect_light.c \
+		$(RENDERING)/render_utils.c
 
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
