@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/03 18:14:52 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/12 19:42:23 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum e_error
 	ERR_ELEMENT,
 	ERR_MALLOC,
 	ERR_FD,
+	ERR_FILE,
 	ERR_SPECIFYER
 }			t_error;
 

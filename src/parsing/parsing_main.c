@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/03 18:42:28 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/12 19:42:42 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 bool	open_file(char *file, int *fd)
 {
-	// check the extension
+	char *extention;
+	int	len;
+
+	len = ft_strlen(file);
+	if (len < 4)
+		return (return_error(ERR_FILE));
+	extention = file +  len - 3;
+	if (ft_strncmp(extention, ".rt", 3))
+		return (return_error(ERR_FILE));
 	*fd = open(file, O_RDONLY);
 	if (*fd < 0)
 	{

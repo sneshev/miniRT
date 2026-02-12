@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/02 18:22:06 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/12 20:28:59 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ typedef struct s_light
 	t_type		type;
 	bool		(*intersect)(t_ray *ray, t_object *obj);
 	t_vec3		origin;
-	float		brightness;
-	t_vec3		albedo;
+	t_vec3		emission;
 }			t_light;
 
 typedef union u_objs
@@ -123,8 +122,7 @@ typedef struct s_camera
 typedef struct s_ambient
 {
 	t_type	type;
-	float	lightness;
-	t_vec3	albedo;
+	t_vec3	emission;
 }			t_ambient;
 
 typedef struct s_scene

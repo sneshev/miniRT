@@ -76,31 +76,28 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	t_ray	scatter;
 	t_vec3	hitpoint;
 	t_vec3	normal;
-	t_vec3	light_emission;
-
-	if (depth == 0)
-		color = scene->ambient.lightness * scene->ambient.albedo;
-
-	light_emission = scene->light.brightness * scene->light.albedo;
 
 	if (hit_object(ray, scene->objs) == false)
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
 
 	if (ray->object->type == LIGHT)
-		return (light_emission * attenuation);
+		return (scene->light.emission * attenuation);
+
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	if (depth == 0)
+		color = scene->ambient.emission * ray->object->albedo;
 
 	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
 	normal = get_normal(ray->object, hitpoint);
 
-	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
-		color += light_emission * ray->object->albedo * attenuation;
+	if (direct_light(&scene->light, scene->objs, hitpoint))
+		color += (scene->light.emission * ray->object->albedo * attenuation);
 
 	if (depth < MAX_DEPTH)
 	{
-		depth++;
-		scatter = random_scatter_ray(hitpoint, normal);
 		attenuation *= ray->object->albedo;
-		color += sample_color(scene, &scatter, attenuation, depth);
+		scatter = random_scatter_ray(hitpoint, normal);
+		color += sample_color(scene, &scatter, attenuation, depth++);
 	}
 	return (color);
 }

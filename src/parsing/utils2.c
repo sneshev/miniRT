@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/03 18:05:03 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/12 19:45:12 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,29 @@
 bool	return_error(t_error error)
 {
 	if (error == ERR_FORMAT)
-		printf("Error: Invalid line\n");
+		printf("Error\nInvalid line\n");
 	else if (error == ERR_CAMERA)
-		printf("Error: Invalid or nonexistent camera\n");
+		printf("Error\nInvalid or nonexistent camera\n");
 	else if (error == ERR_AMBIENT)
-		printf("Error: Invalid ambient\n");
+		printf("Error\nInvalid ambient\n");
 	else if (error == ERR_LIGHT)
-		printf("Error: Invalid light\n");
+		printf("Error\nInvalid light\n");
 	else if (error == ERR_SPHERE)
-		printf("Error: Invalid sphere\n");
+		printf("Error\nInvalid sphere\n");
 	else if (error == ERR_PLANE)
-		printf("Error: Invalid plane\n");
+		printf("Error\nInvalid plane\n");
 	else if (error == ERR_CYLINDER)
-		printf("Error: Invalid cylinder\n");
+		printf("Error\nInvalid cylinder\n");
 	else if (error == ERR_ELEMENT)
-		printf("Error: double element\n");
+		printf("Error\ndouble element\n");
 	else if (error == ERR_MALLOC)
-		printf("Error: Malloc error\n");
+		printf("Error\nMalloc error\n");
 	else if (error == ERR_FD)
-		printf("Error: Invalid fd\n");
+		printf("Error\nInvalid fd\n");
+	else if (error == ERR_FILE)
+		printf("Error\nInvalid file\n");
 	else if (error == ERR_SPECIFYER)
-		printf("Error: Invalid specifyer\n");
+		printf("Error\nInvalid specifyer\n");
 	return (false);
 }
 
