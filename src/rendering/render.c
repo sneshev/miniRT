@@ -78,7 +78,7 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	t_vec3	normal;
 	t_vec3	light_emission;
 
-	color = scene->ambient.lightness * scene->ambient.albedo;
+	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	light_emission = scene->light.brightness * scene->light.albedo;
 
 	if (hit_object(ray, scene->objs) == false)
