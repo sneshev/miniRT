@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/12 14:26:21 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/12 18:03:08 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define RAYSPERPIXEL 10
 # define MAX_DEPTH 10
 
-#define T_MIN 0.0001f
+#define T_MIN 0.001f
 
 // render
 void render(t_mlx_data *data, t_scene *scene);

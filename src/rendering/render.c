@@ -70,7 +70,7 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	return (scatter_ray);
 }
 
-t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
+t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 {
 	t_vec3	color;
 	t_ray	scatter;
@@ -78,7 +78,9 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	t_vec3	normal;
 	t_vec3	light_emission;
 
-	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	if (depth == 0)
+		color = scene->ambient.lightness * scene->ambient.albedo;
+
 	light_emission = scene->light.brightness * scene->light.albedo;
 
 	if (hit_object(ray, scene->objs) == false)
@@ -93,9 +95,9 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int *depth)
 	if (direct_light(&scene->light, scene->objs, hitpoint) == true)
 		color += light_emission * ray->object->albedo * attenuation;
 
-	if (*depth < MAX_DEPTH)
+	if (depth < MAX_DEPTH)
 	{
-		*depth += 1;
+		depth++;
 		scatter = random_scatter_ray(hitpoint, normal);
 		attenuation *= ray->object->albedo;
 		color += sample_color(scene, &scatter, attenuation, depth);
@@ -109,10 +111,9 @@ t_vec3	get_color(t_scene *scene, t_ray *ray)
 	t_vec3	attenuation;
 	int		depth;
 
-	depth = 1;
+	depth = 0;
 	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
-	color = sample_color(scene, ray, attenuation, &depth);
-	color /= (float)depth;
+	color = sample_color(scene, ray, attenuation, depth);
 	color = clamp(color);
 	return (color);
 }
