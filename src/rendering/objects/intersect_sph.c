@@ -24,4 +24,3 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 	}
 	return (false);
 }
-

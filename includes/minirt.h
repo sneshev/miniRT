@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 16:51:39 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 17:19:12 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define RAYSPERPIXEL 50
 # define MAX_DEPTH 20
 
-#define T_MIN 0.001f
+#define T_MIN 0.0001f
 
 // render
 void render(t_mlx_data *data, t_scene *scene);

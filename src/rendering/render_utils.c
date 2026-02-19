@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:11:07 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 17:20:45 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 17:28:49 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ float	randf_zero_one(int n)
 	// rand %= 1000;
 	// frand = (float)rand/1000;
 	// return (frand);
+}
+
+float	randf_none_one(int n)
+{
+	float	m;
+
+	m = randf_zero_one(n);
+	return (m * 2 - 1);
 }
 
 t_vec3	clamp(t_vec3 color)

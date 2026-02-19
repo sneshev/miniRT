@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/miniRT",
-			"args": ["hello"],
+			"args": ["file.rt"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:58:45 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/09 17:08:05 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/19 17:29:57 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_vec3	get_normal(t_object *object, t_vec3 hitpoint);
 
 // utils
 float	randf_zero_one(int n);
+float	randf_none_one(int n);
 t_vec3	clamp(t_vec3 color);
 
 #endif

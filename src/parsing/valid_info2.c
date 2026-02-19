@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_info2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:15:51 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/18 22:37:49 by winnitytrin      ###   ########.fr       */
+/*   Updated: 2026/02/19 18:08:19 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

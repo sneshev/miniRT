@@ -9,6 +9,8 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	hitpoint = cam->upper_left + h * cam->horizontal - v * cam->vertical;
 	ray.origin = cam->origin;
 	ray.unit_dir = normalize(hitpoint - ray.origin);
+	if (length(ray.unit_dir) < 1.0f - T_MIN || length(ray.unit_dir) > 1.0f + T_MIN)
+		write(1, "Error\n", 6);
 	ray.closest_t = FLT_MAX;
 	ray.object = NULL;
 	return (ray);
@@ -37,7 +39,7 @@ t_vec3	random_point_in_unit_sphere(void)
 
 	while (1)
 	{
-		point = (t_vec3){randf_zero_one(35), randf_zero_one(356), randf_zero_one(23546)};
+		point = (t_vec3){randf_none_one(35), randf_none_one(356), randf_none_one(23546)};
 		if (squared_length(point) < 1.0f)
 			return (point);
 	}
@@ -51,11 +53,13 @@ bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 		return (false);
 	light_ray.origin = hitpoint;
 	light_ray.unit_dir = normalize((light->origin + random_point_in_unit_sphere()) - hitpoint);
+	if (length(light_ray.unit_dir) < 1.0f - T_MIN || length(light_ray.unit_dir) > 1.0f + T_MIN)
+		write(1, "Error\n", 6);
 	light_ray.closest_t = FLT_MAX;
 	light_ray.object = NULL;
 	if (!hit_object(&light_ray, objs))
 	{
-		write(1, "Error\n", 6);
+		// write(1, "Error\n", 6);
 		return (false);
 	}
 	if (light_ray.object->type == LIGHT)
@@ -68,26 +72,13 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	t_ray	scatter_ray;
 
 	scatter_ray.origin = hitpoint;
-	scatter_ray.unit_dir = normal + random_point_in_unit_sphere();
+	scatter_ray.unit_dir = normalize(normal + random_point_in_unit_sphere());
+	if (length(scatter_ray.unit_dir) < 1.0f - T_MIN || length(scatter_ray.unit_dir) > 1.0f + T_MIN)
+		write(1, "Error\n", 6);
 	scatter_ray.closest_t = FLT_MAX;
 	scatter_ray.object = NULL;
 	return (scatter_ray);
 }
-
-// t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
-// {
-// 	t_vec3	color;
-// 	t_ray	scatter;
-// 	t_vec3	hitpoint;
-// 	t_vec3	normal;
-
-// 	hit object;
-// 	if (hit background)
-// 		return black;
-// 	if (hit light)
-// 		return light;
-// 	return (color);
-// }
 
 t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 {

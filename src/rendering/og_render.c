@@ -64,7 +64,7 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 	t_ray	scatter_ray;
 
 	scatter_ray.origin = hitpoint;
-	scatter_ray.unit_dir = normal + random_point_in_unit_sphere();
+	scatter_ray.unit_dir = normalize(normal + random_point_in_unit_sphere());
 	scatter_ray.closest_t = FLT_MAX;
 	scatter_ray.object = NULL;
 	return (scatter_ray);
