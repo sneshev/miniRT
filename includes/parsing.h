@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/12 19:42:23 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:22:45 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ bool	valid_float(float *f, char *str);
 bool	is_comma(char c);
 bool	is_whitespace(char c);
 bool	is_newline(char c);
+bool	is_specifyer(char c);
 int		str_diff(char *s1, char *s2);
+
 bool	return_error(t_error error);
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov);
 

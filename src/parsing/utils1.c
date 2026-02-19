@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/19 16:07:04 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:22:22 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ bool	is_newline(char c)
 {
 	if (c == '\n')
 		return (true);
+	return (false);
+}
+
+bool	is_specifyer(char c)
+{
+	if (c == 'C' || c == 'A' || c == 'L'
+		|| c == 's' || c == 'p' || c == 'c')
+	{
+		return (true);
+	}
 	return (false);
 }
 

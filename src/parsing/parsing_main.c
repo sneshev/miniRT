@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 16:19:45 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:22:17 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ bool	open_file(char *file, int *fd)
 		return(return_error(ERR_FD));
 	}
 	return (true);
-}
-
-bool	is_specifyer(char c)
-{
-	if (c == 'C' || c == 'A' || c == 'L'
-		|| c == 's' || c == 'p' || c == 'c')
-	{
-		return (true);
-	}
-	return (false);
 }
 
 bool	parse_line(char *line, t_scene *scene)
