@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 17:19:12 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 19:43:50 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <float.h>
 
 
-# define HEIGHT	600
-# define WIDTH	1000
+# define HEIGHT	 2160
+# define WIDTH	3840
 
 # define RAYSPERPIXEL 50
 # define MAX_DEPTH 20

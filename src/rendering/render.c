@@ -9,8 +9,6 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	hitpoint = cam->upper_left + h * cam->horizontal - v * cam->vertical;
 	ray.origin = cam->origin;
 	ray.unit_dir = normalize(hitpoint - ray.origin);
-	if (length(ray.unit_dir) < 1.0f - T_MIN || length(ray.unit_dir) > 1.0f + T_MIN)
-		write(1, "Error\n", 6);
 	ray.closest_t = FLT_MAX;
 	ray.object = NULL;
 	return (ray);
@@ -53,8 +51,6 @@ bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 		return (false);
 	light_ray.origin = hitpoint;
 	light_ray.unit_dir = normalize((light->origin + random_point_in_unit_sphere()) - hitpoint);
-	if (length(light_ray.unit_dir) < 1.0f - T_MIN || length(light_ray.unit_dir) > 1.0f + T_MIN)
-		write(1, "Error\n", 6);
 	light_ray.closest_t = FLT_MAX;
 	light_ray.object = NULL;
 	if (!hit_object(&light_ray, objs))
@@ -73,8 +69,6 @@ t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
 
 	scatter_ray.origin = hitpoint;
 	scatter_ray.unit_dir = normalize(normal + random_point_in_unit_sphere());
-	if (length(scatter_ray.unit_dir) < 1.0f - T_MIN || length(scatter_ray.unit_dir) > 1.0f + T_MIN)
-		write(1, "Error\n", 6);
 	scatter_ray.closest_t = FLT_MAX;
 	scatter_ray.object = NULL;
 	return (scatter_ray);
