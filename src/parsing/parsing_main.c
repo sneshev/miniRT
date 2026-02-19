@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/12 19:42:42 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:19:45 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ bool	open_file(char *file, int *fd)
 	return (true);
 }
 
-bool	check_line(char **line)
-{
-	int	len;
-	
-	len = ft_strlen(*line);
-	if (len > 1 && (*line)[len - 1] == '\n')
-	{
-		(*line)[len - 1] = '\0';
-	}
-	if (is_whitespace(**line) ||
-		is_whitespace((*line)[ft_strlen(*line) - 1]))
-	{
-		return (return_error(ERR_FORMAT));
-	}
-	return (true);
-}
-
 bool	is_specifyer(char c)
 {
 	if (c == 'C' || c == 'A' || c == 'L'
@@ -62,15 +45,11 @@ bool	parse_line(char *line, t_scene *scene)
 {
 	char	**info;
 
-	if (is_specifyer(*line) == false)
-	{
+	if (!is_specifyer(*line))
 		return (return_error(ERR_SPECIFYER));
-	}
 	info = ft_split(line, is_whitespace);
 	if (!info)
-	{
-		return (return_error(ERR_MALLOC));
-	}
+		return(return_error(ERR_MALLOC));
 	if (parse_element(info, scene) == false
 		&& parse_object(info, scene) == false)
 	{
@@ -98,8 +77,6 @@ bool	valid_input(char *file, t_scene *scene)
 			return (close(fd), return_error(ERR_MALLOC));
 		if (*line && !is_newline(*line))
 		{
-			if (check_line(&line) == false)
-				return (free(line), get_next_line(&line, -1), close(fd), false);
 			if (parse_line(line, scene) == false)
 				return (free(line), get_next_line(&line, -1), close(fd), false);
 		}

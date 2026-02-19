@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/03 18:14:35 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:07:04 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	is_comma(char c)
 
 bool	is_whitespace(char c)
 {
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\f' || c == '\r')
+	if (c == ' ' || c == '\t' || c == '\v' || c == '\f' || c == '\r' || c == '\n')
 		return (true);
 	return (false);
 }
