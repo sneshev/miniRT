@@ -12,16 +12,6 @@
 
 #include "parsing.h"
 
-void	init_element(t_scene *scene)
-{
-	scene->camera.type = NONE;
-	scene->light.type = NONE;
-	scene->light.intersect = NULL;
-	scene->light.emission = (t_vec3){1.0f, 1.0f, 1.0f};
-	scene->ambient.type = NONE;
-	scene->ambient.emission = (t_vec3){0.0f, 0.0f, 0.0f};
-}
-
 bool	parse_camera(char **info, t_camera *camera)
 {
 	t_vec3	viewpoint;

@@ -31,8 +31,6 @@ bool	hit_object(t_ray *ray, t_objs *objs)
 	return (true);
 }
 
-
-
 t_vec3	random_point_in_unit_sphere(void)
 {
 	t_vec3	point;
@@ -55,7 +53,11 @@ bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
 	light_ray.unit_dir = normalize((light->origin + random_point_in_unit_sphere()) - hitpoint);
 	light_ray.closest_t = FLT_MAX;
 	light_ray.object = NULL;
-	hit_object(&light_ray, objs);
+	if (!hit_object(&light_ray, objs))
+	{
+		write(1, "Error\n", 6);
+		return (false);
+	}
 	if (light_ray.object->type == LIGHT)
 		return (true);
 	return (false);

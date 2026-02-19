@@ -1,23 +1,21 @@
 #include "minirt.h"
 
-
 bool	intersect_sph(t_ray *ray, t_object *obj)
 {
 	t_sphere	*sph = (t_sphere *)obj;
 	t_vec3	q = ray->origin - sph->center;
-	float	a = dot(ray->unit_dir, ray->unit_dir);
 	float	b = dot(q, ray->unit_dir);
 	float	c = dot(q, q) - sph->radius*sph->radius;
-	float	disc = b*b - a*c;
+	float	disc = b*b - c;
 
 	if (disc > 0) {
-		float t = (-b - sqrt(b*b - a*c)) / a;
+		float t = (-b - sqrt(disc));
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->object = obj;
 			return (true);
 		}
-		t = (-b + sqrt(b*b - a*c)) / a;
+		t = (-b + sqrt(disc));
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->object = obj;

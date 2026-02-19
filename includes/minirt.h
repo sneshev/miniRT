@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 15:16:07 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:51:39 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color);
 
 // utils
 void	free_arr(char **arr);
-void	print_arr(char **arr);
 int		arr_count(char **arr);
 
 

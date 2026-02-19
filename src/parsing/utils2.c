@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/12 19:45:12 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:43:05 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ bool	return_error(t_error error)
 	else if (error == ERR_SPECIFYER)
 		printf("Error\nInvalid specifyer\n");
 	return (false);
+}
+
+void	init_element(t_scene *scene)
+{
+	scene->camera.type = NONE;
+	scene->light.type = NONE;
+	scene->light.intersect = NULL;
+	scene->light.emission = (t_vec3){1.0f, 1.0f, 1.0f};
+	scene->ambient.type = NONE;
+	scene->ambient.emission = (t_vec3){0.0f, 0.0f, 0.0f};
 }
 
 void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)

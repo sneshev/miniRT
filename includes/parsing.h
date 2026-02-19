@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/19 16:22:45 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 16:43:47 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef enum e_error
 bool	valid_input(char *file, t_scene *scene);
 
 // elements
-void	init_element(t_scene *scene);
 bool	parse_camera(char **info, t_camera *camera);
 bool	parse_ambient(char **info, t_ambient *ambient);
 bool	parse_light(char **info, t_light *light, t_scene *scene);
@@ -71,6 +70,7 @@ bool	is_newline(char c);
 bool	is_specifyer(char c);
 int		str_diff(char *s1, char *s2);
 
+void	init_element(t_scene *scene);
 bool	return_error(t_error error);
 void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov);
 
