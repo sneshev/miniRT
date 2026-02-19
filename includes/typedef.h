@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/12 20:28:59 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 15:09:57 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_ray
 	t_object	*object;
 }			t_ray;
 
-typedef enum etype
+typedef enum e_type
 {
 	SPHERE,
 	PLANE,

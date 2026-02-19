@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/12 21:14:49 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/19 15:16:07 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define HEIGHT	600
 # define WIDTH	1000
 
-# define RAYSPERPIXEL 200
+# define RAYSPERPIXEL 50
 # define MAX_DEPTH 20
 
 #define T_MIN 0.001f
