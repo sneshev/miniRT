@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:37:07 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/21 14:48:43 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/21 16:44:10 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,35 @@ bool	intersect_light(t_ray *ray, t_object *obj)
 	}
 	return (false);
 }
+// bool	intersect_light(t_ray *ray, t_object *obj)
+// {
+// 	t_light	*light;
+// 	t_vec3	q;
+// 	float	b;
+// 	float	c;
+// 	float	disc;
+// 	float	t;
+
+// 	light = (t_light *)obj;
+// 	q = ray->origin - light->origin;
+// 	b = dot(q, ray->unit_dir);
+// 	c = dot(q, q) - LIGHT_RADIUS*LIGHT_RADIUS;
+// 	disc = b*b - c;
+
+// 	if (disc > 0)
+// 	{
+// 		t = (-b - sqrtf(disc));
+// 		if (t < ray->closest_t && t > T_MIN)
+// 		{
+// 			ray->hit.type = LIGHT;
+// 			return (true);
+// 		}
+// 		t = (-b + sqrtf(disc));
+// 		if (t < ray->closest_t && t > T_MIN)
+// 		{
+// 			ray->hit.type = LIGHT;
+// 			return (true);
+// 		}
+// 	}
+// 	return (false);
+// }

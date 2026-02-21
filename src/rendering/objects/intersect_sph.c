@@ -9,7 +9,7 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 	float	disc = b*b - c;
 
 	if (disc > 0) {
-		float t = (-b - sqrt(disc));
+		float t = (-b - sqrtf(disc));
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->hit.type = SPHERE;
@@ -21,7 +21,7 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 				ray->hit.normal = normalize(sph->center - ray->hit.hitpoint);
 			return (true);
 		}
-		t = (-b + sqrt(disc));
+		t = (-b + sqrtf(disc));
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->hit.type = SPHERE;
@@ -36,3 +36,4 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 	}
 	return (false);
 }
+

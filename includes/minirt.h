@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/21 14:14:22 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/21 15:59:49 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define MAX_DEPTH 20
 
 #define T_MIN 0.0001f
+#define LIGHT_RADIUS 1.0f
+
 
 // render
 void render(t_mlx_data *data, t_scene *scene);
