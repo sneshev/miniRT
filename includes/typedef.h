@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/19 15:09:57 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/21 14:50:25 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,6 @@ typedef struct s_mlx_data
 	t_img_info	*img_info;
 }				t_mlx_data;
 
-typedef struct s_ray
-{
-	t_vec3		origin;
-	t_vec3		unit_dir;
-	float		closest_t;
-	t_vec3		hitpoint;
-	t_vec3		normal;
-	t_object	*object;
-}			t_ray;
-
 typedef enum e_type
 {
 	SPHERE,
@@ -56,6 +46,22 @@ typedef enum e_type
 	CAMERA,
 	NONE
 }			t_type;
+
+typedef struct s_hit
+{
+	t_type	type;
+	t_vec3	albedo;
+	t_vec3	hitpoint;
+	t_vec3	normal;
+}			t_hit;
+
+typedef struct s_ray
+{
+	t_vec3		origin;
+	t_vec3		unit_dir;
+	float		closest_t;
+	t_hit		hit;
+}			t_ray;
 
 typedef struct s_object
 {

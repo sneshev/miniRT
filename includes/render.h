@@ -6,7 +6,7 @@
 /*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:58:45 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 17:29:57 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/21 14:55:20 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ bool	intersect_sph(t_ray *ray, t_object *obj);
 bool	intersect_pl(t_ray *ray, t_object *obj);
 bool	intersect_cyl(t_ray *ray, t_object *obj);
 bool	intersect_light(t_ray *ray, t_object *obj);
-
-t_vec3	get_normal(t_object *object, t_vec3 hitpoint);
 
 // utils
 float	randf_zero_one(int n);

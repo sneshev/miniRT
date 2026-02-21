@@ -90,11 +90,9 @@ bool	intersect_cyl(t_ray *ray, t_object *obj)
 	cy = (t_cylinder *)obj;
 	if (hits_caps(cy, ray)) {
 		hit = true;
-		ray->object = obj;
 	}
 	if (hits_side(cy, ray)) {
 		hit = true;
-		ray->object = obj;
 	}
 	return (hit);
 }

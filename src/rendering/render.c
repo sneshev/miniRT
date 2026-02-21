@@ -10,7 +10,7 @@ t_ray	get_ray(t_camera *cam, float h, float v)
 	ray.origin = cam->origin;
 	ray.unit_dir = normalize(hitpoint - ray.origin);
 	ray.closest_t = FLT_MAX;
-	ray.object = NULL;
+	ray.hit.type = NONE;
 	return (ray);
 }
 
@@ -26,7 +26,7 @@ bool	hit_object(t_ray *ray, t_objs *objs)
 		object->intersect(ray, object);
 		i++;
 	}
-	if (!ray->object)
+	if (ray->hit.type == NONE)
 		return (false);
 	return (true);
 }
@@ -43,34 +43,32 @@ t_vec3	random_point_in_unit_sphere(void)
 	}
 }
 
-bool	direct_light(t_light *light, t_objs *objs, t_vec3 hitpoint)
+bool	direct_light(t_ray *ray, t_light *light, t_objs *objs)
 {
 	t_ray	light_ray;
 
 	if (light->type == NONE)
 		return (false);
-	light_ray.origin = hitpoint;
-	light_ray.unit_dir = normalize((light->origin + random_point_in_unit_sphere()) - hitpoint);
+	light_ray.origin = ray->hit.hitpoint;
+	light_ray.unit_dir = normalize(light->origin + random_point_in_unit_sphere()) - ray->hit.hitpoint;
 	light_ray.closest_t = FLT_MAX;
-	light_ray.object = NULL;
+	light_ray.hit.type = NONE;
+	// we dont know why this would ever happen but it does
 	if (!hit_object(&light_ray, objs))
-	{
-		// write(1, "Error\n", 6);
 		return (false);
-	}
-	if (light_ray.object->type == LIGHT)
-		return (true);
-	return (false);
+	if (dot(ray->hit.normal, light_ray.hit.normal) > 0)
+		return (false);
+	return (true);
 }
 
-t_ray	random_scatter_ray(t_vec3 hitpoint, t_vec3 normal)
+t_ray	random_scatter_ray(t_ray *ray)
 {
 	t_ray	scatter_ray;
 
-	scatter_ray.origin = hitpoint;
-	scatter_ray.unit_dir = normalize(normal + random_point_in_unit_sphere());
+	scatter_ray.origin = ray->hit.hitpoint;
+	scatter_ray.unit_dir = normalize(ray->hit.normal + random_point_in_unit_sphere());
 	scatter_ray.closest_t = FLT_MAX;
-	scatter_ray.object = NULL;
+	scatter_ray.hit.type = NONE;
 	return (scatter_ray);
 }
 
@@ -78,31 +76,24 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 {
 	t_vec3	color;
 	t_ray	scatter;
-	t_vec3	hitpoint;
-	t_vec3	normal;
 
-	if (hit_object(ray, scene->objs) == false)
+	if (!hit_object(ray, scene->objs))
 		return ((t_vec3){0.0f, 0.0f, 0.0f});
 
-	if (ray->object->type == LIGHT)
+	if (ray->hit.type == LIGHT)
 		return (scene->light.emission * attenuation);
 
 	color = (t_vec3){0.0f, 0.0f, 0.0f};
 	if (depth == 0)
-		color = scene->ambient.emission * ray->object->albedo;
+		color = scene->ambient.emission * ray->hit.albedo;
 
-	hitpoint = ray->hitpoint;
-	normal = ray->normal;
-	// hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
-	// normal = get_normal(ray->object, hitpoint);
-
-	if (direct_light(&scene->light, scene->objs, hitpoint))
-		color += (scene->light.emission * ray->object->albedo * attenuation);
+	if (direct_light(ray, &scene->light, scene->objs))
+		color += (scene->light.emission * ray->hit.albedo * attenuation);
 
 	if (depth < MAX_DEPTH)
 	{
-		attenuation *= ray->object->albedo;
-		scatter = random_scatter_ray(hitpoint, normal);
+		attenuation *= ray->hit.albedo;
+		scatter = random_scatter_ray(ray);
 		color += sample_color(scene, &scatter, attenuation, depth++);
 	}
 	return (color);
