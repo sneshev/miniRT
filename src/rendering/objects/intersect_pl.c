@@ -17,6 +17,11 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	{
 		ray->closest_t = t;
 		ray->object = obj;
+		ray->hitpoint = ray->origin + ray->unit_dir * t;
+		if (dot(ray->unit_dir, pl->normal) < 0)
+			ray->normal = pl->normal;
+		else
+			ray->normal = -pl->normal;
 		return (true);
 	}
 	return (false);

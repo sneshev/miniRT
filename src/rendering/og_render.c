@@ -87,8 +87,10 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	if (depth == 0)
 		color = scene->ambient.emission * ray->object->albedo;
 
-	hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
-	normal = get_normal(ray->object, hitpoint);
+	hitpoint = ray->hitpoint;
+	normal = ray->normal;
+	// hitpoint = ray->origin + ray->closest_t * ray->unit_dir;
+	// normal = get_normal(ray->object, hitpoint);
 
 	if (direct_light(&scene->light, scene->objs, hitpoint))
 		color += (scene->light.emission * ray->object->albedo * attenuation);

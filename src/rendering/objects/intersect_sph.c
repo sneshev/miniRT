@@ -13,12 +13,22 @@ bool	intersect_sph(t_ray *ray, t_object *obj)
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->object = obj;
+			ray->hitpoint = ray->origin + ray->unit_dir * t;
+			if (length(ray->origin - sph->center) > sph->radius)
+				ray->normal = normalize(ray->hitpoint - sph->center);
+			else
+				ray->normal = normalize(sph->center - ray->hitpoint);
 			return (true);
 		}
 		t = (-b + sqrt(disc));
 		if (t < ray->closest_t && t > T_MIN) {
 			ray->closest_t = t;
 			ray->object = obj;
+			ray->hitpoint = ray->origin + ray->unit_dir * t;
+			if (length(ray->origin - sph->center) > sph->radius)
+				ray->normal = normalize(ray->hitpoint - sph->center);
+			else
+				ray->normal = normalize(sph->center - ray->hitpoint);
 			return (true);
 		}
 	}
