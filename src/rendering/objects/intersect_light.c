@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_light.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:37:07 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/21 16:44:10 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/21 18:05:37 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	intersect_light(t_ray *ray, t_object *obj)
 
 	light = (t_light *)obj;
 	sphere.center = light->origin;
-	sphere.radius = 1.0f;
+	sphere.radius = LIGHT_RADIUS;
+	sphere.albedo = light->emission;
 	if (intersect_sph(ray, (t_object *)&sphere) == true)
 	{
 		ray->hit.type = LIGHT;

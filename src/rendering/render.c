@@ -50,13 +50,13 @@ bool	direct_light(t_ray *ray, t_light *light, t_objs *objs)
 	if (light->type == NONE)
 		return (false);
 	light_ray.origin = ray->hit.hitpoint;
-	light_ray.unit_dir = normalize(light->origin + LIGHT_RADIUS*random_point_in_unit_sphere()) - ray->hit.hitpoint;
+	light_ray.unit_dir = normalize(light->origin + LIGHT_RADIUS*random_point_in_unit_sphere() - ray->hit.hitpoint);
 	light_ray.closest_t = FLT_MAX;
 	light_ray.hit.type = NONE;
 	// we dont know why this would ever happen but it does
 	if (!hit_object(&light_ray, objs))
 		return (false);
-	if (light_ray.hit.type == LIGHT && dot(ray->hit.normal, light_ray.unit_dir) < 0)
+	if (light_ray.hit.type == LIGHT && dot(ray->hit.normal, light_ray.unit_dir) > 0)
 		return (true);
 	return (false);
 }
