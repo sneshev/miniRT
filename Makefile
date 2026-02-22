@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/21 14:56:15 by mmisumi          ###   ########.fr        #
+#    Updated: 2026/02/22 07:36:27 by stefuntu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
 
-CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O0
+CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O3 -mavx2 -mfma
 
 RM := rm -rf
 

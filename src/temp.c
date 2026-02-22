@@ -17,5 +17,5 @@ void show_progress_bar (int j) {
 	int progress = 100 * (j) / HEIGHT;
 	char buf[64];
 	int len = snprintf(buf, sizeof(buf), "\r%d%% (%d / %d rays)", progress, j * WIDTH * RAYSPERPIXEL, HEIGHT * WIDTH * RAYSPERPIXEL);
-	write(STDERR_FILENO, buf, len);
+	j += write(STDERR_FILENO, buf, len);
 }
