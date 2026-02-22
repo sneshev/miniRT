@@ -27,6 +27,7 @@ static bool	hits_cap(t_plane *pl, t_ray ray, float disc_radius, float *t) {
 bool	hits_caps(t_cylinder *cy, t_ray *ray) {
 	t_plane	pl;
 	float	t;
+	bool	ret = false;
 
 	pl.albedo = cy->albedo;
 	pl.point = cy->center + (cy->unit_dir * cy->height * 0.5f);
@@ -34,16 +35,16 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray) {
 
 	if (hits_cap(&pl, *ray, cy->radius, &t)) {
 		fill_ray_info(&pl, ray, t);
-		return (true);
+		ret = true;
 	}
 
 	pl.normal *= -1;
 	pl.point = cy->center - (cy->unit_dir * cy->height * 0.5f);
 	if (hits_cap(&pl, *ray, cy->radius, &t) /*t > T_MIN*/) {
 		fill_ray_info(&pl, ray, t);
-		return (true);
+		ret = true;
 	}
-	return (false);
+	return (ret);
 }
 
 bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc) 
