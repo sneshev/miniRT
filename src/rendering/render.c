@@ -94,7 +94,7 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	{
 		attenuation *= ray->hit.albedo;
 		scatter = random_scatter_ray(ray);
-		color += sample_color(scene, &scatter, attenuation, depth++);
+		color += sample_color(scene, &scatter, attenuation, depth+1);
 	}
 	return (color);
 }
