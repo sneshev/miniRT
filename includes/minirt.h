@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/22 07:19:04 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/02/22 20:29:38 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define HEIGHT	 600
 # define WIDTH	850
 
-# define RAYSPERPIXEL 50
-# define MAX_DEPTH 20
+# define RAYSPERPIXEL 5
+# define MAX_DEPTH 5
 
 #define T_MIN 0.0001f
 #define LIGHT_RADIUS 1.0f

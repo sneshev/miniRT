@@ -1,39 +1,46 @@
 #include "minirt.h"
 
+static void	fill_ray_info(t_plane *pl, t_ray *ray, float t) {
+	ray->closest_t = t;
+	ray->hit.type = CYLINDER;
+	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
+	ray->hit.albedo = pl->albedo;
+	// ray->hit.normal = pl->normal;
+    if (dot(ray->unit_dir, pl->normal) < 0)
+        ray->hit.normal = pl->normal;
+    else
+        ray->hit.normal = -pl->normal;
+}
 
-float hits_cap(t_cylinder *cy, t_plane *pl, t_ray ray)
-{
-	float	t;
-	t_vec3	p;
-
-	if (intersect_pl(&ray, (t_object *)pl))
-	{
-		t = ray.closest_t;
-		p = ray.origin + ray.unit_dir * t;
-		if (length(p - pl->point) <= cy->radius)
-			return (t);
+static bool	hits_cap(t_plane *pl, t_ray ray, float disc_radius, float *t) {
+	(void)disc_radius;
+	if (intersect_pl(&ray, (t_object *)pl)) {
+		*t = ray.closest_t;
+		pl->normal = ray.hit.normal;
+		if (length(ray.hit.hitpoint - pl->point) < disc_radius)
+			return (true);
 	}
 	return (false);
 }
 
-bool	hits_caps(t_cylinder *cy, t_ray *ray)
-{
-	t_plane pl;
+//if i comment either cap, it works. The black hole is somehow the second cap at the back
+bool	hits_caps(t_cylinder *cy, t_ray *ray) {
+	t_plane	pl;
 	float	t;
 
-	pl.normal = cy->unit_dir;
 	pl.albedo = cy->albedo;
-	pl.point = cy->center + cy->unit_dir * (cy->height / 2);
-	t = hits_cap(cy, &pl, *ray);
-	if (t > T_MIN) {
-		ray->closest_t = t;
+	pl.point = cy->center + (cy->unit_dir * cy->height * 0.5f);
+	pl.normal = cy->unit_dir;
+
+	if (hits_cap(&pl, *ray, cy->radius, &t)) {
+		fill_ray_info(&pl, ray, t);
 		return (true);
 	}
+
 	pl.normal *= -1;
-	pl.point = cy->center - cy->unit_dir * (cy->height / 2);
-	t = hits_cap(cy, &pl, *ray);
-	if (t > T_MIN) {
-		ray->closest_t = t;
+	pl.point = cy->center - (cy->unit_dir * cy->height * 0.5f);
+	if (hits_cap(&pl, *ray, cy->radius, &t) /*t > T_MIN*/) {
+		fill_ray_info(&pl, ray, t);
 		return (true);
 	}
 	return (false);
@@ -91,8 +98,8 @@ bool	intersect_cyl(t_ray *ray, t_object *obj)
 	if (hits_caps(cy, ray)) {
 		hit = true;
 	}
-	if (hits_side(cy, ray)) {
-		hit = true;
-	}
+	// if (hits_side(cy, ray)) {
+	// 	hit = true;
+	// }
 	return (hit);
 }
