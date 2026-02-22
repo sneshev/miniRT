@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_info1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/03 18:01:55 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/22 13:18:38 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	valid_position(t_vec3 *pos, char *str)
 		return (free_arr(split), false);
 	if (!valid_float(&(f[2]), split[2]))
 		return (free_arr(split), false);
-	*pos = (t_vec3){f[0], f[1], f[2]};
+	*pos = new_vec3(f[0], f[1], f[2]);
 	free_arr(split);
 	return (true);
 }
@@ -90,6 +90,6 @@ bool	valid_color(t_vec3 *color, char *str)
 	if (!valid_rgb(&rgb[B], split[2]))
 		return (free_arr(split), false);
 	free_arr(split);
-	*color = (t_vec3){(float)rgb[R]/255, (float)rgb[G]/255, (float)rgb[B]/255};
+	*color = new_vec3((float)rgb[R]/255, (float)rgb[G]/255, (float)rgb[B]/255);
 	return (true);
 }

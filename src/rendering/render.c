@@ -37,7 +37,7 @@ t_vec3	random_point_in_unit_sphere(void)
 
 	while (1)
 	{
-		point = (t_vec3){randf_none_one(35), randf_none_one(356), randf_none_one(23546)};
+		point = new_vec3(randf_none_one(35), randf_none_one(356), randf_none_one(23546));
 		if (squared_length(point) < 1.0f)
 			return (point);
 	}
@@ -78,12 +78,12 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	t_ray	scatter;
 
 	if (!hit_object(ray, scene->objs))
-		return ((t_vec3){0.0f, 0.0f, 0.0f});
+		return (new_vec3(0.0f, 0.0f, 0.0f));
 
 	if (ray->hit.type == LIGHT)
 		return (scene->light.emission * attenuation);
 
-	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	color = new_vec3(0.0f, 0.0f, 0.0f);
 	if (depth == 0)
 		color = scene->ambient.emission * ray->hit.albedo;
 
@@ -106,7 +106,7 @@ t_vec3	get_color(t_scene *scene, t_ray *ray)
 	int		depth;
 
 	depth = 0;
-	attenuation = (t_vec3){1.0f, 1.0f, 1.0f};
+	attenuation = new_vec3(1.0f, 1.0f, 1.0f);
 	color = sample_color(scene, ray, attenuation, depth);
 	color = clamp(color);
 	return (color);
@@ -119,7 +119,7 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 	t_vec3		color;
 	
 	i = 1;
-	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	color = new_vec3(0.0f, 0.0f, 0.0f);
 	while (i < RAYSPERPIXEL)
 	{
 		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
@@ -140,7 +140,7 @@ void render(t_mlx_data *data, t_scene *scene)
 	int		x;
 	int		y;
 
-	color = (t_vec3){0.0f, 0.0f, 0.0f};
+	color = new_vec3(0.0f, 0.0f, 0.0f);
 	y = 0;
 	while(y < HEIGHT)
 	{

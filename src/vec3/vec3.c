@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:57 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/02 18:26:16 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/22 13:21:12 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vec3	normalize(t_vec3 v)
 	float len = length(v);
 	if (len == 0.0f)
 	{
-		v = (t_vec3){0.0f, 0.0f, 0.0f, 0.0f};
+		v = new_vec3(0.0f, 0.0f, 0.0f);
 		return (v);
 	}
 	(v)[X] /= len;
@@ -55,4 +55,9 @@ t_vec3 cross(t_vec3 v1, t_vec3 v2)
 	v3[Y] = v1[Z] * v2[X] - v1[X] * v2[Z];
 	v3[Z] = v1[X] * v2[Y] - v1[Y] * v2[X];
 	return (v3);
+}
+
+t_vec3	new_vec3(float x, float y, float z)
+{
+	return ((t_vec3){x, y, z, 0.0f});
 }
