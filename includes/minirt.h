@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/23 14:36:01 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/23 16:10:44 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include <float.h>
 
 
-# define HEIGHT	 1500
-# define WIDTH	2400
+# define HEIGHT	 500
+# define WIDTH	700
 
-# define RAYSPERPIXEL 200
+# define RAYSPERPIXEL 10
 # define MAX_DEPTH 5
 
 #define T_MIN 0.0001f
-#define LIGHT_RADIUS 10.0f
+#define LIGHT_RADIUS 1.0f
 
 
 // render

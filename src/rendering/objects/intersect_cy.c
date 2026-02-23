@@ -1,5 +1,7 @@
 #include "minirt.h"
 
+int		solve_quadratic_ez(float b, float c, float t[2]);
+
 static void	fill_ray_info(t_plane *pl, t_ray *ray, float t) {
 	ray->closest_t = t;
 	ray->hit.type = CYLINDER;
@@ -45,22 +47,29 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray) {
 
 bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc) 
 {
-	t_vec3 d_perp = ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir);
-	t_vec3 oc_perp = oc - cy->unit_dir * dot(oc, cy->unit_dir);
+	t_vec3 d_perp;
+	t_vec3 oc_perp;
+	float b;
+	float c;
+	float roots[2];
 
-	float a = dot(d_perp, d_perp);
-	float b = 2.0f * dot(d_perp, oc_perp);
-	float c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
-
-	float disc = b*b - 4*a*c;
-	if (disc < 0)
-		return (false);
-	*t = (-b - sqrtf(disc)) / (2*a);
-	if (*t >= T_MIN && *t < ray->closest_t)
-		return (true);
-	*t = (-b + sqrtf(disc)) / (2*a);
-	if (*t >= T_MIN && *t < ray->closest_t)
-		return (true);
+	d_perp = ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir);
+	oc_perp = oc - cy->unit_dir * dot(oc, cy->unit_dir);
+	b = 2.0f * dot(d_perp, oc_perp);
+	c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
+	if (solve_quadratic_ez(b, c, roots))
+	{
+		if (T_MIN < roots[0] && roots[0] < ray->closest_t)
+		{
+			*t = roots[0];
+			return (true);
+		}
+		else if (T_MIN < roots[1] && roots[1] < ray->closest_t)
+		{
+			*t = roots[1];
+			return (true);
+		}
+	}
 	return (false);
 }
 
@@ -79,8 +88,13 @@ bool	hits_side(t_cylinder *cy, t_ray *ray)
 
 	if (height < -cy->height * 0.5f || height > cy->height * 0.5f)
 		return (false);
-
 	ray->closest_t = t;
+	ray->hit.type = CYLINDER;
+	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
+	ray->hit.albedo = cy->albedo;
+    t_vec3 cp = hitpoint - cy->center;
+    t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
+    ray->hit.normal = normalize(axis_point - hitpoint); // points outward
 
 	return (true);
 }

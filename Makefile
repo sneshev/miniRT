@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+         #
+#    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/23 13:41:43 by mmisumi          ###   ########.fr        #
+#    Updated: 2026/02/23 18:13:50 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRCS := src/main.c src/temp.c \
 		$(PARSING)/utils2.c \
 		$(RENDERING)/render.c $(RENDERING)/objects/intersect_sph.c \
 		$(RENDERING)/objects/intersect_pl.c $(RENDERING)/objects/intersect_cy.c \
-		$(RENDERING)/objects/intersect_light.c $(RENDERING)/render_utils.c
+		$(RENDERING)/objects/intersect_light.c $(RENDERING)/render_utils.c \
+		$(RENDERING)/objects/quadratic.c
+
 
 OBJS := $(patsubst src/%.c, .obj/%.o, $(SRCS))
 
