@@ -20,8 +20,6 @@ int	solve_quadratic_ez(float b, float c, float t[2])
 		sqrt_disc = sqrtf(disc);
 		t[0] = -b - sqrt_disc;
 		t[1] = -b + sqrt_disc;
-		if (t[0] > t[1])
-			swapf(&t[0], &t[1]);
 		return (2);
 	}
 	else if (disc == 0)
