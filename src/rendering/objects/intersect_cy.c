@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-int		solve_quadratic_ez(float b, float c, float t[2]);
+bool	solve_quadratic(float a, float b, float c, float roots[2]);
 
 static void	fill_ray_info(t_plane *pl, t_ray *ray, float t) {
 	ray->closest_t = t;
@@ -48,15 +48,18 @@ bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc)
 {
 	t_vec3 d_perp;
 	t_vec3 oc_perp;
+	float a;
 	float b;
 	float c;
 	float roots[2];
 
-	d_perp = normalize(ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir));
+	d_perp = ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir);
 	oc_perp = oc - cy->unit_dir * dot(oc, cy->unit_dir);
+
+	a = dot(d_perp, d_perp);
 	b = 2.0f * dot(d_perp, oc_perp);
 	c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
-	if (solve_quadratic_ez(b, c, roots))
+	if (solve_quadratic(a, b, c, roots))
 	{
 		if (T_MIN < roots[0] && roots[0] < ray->closest_t)
 		{
@@ -90,9 +93,9 @@ bool	hits_side(t_cylinder *cy, t_ray *ray)
 	ray->hit.type = CYLINDER;
 	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
 	ray->hit.albedo = cy->albedo;
-    t_vec3 cp = hitpoint - cy->center;
-    t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
-    ray->hit.normal = normalize(axis_point - hitpoint); // points outward
+    // t_vec3 cp = hitpoint - cy->center;
+    // t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
+    // ray->hit.normal = normalize(axis_point - hitpoint) * -1; // points outward
 
 	return (true);
 }
@@ -104,11 +107,11 @@ bool	intersect_cyl(t_ray *ray, t_object *obj)
 
 	hit = false;
 	cy = (t_cylinder *)obj;
-	if (hits_caps(cy, ray)) {
-		hit = true;
-	}
-	// if (hits_side(cy, ray)) {
+	// if (hits_caps(cy, ray)) {
 	// 	hit = true;
 	// }
+	if (hits_side(cy, ray)) {
+		hit = true;
+	}
 	return (hit);
 }
