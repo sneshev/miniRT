@@ -21,7 +21,6 @@ static bool	hits_cap(t_plane *pl, t_ray ray, float disc_radius, float *t) {
 	return (false);
 }
 
-//if i comment either cap, it works. The black hole is somehow the second cap at the back
 bool	hits_caps(t_cylinder *cy, t_ray *ray) {
 	t_plane	pl;
 	float	t;
@@ -72,7 +71,6 @@ bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc)
 	}
 	return (false);
 }
-
 
 bool	hits_side(t_cylinder *cy, t_ray *ray)
 {
