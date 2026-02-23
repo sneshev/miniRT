@@ -93,10 +93,11 @@ bool	hits_side(t_cylinder *cy, t_ray *ray)
 	ray->hit.type = CYLINDER;
 	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
 	ray->hit.albedo = cy->albedo;
-    // t_vec3 cp = hitpoint - cy->center;
-    // t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
-    // ray->hit.normal = normalize(axis_point - hitpoint) * -1; // points outward
-
+    t_vec3 cp = hitpoint - cy->center;
+    t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
+	ray->hit.normal = normalize(axis_point - hitpoint ); // points outward
+	if (dot(ray->unit_dir, ray->hit.normal) > 0) 
+		ray->hit.normal *= -1; // points inward
 	return (true);
 }
 
