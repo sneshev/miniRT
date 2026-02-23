@@ -52,7 +52,7 @@ bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc)
 	float c;
 	float roots[2];
 
-	d_perp = ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir);
+	d_perp = normalize(ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir));
 	oc_perp = oc - cy->unit_dir * dot(oc, cy->unit_dir);
 	b = 2.0f * dot(d_perp, oc_perp);
 	c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
