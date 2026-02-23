@@ -36,7 +36,7 @@ int	solve_quadratic_ez(float b, float c, float t[2])
 	}
 }
 
-int	solve_quadratic(float a, float b, float c, float roots[2])
+intsolve_quadratic(float a, float b, float c, float roots[2])
 {
 	float	disc;
 	float	rev_denom;
@@ -55,7 +55,7 @@ int	solve_quadratic(float a, float b, float c, float roots[2])
 	}
 	else if (disc == 0)
 	{
-		roots[0] = -0.5f * b / a;
+		roots[0] = -b / (2 * a);
 		return (1);
 	}
 	else
