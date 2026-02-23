@@ -36,7 +36,7 @@ int	solve_quadratic_ez(float b, float c, float t[2])
 	}
 }
 
-bool	solve_quadratic(float a, float b, float c, float roots[2])
+int	solve_quadratic(float a, float b, float c, float roots[2])
 {
 	float	disc;
 	float	rev_denom;
