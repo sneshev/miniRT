@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/22 21:15:54 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/23 13:34:54 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,25 @@ void	init_element(t_scene *scene)
 	scene->ambient.emission = new_vec3(0.0f, 0.0f, 0.0f);
 }
 
+int vec3_diff(t_vec3 v1, t_vec3 v2)
+{
+    if (fabs(v1[X] - v2[X]) > 0.001f)
+		return (1);
+    if (fabs(v1[Y] - v2[Y]) > 0.001f)
+		return (1);
+    if (fabs(v1[Z] - v2[Z]) > 0.001f)
+		return (1);
+
+    return (0);
+}
+
 void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 {
 	t_vec3	up;
 
 	ortho[W] = dir_normal;
 	up = new_vec3(0.0f, 1.0f, 0.0f);
-	if (vec3_compare(up, ortho[W]) == 0)
+	if (!vec3_diff(up, ortho[W]))
 		up = new_vec3(0.0f, 0.0f, -1.0f);
 	ortho[U] = normalize(cross(up, ortho[W]));
 	ortho[V] = normalize(cross(ortho[W], ortho[U]));

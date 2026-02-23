@@ -5,11 +5,7 @@ static void	fill_ray_info(t_plane *pl, t_ray *ray, float t) {
 	ray->hit.type = CYLINDER;
 	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
 	ray->hit.albedo = pl->albedo;
-	// ray->hit.normal = pl->normal;
-    if (dot(ray->unit_dir, pl->normal) < 0)
-        ray->hit.normal = pl->normal;
-    else
-        ray->hit.normal = -pl->normal;
+	ray->hit.normal = pl->normal;
 }
 
 static bool	hits_cap(t_plane *pl, t_ray ray, float disc_radius, float *t) {

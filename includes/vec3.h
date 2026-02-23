@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:19:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/22 13:14:44 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/23 13:34:16 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ float	squared_length(t_vec3 v);
 t_vec3	normalize(t_vec3 v);
 float	dot(t_vec3 v1, t_vec3 v2);
 t_vec3	cross(t_vec3 v1, t_vec3 v2);
-int		vec3_compare(t_vec3 v1, t_vec3 v2);
-int		vec3_diff(t_vec3 v1, t_vec3 v2);
 t_vec3	new_vec3(float x, float y, float z);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_info2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:15:51 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/22 13:18:52 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/23 13:39:45 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ bool	valid_hfov(float *hfov, char *str)
 {
 	if (!valid_float(hfov, str))
 		return (false);
-	if (*hfov < 1.0f || *hfov > 179.0f)
-		return (false);
-	return (true);
+	if (*hfov > 0.1f && *hfov < 179.9f)
+		return (true);
+	return (false);
 }
 
 bool	valid_unit_direction(t_vec3 *dir, char *str)
 {
 	char	**split;
 	float	f[3];
+	float	len;
 
 	split = ft_split(str, is_comma);
 	if (!split)
@@ -38,9 +39,10 @@ bool	valid_unit_direction(t_vec3 *dir, char *str)
 	if (!valid_float(&(f[2]), split[2]))
 		return (free_arr(split), false);
 	*dir = new_vec3(f[0], f[1], f[2]);
-	if (length(*dir) != 1.0f)
-		return (free_arr(split), false);
 	free_arr(split);
+	len = length(*dir);
+	if (len < 1.0f - T_MIN || len > 1.0f + T_MIN)
+		return (false);
 	return (true);
 }
 
