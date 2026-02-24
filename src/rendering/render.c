@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:32:04 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 15:02:07 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:05:04 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 	color = new_vec3(0.0f, 0.0f, 0.0f);
 	while (i < RAYSPERPIXEL)
 	{
-		h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
-		v = ((float)y + randf_zero_one(99912)) / (float)HEIGHT;
+		h = ((float)x + randf_zero_one()) / (float)WIDTH;
+		v = ((float)y + randf_zero_one()) / (float)HEIGHT;
 		ray = get_cam_ray(&scene->camera, h, v);
 		color += get_average_color(scene, &ray);
 		i++;

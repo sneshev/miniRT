@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:58:45 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 15:04:41 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:08:38 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ bool	intersect_cyl(t_ray *ray, t_object *obj);
 bool	intersect_light(t_ray *ray, t_object *obj);
 
 //rand
-float	randf_zero_one(int n);
-float	randf_none_one(int n);
+float	randf_zero_one(void);
+float	randf_none_one(void);
 t_vec3	random_point_in_unit_sphere(void);
 
 // utils
