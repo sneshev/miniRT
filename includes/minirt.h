@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 12:59:55 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:32:13 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color);
 // utils
 void	free_arr(char **arr);
 int		arr_count(char **arr);
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 
 

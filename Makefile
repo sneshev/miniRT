@@ -6,7 +6,7 @@
 #    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/24 15:04:05 by sneshev          ###   ########.fr        #
+#    Updated: 2026/02/24 16:34:36 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ MLX_INC		:= -Imlx_linux
 
 LIBFT := libft/libft.a
 
-CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O3 -mavx2 -mfma
+CC := cc -Wall -Werror -Wextra -g -Iincludes $(MLX_INC) -O3 -mavx2 -mfma #-fsanitize=undefined,address
 
 RM := rm -rf
 

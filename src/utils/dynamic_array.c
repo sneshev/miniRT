@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 13:05:45 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:32:38 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ void	*make_dynamic_array(size_t in_capacity, size_t el_size)
 int	reallocate_array(t_vec_meta **meta_p, void **arr)
 {
 	t_vec_meta	*meta;
+	size_t		old_size;
 	size_t		new_size;
 
 	meta = *meta_p;
+	old_size = sizeof(t_vec_meta) + meta->capacity * meta->elem_size;
 	meta->capacity = meta->capacity * DARR_EXPAN_MUL + DARR_EXPAN_ADD;
 	new_size = sizeof(t_vec_meta) + meta->capacity * meta->elem_size;
-	meta = realloc(meta, new_size); // here!
+	meta = ft_realloc(meta, old_size, new_size);
 	if (!meta)
 		return (-1);
 	*meta_p = meta;
