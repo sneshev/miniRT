@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersect_pl.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 13:19:24 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 13:19:30 by sneshev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 bool	intersect_pl(t_ray *ray, t_object *obj)
 {
-	t_plane *pl;
+	t_plane	*pl;
 	t_vec3	q;
+	float	t;
 	float	denom;
 
 	pl = (t_plane *)obj;
@@ -11,8 +24,7 @@ bool	intersect_pl(t_ray *ray, t_object *obj)
 	if (denom > -T_MIN && denom < T_MIN)
 		return (false);
 	q = pl->point - ray->origin;
-	float t = dot(q, pl->normal) / denom;
-
+	t = dot(q, pl->normal) / denom;
 	if (t < ray->closest_t && t > T_MIN)
 	{
 		ray->closest_t = t;

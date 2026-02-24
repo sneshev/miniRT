@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quadratic.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 13:16:03 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 13:17:02 by sneshev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 static void	swapf(float *a, float *b)
@@ -14,7 +26,7 @@ int	solve_quadratic_ez(float b, float c, float t[2])
 	float	disc;
 	float	sqrt_disc;
 
-	disc = b*b - c;
+	disc = b * b - c;
 	if (disc > 0.0f)
 	{
 		sqrt_disc = sqrtf(disc);
@@ -42,7 +54,7 @@ int	solve_quadratic(float a, float b, float c, float roots[2])
 	float	rev_denom;
 	float	sqrt_disc;
 
-	disc = b*b - 4*a*c;
+	disc = b * b - 4 * a * c;
 	if (disc > 0)
 	{
 		sqrt_disc = sqrtf(disc);
