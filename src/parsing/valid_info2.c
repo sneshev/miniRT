@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_info2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:15:51 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/23 13:39:45 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/24 12:53:46 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	valid_hfov(float *hfov, char *str)
 {
-	if (!valid_float(hfov, str))
+	if (!valid_float(hfov, str) || *hfov <= T_MIN)
 		return (false);
 	if (*hfov > 0.1f && *hfov < 179.9f)
 		return (true);

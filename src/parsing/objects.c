@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/03 17:58:45 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/24 12:52:58 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	parse_sphere(char **info, t_scene *scene)
 		return (false);
 	if (!valid_position(&(sphere.center), info[1]))
 		return (false);
-	if (!valid_float(&diameter, info[2]))
+	if (!valid_float(&diameter, info[2]) || diameter <= T_MIN * 2)
 		return (false);
 	sphere.radius = 0.5f * diameter;
 	if (!valid_color(&(sphere.albedo), info[3]))
@@ -61,10 +61,10 @@ bool	parse_cylinder(char **info, t_scene *scene)
 		return (false);
 	if (!valid_unit_direction(&(cylinder.unit_dir), info[2]))
 		return (false);
-	if (!valid_float(&diameter, info[3]))
+	if (!valid_float(&diameter, info[3]) || diameter <= T_MIN * 2)
 		return (false);
 	cylinder.radius = 0.5f * diameter;
-	if (!valid_float(&(cylinder.height), info[4]))
+	if (!valid_float(&(cylinder.height), info[4]) || cylinder.height <= T_MIN)
 		return (false);
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
