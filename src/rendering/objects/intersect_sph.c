@@ -6,13 +6,13 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:17:29 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 13:18:29 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 13:30:45 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	solve_quadratic_ez(float b, float c, float t[2]);
+int	solve_quadratic_ez(float b, float c, float roots[2]);
 
 static void	fill_ray_info(t_sphere *sph, t_ray *ray, float t)
 {

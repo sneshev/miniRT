@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:16:03 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 13:17:02 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 13:30:33 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	swapf(float *a, float *b)
 	*b = temp;
 }
 
-int	solve_quadratic_ez(float b, float c, float t[2])
+int	solve_quadratic_ez(float b, float c, float roots[2])
 {
 	float	disc;
 	float	sqrt_disc;
@@ -30,20 +30,20 @@ int	solve_quadratic_ez(float b, float c, float t[2])
 	if (disc > 0.0f)
 	{
 		sqrt_disc = sqrtf(disc);
-		t[0] = -b - sqrt_disc;
-		t[1] = -b + sqrt_disc;
+		roots[0] = -b - sqrt_disc;
+		roots[1] = -b + sqrt_disc;
 		return (2);
 	}
 	else if (disc == 0)
 	{
-		t[0] = -b;
-		t[1] = -1;
+		roots[0] = -b;
+		roots[1] = -1;
 		return (1);
 	}
 	else
 	{
-		t[0] = -1;
-		t[1] = -1;
+		roots[0] = -1;
+		roots[1] = -1;
 		return (0);
 	}
 }
