@@ -6,29 +6,31 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:57 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/22 13:22:34 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 12:59:14 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec3.h"
 
-float length(t_vec3 v)
+float	length(t_vec3 v)
 {
 	return (sqrtf(v[X] * v[X]
-		 		+ v[Y] * v[Y]
-				+ v[Z] * v[Z]));
+			+ v[Y] * v[Y]
+			+ v[Z] * v[Z]));
 }
 
 float	squared_length(t_vec3 v)
 {
 	return (v[X] * v[X]
-		  + v[Y] * v[Y]
-		  + v[Z] * v[Z]);
+		+ v[Y] * v[Y]
+		+ v[Z] * v[Z]);
 }
 
 t_vec3	normalize(t_vec3 v)
 {
-	float len = length(v);
+	float	len;
+
+	len = length(v);
 	if (len == 0.0f)
 	{
 		v = new_vec3(0.0f, 0.0f, 0.0f);
@@ -42,22 +44,17 @@ t_vec3	normalize(t_vec3 v)
 
 float	dot(t_vec3 v1, t_vec3 v2)
 {
-	return(v1[X] * v2[X]
-		 + v1[Y] * v2[Y]
-		 + v1[Z] * v2[Z]);
+	return (v1[X] * v2[X]
+		+ v1[Y] * v2[Y]
+		+ v1[Z] * v2[Z]);
 }
 
-t_vec3 cross(t_vec3 v1, t_vec3 v2)
+t_vec3	cross(t_vec3 v1, t_vec3 v2)
 {
-		t_vec3 v3;
+	t_vec3	v3;
 
 	v3[X] = v1[Y] * v2[Z] - v1[Z] * v2[Y];
 	v3[Y] = v1[Z] * v2[X] - v1[X] * v2[Z];
 	v3[Z] = v1[X] * v2[Y] - v1[Y] * v2[X];
 	return (v3);
-}
-
-t_vec3	new_vec3(float x, float y, float z)
-{
-	return ((t_vec3){x, y, z, 0.0f});
 }
