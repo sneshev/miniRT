@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stefuntu <stefuntu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/22 07:37:37 by stefuntu         ###   ########.fr       */
+/*   Updated: 2026/02/24 14:27:26 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 bool	open_file(char *file, int *fd)
 {
-	char *extention;
-	int	len;
+	char	*extention;
+	int		len;
 
 	len = ft_strlen(file);
 	if (len < 4)
 		return (return_error(ERR_FILE));
-	extention = file +  len - 3;
+	extention = file + len - 3;
 	if (ft_strncmp(extention, ".rt", 3))
 		return (return_error(ERR_FILE));
 	*fd = open(file, O_RDONLY);
 	if (*fd < 0)
 	{
-		return(return_error(ERR_FD));
+		return (return_error(ERR_FD));
 	}
 	return (true);
 }
@@ -39,7 +39,7 @@ bool	parse_line(char *line, t_scene *scene)
 		return (return_error(ERR_SPECIFYER));
 	info = ft_split(line, is_whitespace);
 	if (!info)
-		return(return_error(ERR_MALLOC));
+		return (return_error(ERR_MALLOC));
 	if (parse_element(info, scene) == false
 		&& parse_object(info, scene) == false)
 	{
@@ -52,10 +52,11 @@ bool	parse_line(char *line, t_scene *scene)
 
 bool	valid_input(char *file, t_scene *scene)
 {
-	int			fd = -1;
+	int			fd;
 	char		*line;
 	t_status	status;
 
+	fd = -1;
 	init_element(scene);
 	if (open_file(file, &fd) == false)
 		return (false);

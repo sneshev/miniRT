@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/22 13:18:38 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 14:24:59 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	valid_position(t_vec3 *pos, char *str)
 bool	valid_rgb(uint8_t *rgb, char *str)
 {
 	int	n;
+
 	if (ft_strlen(str) > 3 || !ft_strlen(str))
 		return (false);
 	n = 0;
@@ -90,6 +91,8 @@ bool	valid_color(t_vec3 *color, char *str)
 	if (!valid_rgb(&rgb[B], split[2]))
 		return (free_arr(split), false);
 	free_arr(split);
-	*color = new_vec3((float)rgb[R]/255, (float)rgb[G]/255, (float)rgb[B]/255);
+	*color = new_vec3((float)rgb[R] / 255,
+			(float)rgb[G] / 255,
+			(float)rgb[B] / 255);
 	return (true);
 }

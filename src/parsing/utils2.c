@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/23 13:34:54 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/24 14:26:13 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,15 @@ void	init_element(t_scene *scene)
 	scene->ambient.emission = new_vec3(0.0f, 0.0f, 0.0f);
 }
 
-int vec3_diff(t_vec3 v1, t_vec3 v2)
+int	vec3_diff(t_vec3 v1, t_vec3 v2)
 {
-    if (fabs(v1[X] - v2[X]) > 0.001f)
+	if (fabs(v1[X] - v2[X]) > 0.001f)
 		return (1);
-    if (fabs(v1[Y] - v2[Y]) > 0.001f)
+	if (fabs(v1[Y] - v2[Y]) > 0.001f)
 		return (1);
-    if (fabs(v1[Z] - v2[Z]) > 0.001f)
+	if (fabs(v1[Z] - v2[Z]) > 0.001f)
 		return (1);
-
-    return (0);
+	return (0);
 }
 
 void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
@@ -75,7 +74,8 @@ void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 	ortho[V] = normalize(cross(ortho[W], ortho[U]));
 }
 
-void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)
+void	setup_camera(
+	t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov)
 {
 	float	theta;
 	float	width;

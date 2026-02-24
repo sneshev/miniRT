@@ -1,12 +1,12 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_camera.c                                     :+:      :+:    :+:   */
+/*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: winnitytrinnity <winnitytrinnity@studen    +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 20:45:29 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/01/17 20:55:56 by winnitytrin      ###   ########.fr       */
+/*   Created: 2026/02/24 14:27:34 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 14:27:57 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	parse_camera(char **info, t_camera *camera)
 		return (false);
 	if (!valid_unit_direction(&dir, info[2]))
 		return (false);
-	if(!valid_hfov(&hfov, info[3]))
+	if (!valid_hfov(&hfov, info[3]))
 		return (false);
 	setup_camera(camera, viewpoint, dir, hfov);
 	return (true);
@@ -88,4 +88,3 @@ bool	parse_element(char **info, t_scene *scene)
 	}
 	return (false);
 }
-

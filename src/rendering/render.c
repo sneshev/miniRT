@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:32:04 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 13:36:46 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 14:23:26 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ bool	direct_light(t_ray *ray, t_light *light, t_objs *objs)
 	light_ray.closest_t = FLT_MAX;
 	light_ray.hit.type = NONE;
 	// we dont know why this would ever happen but it does
-	if (!hit_object(&light_ray, objs))
+	if (!hit_object(&light_ray, objs)) {
+		write(1, "!", 1);
 		return (false);
+	}
 	if (light_ray.hit.type == LIGHT && dot(ray->hit.normal, light_ray.unit_dir) > 0)
 		return (true);
 	return (false);
