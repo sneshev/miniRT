@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   misc.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 13:07:01 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 13:07:09 by sneshev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 #define R 0
@@ -19,7 +31,8 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color)
 	rgb[R] = color[0] * 255.99;
 	rgb[G] = color[1] * 255.99;
 	rgb[B] = color[2] * 255.99;
-	*(uint32_t *)pixel = (uint32_t)rgb[R] << 16 | (uint32_t)rgb[G] << 8 | (uint32_t)rgb[B];
+	*(uint32_t *)pixel = (uint32_t)rgb[R] << 16
+		| (uint32_t)rgb[G] << 8 | (uint32_t)rgb[B];
 }
 
 void	free_data_exit(t_data *data, int exitcode)
@@ -38,6 +51,5 @@ void	free_data_exit(t_data *data, int exitcode)
 	if (data->scene.objs)
 		free_dynamic_array(&data->scene.objs);
 	printf("\n");
-	// free_dynamic_array(&scene.objs);
 	exit(exitcode);
 }

@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 13:06:34 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 13:06:57 by sneshev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-# define ESC 65307
+#define ESC 65307
 
 int	close_window(t_data *data)
 {
 	free_data_exit(data, 0);
 	return (1);
 }
+
 int	set_keyhooks(int key, t_data *data)
 {
 	if (key == ESC)

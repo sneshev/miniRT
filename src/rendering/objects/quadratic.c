@@ -56,8 +56,13 @@ int	solve_quadratic(float a, float b, float c, float roots[2])
 	else if (disc == 0)
 	{
 		roots[0] = -b / (2 * a);
+		roots[1] = -1;
 		return (1);
 	}
 	else
+	{
+		roots[0] = -1;
+		roots[1] = -1;
 		return (0);
+	}
 }
