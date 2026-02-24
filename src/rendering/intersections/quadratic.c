@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:16:03 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 13:30:33 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:36:31 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	solve_quadratic(float a, float b, float c, float roots[2])
 	}
 	else
 	{
-		roots[0] = -1;
-		roots[1] = -1;
-		return (0);
+		return (roots[0] = -1, roots[1] = -1, 0);
 	}
 }

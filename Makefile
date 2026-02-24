@@ -6,7 +6,7 @@
 #    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/24 16:34:36 by sneshev          ###   ########.fr        #
+#    Updated: 2026/02/24 16:41:41 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS := src/main.c \
 		$(MLX)/misc.c \
 		$(UTILS)/utils.c \
 		$(UTILS)/dynamic_array.c \
+		$(UTILS)/dynamic_array_utils.c \
 		$(VEC3)/vec3.c \
 		$(VEC3)/new_vec3.c \
 		$(PARSING)/parsing_main.c \

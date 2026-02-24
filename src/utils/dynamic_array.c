@@ -6,30 +6,17 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 16:32:38 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 16:40:58 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dynamicarray.h"
-/* create ft_realloc */
 
 #include <string.h>
 
-#define DARR_EXPAN_ADD 4
-#define DARR_EXPAN_MUL 1
-
-static t_vec_meta	*access_meta(void *arr)
-{
-	return (((t_vec_meta *)arr) - 1);
-}
-
-size_t	get_count(void	*arr_ptr)
-{
-	t_vec_meta	*meta;
-
-	meta = access_meta(*(void **)arr_ptr);
-	return (meta->count);
-}
+t_vec_meta	*access_meta(void *arr);
+size_t		get_count(void	*arr_ptr);
+int			reallocate_array(t_vec_meta **meta_p, void **arr);
 
 void	free_dynamic_array(void *arr_ptr)
 {
@@ -56,24 +43,6 @@ void	*make_dynamic_array(size_t in_capacity, size_t el_size)
 	meta->count = 0;
 	arr = (void *)(meta + 1);
 	return (arr);
-}
-
-int	reallocate_array(t_vec_meta **meta_p, void **arr)
-{
-	t_vec_meta	*meta;
-	size_t		old_size;
-	size_t		new_size;
-
-	meta = *meta_p;
-	old_size = sizeof(t_vec_meta) + meta->capacity * meta->elem_size;
-	meta->capacity = meta->capacity * DARR_EXPAN_MUL + DARR_EXPAN_ADD;
-	new_size = sizeof(t_vec_meta) + meta->capacity * meta->elem_size;
-	meta = ft_realloc(meta, old_size, new_size);
-	if (!meta)
-		return (-1);
-	*meta_p = meta;
-	*arr = (void *)(meta + 1);
-	return (1);
 }
 
 int	push(void *arr_ptr, void *elem, size_t el_size)
