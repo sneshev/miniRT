@@ -1,47 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/24 13:32:04 by sneshev           #+#    #+#             */
+/*   Updated: 2026/02/24 13:36:46 by sneshev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 #include <sys/time.h>
-
-t_ray	get_ray(t_camera *cam, float h, float v)
-{
-	t_ray	ray;
-	t_vec3	hitpoint;
-
-	hitpoint = cam->upper_left + h * cam->horizontal - v * cam->vertical;
-	ray.origin = cam->origin;
-	ray.unit_dir = normalize(hitpoint - ray.origin);
-	ray.closest_t = FLT_MAX;
-	ray.hit.type = NONE;
-	return (ray);
-}
-
-bool	hit_object(t_ray *ray, t_objs *objs)
-{
-	size_t		i;
-	t_object	*object;
-
-	i = 0;
-	while (i < get_count(&objs))
-	{
-		object = &objs[i].object;
-		object->intersect(ray, object);
-		i++;
-	}
-	if (ray->hit.type == NONE)
-		return (false);
-	return (true);
-}
-
-t_vec3	random_point_in_unit_sphere(void)
-{
-	t_vec3	point;
-
-	while (1)
-	{
-		point = new_vec3(randf_none_one(35), randf_none_one(356), randf_none_one(23546));
-		if (squared_length(point) < 1.0f)
-			return (point);
-	}
-}
 
 bool	direct_light(t_ray *ray, t_light *light, t_objs *objs)
 {
@@ -59,17 +29,6 @@ bool	direct_light(t_ray *ray, t_light *light, t_objs *objs)
 	if (light_ray.hit.type == LIGHT && dot(ray->hit.normal, light_ray.unit_dir) > 0)
 		return (true);
 	return (false);
-}
-
-t_ray	random_scatter_ray(t_ray *ray)
-{
-	t_ray	scatter_ray;
-
-	scatter_ray.origin = ray->hit.hitpoint;
-	scatter_ray.unit_dir = normalize(ray->hit.normal + random_point_in_unit_sphere());
-	scatter_ray.closest_t = FLT_MAX;
-	scatter_ray.hit.type = NONE;
-	return (scatter_ray);
 }
 
 t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
@@ -99,7 +58,7 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 	return (color);
 }
 
-t_vec3	get_color(t_scene *scene, t_ray *ray)
+t_vec3	get_average_color(t_scene *scene, t_ray *ray)
 {
 	t_vec3	color;
 	t_vec3	attenuation;
@@ -125,14 +84,12 @@ t_vec3	monte_carlo_color(t_scene *scene, int x, int y)
 		float h = ((float)x + randf_zero_one(123)) / (float)WIDTH;
 		float v = ((float)y + randf_zero_one(99912)) / (float)HEIGHT;
 		ray = get_ray(&scene->camera, h, v);
-		color += get_color(scene, &ray);
+		color += get_average_color(scene, &ray);
 		i++;
 	}
 	color /= RAYSPERPIXEL;
 	return (color);
 }
-
-void show_progress_bar (int j);
 
 void render(t_mlx_data *data, t_scene *scene)
 {

@@ -6,11 +6,12 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 18:37:07 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/24 13:30:39 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/24 13:31:41 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 int	solve_quadratic_ez(float b, float c, float roots[2]);
 
 bool	intersect_light(t_ray *ray, t_object *obj)

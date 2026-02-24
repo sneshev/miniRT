@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:11:07 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/19 17:28:49 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/24 13:45:08 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ t_vec3	clamp(t_vec3 color)
 	if (color[B] > 1.0f)
 		color[B] = 1.0f;
 	return (color);
+}
+
+t_vec3	random_point_in_unit_sphere(void)
+{
+	t_vec3	point;
+
+	while (1)
+	{
+		point = new_vec3(randf_none_one(35), randf_none_one(356), randf_none_one(23546));
+		if (squared_length(point) < 1.0f)
+			return (point);
+	}
+}
+
+void show_progress_bar (int j) {
+	int progress;
+	char buf[64];
+	int len;
+
+	j += 1;
+	progress = 100 * (j) / HEIGHT;
+	len = snprintf(buf, sizeof(buf), "\r%d%% (%d / %d rays)",
+		progress, j * WIDTH * RAYSPERPIXEL, HEIGHT * WIDTH * RAYSPERPIXEL);
+	write(STDERR_FILENO, buf, len);
 }
