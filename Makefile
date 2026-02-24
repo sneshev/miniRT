@@ -6,7 +6,7 @@
 #    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/24 13:41:43 by sneshev          ###   ########.fr        #
+#    Updated: 2026/02/24 15:04:05 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS := src/main.c \
 		$(PARSING)/utils2.c \
 		$(RENDERING)/render.c \
 		$(RENDERING)/rays.c \
+		$(RENDERING)/rand.c \
 		$(RENDERING)/render_utils.c \
 		$(OBJECTS)/hit_object.c \
 		$(OBJECTS)/intersect_sph.c \
