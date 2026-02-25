@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:58:45 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 16:08:38 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:29:19 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_ray	random_scatter_ray(t_ray *ray);
 bool	hit_object(t_ray *ray, t_objs *objs);
 bool	intersect_sph(t_ray *ray, t_object *obj);
 bool	intersect_pl(t_ray *ray, t_object *obj);
-bool	intersect_cyl(t_ray *ray, t_object *obj);
+bool	intersect_cy(t_ray *ray, t_object *obj);
 bool	intersect_light(t_ray *ray, t_object *obj);
 
 //rand

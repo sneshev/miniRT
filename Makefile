@@ -6,7 +6,7 @@
 #    By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 17:28:55 by mmisumi           #+#    #+#              #
-#    Updated: 2026/02/24 16:44:49 by sneshev          ###   ########.fr        #
+#    Updated: 2026/02/25 10:28:44 by sneshev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS := src/main.c \
 		$(OBJECTS)/intersect_sph.c \
 		$(OBJECTS)/intersect_pl.c \
 		$(OBJECTS)/intersect_cy.c \
+		$(OBJECTS)/intersect_cy_side.c \
 		$(OBJECTS)/intersect_light.c \
 		$(OBJECTS)/quadratic.c \
 

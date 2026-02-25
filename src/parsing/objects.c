@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 20:43:27 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/24 12:52:58 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:29:17 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	parse_cylinder(char **info, t_scene *scene)
 	if (!valid_color(&(cylinder.albedo), info[5]))
 		return (false);
 	cylinder.type = CYLINDER;
-	cylinder.intersect = intersect_cyl;
+	cylinder.intersect = intersect_cy;
 	push(&scene->objs, &cylinder, sizeof(t_cylinder));
 	return (true);
 }

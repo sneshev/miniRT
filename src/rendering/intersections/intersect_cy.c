@@ -6,13 +6,13 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:15:23 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 16:18:32 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:29:10 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-bool	solve_quadratic(float a, float b, float c, float roots[2]);
+bool	hits_side(t_cylinder *cy, t_ray *ray);
 
 static void	fill_ray_info(t_plane *pl, t_ray *ray, float t)
 {
@@ -61,62 +61,7 @@ bool	hits_caps(t_cylinder *cy, t_ray *ray)
 	return (ret);
 }
 
-bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t, t_vec3 oc) 
-{
-	t_vec3 d_perp;
-	t_vec3 oc_perp;
-	float a;
-	float b;
-	float c;
-	float roots[2];
-
-	d_perp = ray->unit_dir - cy->unit_dir * dot(ray->unit_dir, cy->unit_dir);
-	oc_perp = oc - cy->unit_dir * dot(oc, cy->unit_dir);
-
-	a = dot(d_perp, d_perp);
-	b = 2.0f * dot(d_perp, oc_perp);
-	c = dot(oc_perp, oc_perp) - cy->radius * cy->radius;
-	if (solve_quadratic(a, b, c, roots))
-	{
-		if (T_MIN < roots[0] && roots[0] < ray->closest_t)
-		{
-			*t = roots[0];
-			return (true);
-		}
-		else if (T_MIN < roots[1] && roots[1] < ray->closest_t)
-		{
-			*t = roots[1];
-			return (true);
-		}
-	}
-	return (false);
-}
-
-bool	hits_side(t_cylinder *cy, t_ray *ray)
-{
-	t_vec3 hitpoint;
-	float height;
-	float t;
-
-	if (!hits_2d(cy, ray, &t, ray->origin - cy->center))
-		return (false);
-	hitpoint = ray->origin + ray->unit_dir * t;
-	height = dot(hitpoint - cy->center, cy->unit_dir);
-	if (height < -cy->height * 0.5f || height > cy->height * 0.5f)
-		return (false);
-	ray->closest_t = t;
-	ray->hit.type = CYLINDER;
-	ray->hit.hitpoint = ray->origin + ray->unit_dir * t;
-	ray->hit.albedo = cy->albedo;
-    t_vec3 cp = hitpoint - cy->center;										/*could put in seperate get_normal() function*/
-    t_vec3 axis_point = cy->center + cy->unit_dir * dot(cp, cy->unit_dir);
-	ray->hit.normal = normalize(axis_point - hitpoint);
-	if (dot(ray->unit_dir, ray->hit.normal) > 0)
-		ray->hit.normal *= -1;
-	return (true);
-}
-
-bool	intersect_cyl(t_ray *ray, t_object *obj)
+bool	intersect_cy(t_ray *ray, t_object *obj)
 {
 	t_cylinder	*cy;
 	bool		hit;
