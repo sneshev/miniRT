@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/25 10:02:58 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:09:09 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,8 @@ void	get_orthogonal_base(t_vec3 *ortho, t_vec3 dir_normal)
 	up = new_vec3(0.0f, 1.0f, 0.0f);
 	if (!vec3_diff(up, ortho[W]))
 		up = new_vec3(0.0f, 0.0f, -1.0f);
-    // if (fabs(dot(ortho[W], up)) > 0.999f){
-        // up = new_vec3(0.0f, 0.0f, -1.0f);
-	// }
+	else if (!vec3_diff(-up, ortho[W]))
+		up = new_vec3(0.0f, 0.0f, 1.0f);
 	ortho[U] = normalize(cross(up, ortho[W]));
 	ortho[V] = normalize(cross(ortho[W], ortho[U]));
 }
