@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 14:27:26 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 11:09:15 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ bool	valid_input(char *file, t_scene *scene)
 	t_status	status;
 
 	fd = -1;
-	init_element(scene);
+	if (init_element(scene) == -1)
+		return (false);
 	if (open_file(file, &fd) == false)
 		return (false);
 	status = GNL_OK;

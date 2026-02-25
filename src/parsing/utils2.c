@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:25:09 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/25 10:09:09 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 11:13:50 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	return_error(t_error error)
 	return (false);
 }
 
-void	init_element(t_scene *scene)
+int	init_element(t_scene *scene)
 {
 	scene->camera.type = NONE;
 	scene->light.type = NONE;
@@ -49,6 +49,11 @@ void	init_element(t_scene *scene)
 	scene->light.emission = new_vec3(1.0f, 1.0f, 1.0f);
 	scene->ambient.type = NONE;
 	scene->ambient.emission = new_vec3(0.0f, 0.0f, 0.0f);
+	scene->objs = NULL;
+	scene->objs = make_dynamic_array(3, sizeof(t_objs));
+	if (!scene->objs)
+		return (-1);
+	return (1);
 }
 
 int	vec3_diff(t_vec3 v1, t_vec3 v2)

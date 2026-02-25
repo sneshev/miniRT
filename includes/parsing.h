@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/25 10:53:08 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 11:09:32 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	is_newline(char c);
 bool	is_specifyer(char c);
 int		str_diff(char *s1, char *s2);
 
-void	init_element(t_scene *scene);
+int		init_element(t_scene *scene);
 bool	return_error(t_error error);
 void	setup_camera(
 			t_camera *cam,

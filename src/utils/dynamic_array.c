@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:48 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 16:40:58 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 11:04:21 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ int	push(void *arr_ptr, void *elem, size_t el_size)
 	void		**arr;
 
 	arr = (void **)arr_ptr;
+	if (!*arr)
+	{
+		*arr = make_dynamic_array(3, el_size);
+		if (!*arr)
+			return (-1);
+	}
 	meta = ((t_vec_meta *)(*arr)) - 1;
 	if (meta->count == meta->capacity)
 	{
