@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 10:29:57 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/25 10:44:56 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:47:50 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	find_roots_cy(
 	return (solve_quadratic(a, b, c, roots));
 }
 
-// ∥P−C−((P−C)⋅v)v∥^2=r2
 bool	hits_2d(t_cylinder *cy, t_ray *ray, float *t)
 {
 	t_vec3	oc;
