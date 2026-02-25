@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 17:27:51 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/24 16:32:13 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:53:33 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,17 @@
 # include <fcntl.h>
 # include <float.h>
 
-
 # define HEIGHT	 500
 # define WIDTH	750
 
 # define RAYSPERPIXEL 20
 # define MAX_DEPTH 5
 
-#define T_MIN 0.0001f
-#define LIGHT_RADIUS 1.0f
-
+# define T_MIN 0.0001f
+# define LIGHT_RADIUS 1.0f
 
 // render
-void render(t_mlx_data *data, t_scene *scene);
+void	render(t_mlx_data *data, t_scene *scene);
 
 // mlx stuff
 int		init_minilibx(t_data *d);
@@ -48,7 +46,5 @@ void	put_image_pixel(t_mlx_data *data, int x, int y, t_vec3 color);
 void	free_arr(char **arr);
 int		arr_count(char **arr);
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
-
-
 
 #endif

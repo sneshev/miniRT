@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/21 14:50:25 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:51:53 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-typedef float	t_vec3 __attribute__ ((vector_size (sizeof(float) * 4)));
-typedef union 	u_objs t_objs;
-typedef struct	s_object t_object;
+typedef float			t_vec3 __attribute__ ((vector_size(16)));
+typedef union u_objs	t_objs;
+typedef struct s_object	t_object;
 
 typedef struct s_img_info
 {
@@ -66,14 +66,14 @@ typedef struct s_ray
 typedef struct s_object
 {
 	t_type		type;
-	bool 		(*intersect)(t_ray * ray, t_object * obj);
+	bool		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		albedo;
 }				t_object;
 
 typedef struct s_sphere
 {
 	t_type		type;
-	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	bool		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		albedo;
 	t_vec3		center;
 	float		radius;
@@ -82,7 +82,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_type		type;
-	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	bool		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		albedo;
 	t_vec3		center;
 	float		radius;
@@ -93,7 +93,7 @@ typedef struct s_cylinder
 typedef struct s_plane
 {
 	t_type		type;
-	bool 		(*intersect)(t_ray *ray, t_object *obj);
+	bool		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		albedo;
 	t_vec3		point;
 	t_vec3		normal;
@@ -102,7 +102,7 @@ typedef struct s_plane
 typedef struct s_light
 {
 	t_type		type;
-	bool		(*intersect)(t_ray *ray, t_object *obj);
+	bool		(*intersect)(t_ray * ray, t_object * obj);
 	t_vec3		origin;
 	t_vec3		emission;
 }			t_light;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:19:15 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/23 13:34:16 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:48:56 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 
-#  define X 0
-#  define Y 1
-#  define Z 2
+# define X 0
+# define Y 1
+# define Z 2
 
 # define U 0
 # define V 1
@@ -28,7 +28,6 @@ typedef float	t_vec3 __attribute__ ((vector_size ((sizeof(float) * 4))));
 # define R 0
 # define G 1
 # define B 2
-
 
 float	length(t_vec3 v);
 float	squared_length(t_vec3 v);

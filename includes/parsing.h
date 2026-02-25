@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/19 16:43:47 by mmisumi          ###   ########.fr       */
+/*   Updated: 2026/02/25 10:53:08 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ int		str_diff(char *s1, char *s2);
 
 void	init_element(t_scene *scene);
 bool	return_error(t_error error);
-void	setup_camera(t_camera *cam, t_vec3 viewpoint, t_vec3 dir_normal, float hfov);
+void	setup_camera(
+			t_camera *cam,
+			t_vec3 viewpoint,
+			t_vec3 dir_normal,
+			float hfov
+			);
 
 #endif
