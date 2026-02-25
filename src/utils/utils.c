@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:55 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/25 13:02:40 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:41:34 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,17 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	return (new_meta);
 }
 
-bool	has_consecutive_commas(char *str)
+bool	has_wrong_commas(char *str)
 {
-	while (*str)
+	if (*str == ',')
+		return (true);
+	while (*(str + 1))
 	{
-		if (*(str++) == ',' && *str == ',')
+		if (*str == ',' && *(str + 1) == ',')
 			return (true);
+		str++;
 	}
+	if (*str == ',')
+		return (true);
 	return (false);
 }

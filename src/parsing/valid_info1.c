@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 21:06:17 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/25 13:02:34 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:40:13 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	valid_position(t_vec3 *pos, char *str)
 	char	**split;
 	float	f[3];
 
-	if (has_consecutive_commas(str))
+	if (has_wrong_commas(str))
 		return (false);
 	split = ft_split(str, is_comma);
 	if (!split)
@@ -83,7 +83,7 @@ bool	valid_color(t_vec3 *color, char *str)
 	char	**split;
 	uint8_t	rgb[3];
 
-	if (has_consecutive_commas(str))
+	if (has_wrong_commas(str))
 		return (false);
 	split = ft_split(str, is_comma);
 	if (!split)
