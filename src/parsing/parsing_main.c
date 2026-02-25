@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:14:01 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/25 11:09:15 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:30:29 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ bool	open_file(char *file, int *fd)
 	}
 	return (true);
 }
+#define SPECIFIERS {"C", "A"}
 
 bool	parse_line(char *line, t_scene *scene)
 {
 	char	**info;
 
-	if (!is_specifyer(*line))
+	if (!is_specifyer(line))
 		return (return_error(ERR_SPECIFYER));
 	info = ft_split(line, is_whitespace);
 	if (!info)

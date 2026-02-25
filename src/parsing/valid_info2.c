@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 18:15:51 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/24 14:17:43 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:02:26 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	valid_unit_direction(t_vec3 *dir, char *str)
 	float	f[3];
 	float	len;
 
+	if (has_consecutive_commas(str))
+		return (false);
 	split = ft_split(str, is_comma);
 	if (!split)
 		return (false);

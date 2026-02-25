@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/25 11:09:32 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:20:22 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ bool	valid_float(float *f, char *str);
 bool	is_comma(char c);
 bool	is_whitespace(char c);
 bool	is_newline(char c);
-bool	is_specifyer(char c);
+bool	is_specifyer(char *str);
 int		str_diff(char *s1, char *s2);
+bool	has_consecutive_commas(char *str);
 
 int		init_element(t_scene *scene);
 bool	return_error(t_error error);

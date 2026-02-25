@@ -6,7 +6,7 @@
 /*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 20:46:57 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/24 14:26:39 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/25 13:30:10 by sneshev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,26 @@ bool	is_newline(char c)
 	return (false);
 }
 
-bool	is_specifyer(char c)
+static bool	is_space(char c)
 {
-	if (c == 'C' || c == 'A' || c == 'L'
-		|| c == 's' || c == 'p' || c == 'c')
-	{
+	if (c >= 9 && c <= 13)
 		return (true);
+	if (c == ' ')
+		return (true);
+	return (false);
+}
+
+bool	is_specifyer(char *str)
+{
+	if (*str == 'C' || *str == 'A' || *str == 'L')
+	{
+		if (is_space(*(str + 1)))
+			return (true);
+	}
+	if (!strncmp(str, "sp", 2) || !strncmp(str, "pl", 2) || !strncmp(str, "cy", 2))
+	{
+		if (is_space(*(str + 2)))
+			return (true);
 	}
 	return (false);
 }
