@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by sneshev and mmisumi*
+*This project has been created as part of the 42 curriculum by sneshev and mmisumi.*
 
 ## Description:
 Ray tracing is a rendering technique that mimicks the behavior of light by analyzing how rays bounce and interact with their surroundings. Our project is a mini version of this, only needing to implement a lightsource and/or ambient, a camera position and the objects: sphere, plane and cylinder. All of these should be able to change positions following the input file's parameters.
