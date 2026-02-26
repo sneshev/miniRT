@@ -16,4 +16,5 @@ Run the ./miniRT program with an input file following the right format: see asse
 ## Resources:
 We mostly learned through the "Raytracing in one weekend" series:
 https://www.realtimerendering.com/raytracing/Ray%20Tracing%20in%20a%20Weekend.pdf
+
 Concepts we didn't quite grasp at once we learned more about through videos and websites. For more specific questions we consulted AI.
