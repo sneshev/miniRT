@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 19:25:46 by stefuntu          #+#    #+#             */
-/*   Updated: 2026/02/25 10:51:53 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/26 15:08:59 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_light
 {
 	t_type		type;
 	bool		(*intersect)(t_ray * ray, t_object * obj);
+	t_vec3		albedo;
 	t_vec3		origin;
 	t_vec3		emission;
 }			t_light;

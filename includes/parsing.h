@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:07:25 by winnitytrin       #+#    #+#             */
-/*   Updated: 2026/02/25 13:40:15 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/26 15:39:47 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ typedef enum e_error
 }			t_error;
 
 // parsing main
+bool	return_error(t_error error);
 bool	valid_input(char *file, t_scene *scene);
 
 // elements
+int		init_element(t_scene *scene);
 bool	parse_camera(char **info, t_camera *camera);
 bool	parse_ambient(char **info, t_ambient *ambient);
 bool	parse_light(char **info, t_light *light, t_scene *scene);
@@ -69,10 +71,8 @@ bool	is_whitespace(char c);
 bool	is_newline(char c);
 bool	is_specifyer(char *str);
 int		str_diff(char *s1, char *s2);
-bool	has_wrong_commas(char *str);
 
-int		init_element(t_scene *scene);
-bool	return_error(t_error error);
+bool	has_wrong_commas(char *str);
 void	setup_camera(
 			t_camera *cam,
 			t_vec3 viewpoint,

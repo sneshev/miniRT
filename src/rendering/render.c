@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 13:32:04 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/24 16:05:04 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/26 15:32:35 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ t_vec3	sample_color(t_scene *scene, t_ray *ray, t_vec3 attenuation, int depth)
 
 	if (!hit_object(ray, scene->objs))
 		return (new_vec3(0.0f, 0.0f, 0.0f));
-	if (ray->hit.type == LIGHT)
-		return (scene->light.emission * attenuation);
 	color = new_vec3(0.0f, 0.0f, 0.0f);
+	if (ray->hit.type == LIGHT)
+	{
+		if (depth == 0)
+			return (scene->light.albedo);
+		return (scene->light.emission * attenuation);
+	}
 	if (depth == 0)
 		color = scene->ambient.emission * ray->hit.albedo;
 	if (direct_light(ray, &scene->light, scene->objs))

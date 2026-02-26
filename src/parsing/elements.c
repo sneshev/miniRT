@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   elements.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 14:27:34 by sneshev           #+#    #+#             */
-/*   Updated: 2026/02/25 13:04:20 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/26 15:36:35 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+int	init_element(t_scene *scene)
+{
+	scene->camera.type = NONE;
+	scene->light.type = NONE;
+	scene->light.intersect = NULL;
+	scene->light.emission = new_vec3(1.0f, 1.0f, 1.0f);
+	scene->ambient.type = NONE;
+	scene->ambient.emission = new_vec3(0.0f, 0.0f, 0.0f);
+	scene->objs = NULL;
+	scene->objs = make_dynamic_array(3, sizeof(t_objs));
+	if (!scene->objs)
+		return (-1);
+	return (1);
+}
 
 bool	parse_camera(char **info, t_camera *camera)
 {
@@ -49,7 +64,6 @@ bool	parse_ambient(char **info, t_ambient *ambient)
 bool	parse_light(char **info, t_light *light, t_scene *scene)
 {
 	float	brightness;
-	t_vec3	albedo;
 
 	if (arr_count(info) != 4)
 		return (false);
@@ -57,11 +71,11 @@ bool	parse_light(char **info, t_light *light, t_scene *scene)
 		return (false);
 	if (!valid_unit_range(&brightness, info[2]))
 		return (false);
-	if (!valid_color(&albedo, info[3]))
+	if (!valid_color(&(light->albedo), info[3]))
 		return (false);
 	light->type = LIGHT;
 	light->intersect = intersect_light;
-	light->emission = brightness * albedo;
+	light->emission = brightness * light->albedo;
 	push(&scene->objs, light, sizeof(t_light));
 	return (true);
 }

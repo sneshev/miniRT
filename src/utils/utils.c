@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sneshev <sneshev@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmisumi <mmisumi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:13:55 by mmisumi           #+#    #+#             */
-/*   Updated: 2026/02/25 13:41:34 by sneshev          ###   ########.fr       */
+/*   Updated: 2026/02/26 15:55:39 by mmisumi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,4 @@ void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 	ft_memmove(new_meta, ptr, old_size);
 	free(ptr);
 	return (new_meta);
-}
-
-bool	has_wrong_commas(char *str)
-{
-	if (*str == ',')
-		return (true);
-	while (*(str + 1))
-	{
-		if (*str == ',' && *(str + 1) == ',')
-			return (true);
-		str++;
-	}
-	if (*str == ',')
-		return (true);
-	return (false);
 }
