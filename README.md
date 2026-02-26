@@ -1,7 +1,7 @@
 *This project has been created as part of the 42 curriculum by sneshev and mmisumi*
 
 ## Description:
-Raytracing is a way to render a reality by mimicking lightrays and analyzing how they bounce and interacts with their surroundings. Our project is a mini version of this, only needing to implement a lightsource and/or ambient, a camera position and the objects: sphere, plane and cylinder. All of these should be able to change positions following the instructions of the input file.
+Raytracing is a way to render a reality by mimicking lightrays through analyzing how they bounce and interacts with their surroundings. Our project is a mini version of this, only needing to implement a lightsource and/or ambient, a camera position and the objects: sphere, plane and cylinder. All of these should be able to change positions following the input file's parameters.
 
 ## Instructions:
 Compile the project:
